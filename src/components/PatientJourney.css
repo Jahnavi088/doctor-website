@@ -1,0 +1,118 @@
+.journey__track {
+  --node: 11px;
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  /* vertical rail (mobile) */
+  padding-left: 36px;
+  opacity: 1;
+  transform: none;
+}
+.journey__track::before,
+.journey__track::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--line-strong);
+}
+.journey__track::after {
+  background: var(--navy);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1800ms var(--ease) 200ms;
+}
+.journey__track.is-in::after {
+  transform: scaleY(1);
+}
+.journey__step {
+  position: relative;
+  padding-bottom: 36px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  transition-delay: calc(250ms + var(--i) * 260ms);
+}
+.journey__step:last-child {
+  padding-bottom: 0;
+}
+.journey__track.is-in .journey__step {
+  opacity: 1;
+  transform: none;
+}
+.journey__node {
+  position: absolute;
+  left: -36px;
+  top: 4px;
+  width: var(--node);
+  height: var(--node);
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--navy);
+  z-index: 1;
+}
+.journey__step:last-child .journey__node {
+  background: var(--navy);
+}
+.journey__num {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+}
+.journey__title {
+  margin-top: 8px;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+.journey__text {
+  margin-top: 10px;
+  max-width: 36ch;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .journey__track {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 32px;
+    padding-left: 0;
+    padding-top: 40px;
+  }
+  .journey__track::before,
+  .journey__track::after {
+    left: 0;
+    right: 0;
+    top: 5px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+  .journey__track::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .journey__track.is-in::after {
+    transform: scaleX(1);
+  }
+  .journey__node {
+    left: 0;
+    top: -40px;
+  }
+  .journey__step {
+    padding-bottom: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journey__step {
+    opacity: 1;
+    transform: none;
+  }
+  .journey__track::after {
+    transform: none !important;
+  }
+}

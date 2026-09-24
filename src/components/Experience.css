@@ -1,0 +1,179 @@
+.exp {
+  background: var(--bg);
+}
+.exp__bento {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.exp__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color 500ms var(--ease), transform 600ms var(--ease), box-shadow 600ms var(--ease);
+}
+.exp__card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -24px rgba(20, 32, 43, 0.35);
+}
+.exp__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+.exp__mid {
+  margin-top: 22px;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--navy);
+}
+.exp__unit {
+  font-size: 0.4em;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.exp__sub {
+  margin-top: 12px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* lead card: dark, with a 3D render */
+.exp__card--lead {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr;
+  background:
+    radial-gradient(70% 90% at 85% 50%, rgba(46, 116, 146, 0.35), transparent 70%),
+    #0c1a26;
+  border-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+}
+.exp__card--lead:hover {
+  border-color: transparent;
+}
+.exp__lead-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+.exp__card--lead .exp__label {
+  color: #7cc8dc;
+}
+.exp__big {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 8.4rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  background: linear-gradient(100deg, #fff 20%, #9fd5e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.exp__card--lead .exp__sub,
+.exp__lead-img {
+  justify-self: center;
+  width: min(100%, 300px);
+  height: auto;
+  margin-top: 12px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 70%, transparent 100%);
+}
+
+/* hospital card */
+.exp__card--hospital {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  background: var(--mist-2);
+}
+.exp__mark {
+  height: 44px;
+  width: auto;
+  flex-shrink: 0;
+}
+.exp__hosp {
+  display: grid;
+  gap: 4px;
+}
+.exp__hosp strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.exp__hosp .exp__sub {
+  margin-top: 0;
+}
+.exp__go {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  color: var(--navy);
+  transition: background-color 500ms var(--ease), color 500ms var(--ease);
+}
+.exp__card--hospital:hover .exp__go {
+  background: var(--navy);
+  color: #fff;
+}
+
+@media (min-width: 960px) {
+  .exp__bento {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+  .exp__card {
+    padding: 32px;
+  }
+  .exp__card--lead {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    min-height: 420px;
+  }
+  .exp__lead-copy {
+    max-width: 58%;
+  }
+  .exp__lead-img {
+    position: absolute;
+    right: -24px;
+    bottom: -24px;
+    width: 50%;
+    margin: 0;
+  }
+  .exp__card--hospital {
+    grid-column: 3 / 5;
+  }
+}
+@media (max-width: 480px) {
+  .exp__card {
+    padding: 22px 18px;
+  }
+  .exp__mid {
+    font-size: 2.4rem;
+  }
+}

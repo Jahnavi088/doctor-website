@@ -1,0 +1,105 @@
+.cta {
+  padding-bottom: var(--section);
+}
+.cta__panel {
+  position: relative;
+  display: grid;
+  gap: 48px;
+  padding: clamp(36px, 6vw, 88px) clamp(22px, 5vw, 80px);
+  background: var(--navy);
+  border-radius: var(--radius);
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.72);
+}
+.cta__panel::before {
+  /* single large arc — condyle curve from the MK mark */
+  content: '';
+  position: absolute;
+  width: 70vmax;
+  aspect-ratio: 1;
+  right: -38vmax;
+  top: -30vmax;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.cta .eyebrow {
+  color: #9cc3cf;
+}
+.cta .h2 {
+  color: #fff;
+}
+.cta__body {
+  margin-top: 22px;
+  font-size: 1.1rem;
+}
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+.cta__ghost {
+  --btn-bg: transparent;
+  --btn-fg: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.cta__ghost:hover {
+  --btn-bg: transparent;
+  border-color: #fff;
+}
+.cta__details {
+  position: relative;
+  margin: 0;
+  align-self: end;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.cta__details:focus {
+  outline: none;
+}
+.cta__details > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.cta__details dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.cta__details dd {
+  margin: 0;
+  color: #fff;
+}
+.cta__details a {
+  color: #fff;
+  text-underline-offset: 4px;
+}
+.cta__ph {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (min-width: 960px) {
+  .cta__panel {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 80px;
+  }
+  .cta__details > div {
+    grid-template-columns: 140px 1fr;
+    align-items: baseline;
+  }
+}
+@media (max-width: 480px) {
+  .cta__actions .btn {
+    flex: 1 1 100%;
+    min-height: 56px;
+  }
+}
