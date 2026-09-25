@@ -5,12 +5,13 @@
   background: rgba(246, 248, 248, 0.72);
   backdrop-filter: saturate(1.4) blur(14px);
   -webkit-backdrop-filter: saturate(1.4) blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: background-color 500ms var(--ease), border-color 500ms var(--ease);
+  /* hairline as a shadow, so the header is exactly --header-h tall */
+  box-shadow: 0 1px 0 transparent;
+  transition: background-color 500ms var(--ease), box-shadow 500ms var(--ease);
 }
 .nav--scrolled {
   background: rgba(255, 255, 255, 0.86);
-  border-bottom-color: var(--line);
+  box-shadow: 0 1px 0 var(--line);
 }
 .nav__inner {
   height: var(--header-h);
