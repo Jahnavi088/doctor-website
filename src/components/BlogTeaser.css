@@ -1,0 +1,28 @@
+.bteaser__side {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+.bteaser__grid {
+  display: grid;
+  gap: 20px;
+}
+@media (min-width: 700px) {
+  .bteaser__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .bteaser__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .bteaser__side {
+    justify-self: end;
+  }
+}
+@media (min-width: 700px) and (max-width: 1023px) {
+  /* two columns: the third card would sit alone */
+  .bteaser__grid > :nth-child(3) {
+    display: none;
+  }
+}

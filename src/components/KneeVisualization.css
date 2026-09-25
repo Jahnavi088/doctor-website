@@ -20,7 +20,7 @@
 .kneeviz__stage {
   position: relative;
   aspect-ratio: 1 / 1.05;
-  max-height: 720px;
+  max-height: min(720px, calc(100svh - var(--header-h) - 64px));
   border: 1px solid var(--kv-line);
   border-radius: var(--radius);
   cursor: grab;

@@ -37,7 +37,7 @@
   color: #fff;
 }
 .trust__item--lead .trust__value {
-  font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+  font-size: clamp(2rem, min(3.6vw, 6vh), 3rem);
   background: linear-gradient(100deg, #fff, #9fd5e5);
   -webkit-background-clip: text;
   background-clip: text;
@@ -67,5 +67,15 @@
   .trust__item--lead {
     padding-left: 0 !important;
     border-left: 0 !important;
+  }
+}
+@media (min-width: 1024px) {
+  .trust__row {
+    height: calc(var(--trust-h) - 1px);
+  }
+  .trust__item,
+  .trust__row .trust__item:nth-child(n) {
+    justify-content: center;
+    padding-block: 0;
   }
 }

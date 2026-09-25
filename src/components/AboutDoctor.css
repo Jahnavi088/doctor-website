@@ -142,61 +142,64 @@
 }
 
 @media (min-width: 900px) {
-  .about__grid {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-    gap: clamp(56px, 8vw, 128px);
-    align-items: start;
+  /* The section fills one screen: the portrait stays put, only the text column scrolls. */
+  .about {
+    --about-h: clamp(420px, calc(100svh - var(--header-h)), 960px);
+    --about-pad: clamp(28px, 6vh, 72px);
+    height: var(--about-h);
+    padding-block: var(--about-pad);
+    scroll-margin-top: -8px; /* land flush under the header */
   }
-  /* the portrait stays in view while the longer text column scrolls */
+  .about .container {
+    height: 100%;
+  }
+  .about__grid {
+    /* the photo column is as wide as a 4:5 frame of the available height, so the portrait is never cut */
+    grid-template-columns: min(42%, calc((var(--about-h) - 2 * var(--about-pad) - 60px) * 0.8)) minmax(0, 1fr);
+    gap: clamp(48px, 7vw, 112px);
+    height: 100%;
+  }
   .about__figure {
-    position: sticky;
-    top: calc(var(--header-h) + 32px);
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-height: 0;
+  }
+  .about__frame {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .about__frame img {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+    transform: none;
+  }
+  .about__copy {
+    min-height: 0;
+    overflow-y: auto;
+    padding: 4px 28px 48px 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  .about__copy::-webkit-scrollbar {
+    width: 6px;
+  }
+  .about__copy::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: var(--line-strong);
+  }
+  .about__copy::-webkit-scrollbar-thumb:hover {
+    background: var(--silver);
+  }
+  .about__copy:focus-visible {
+    outline-offset: 0;
   }
 }
 @media (max-width: 480px) {
-  .about__edu {
-  margin-top: 44px;
-}
-.about__edu-title {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--steel);
-}
-.about__edu ol {
-  list-style: none;
-  margin: 16px 0 0;
-  padding: 0;
-  border-top: 1px solid var(--line);
-}
-.about__edu li {
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-}
-.about__edu-year {
-  font-family: var(--font-display);
-  font-weight: 500;
-  color: var(--silver);
-}
-.about__edu li > span:last-child {
-  display: grid;
-  gap: 2px;
-}
-.about__edu strong {
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--navy);
-}
-.about__edu li span span {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-.about__facts {
+  .about__facts {
     grid-template-columns: 1fr;
   }
 }

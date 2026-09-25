@@ -14,6 +14,9 @@ npm run preview   # serve the build
 | Path | Purpose |
 | --- | --- |
 | `src/data/site.ts` | **All content**: doctor facts, stats (with source), expertise, procedures, knee principles, journey, contact details |
+| `src/data/blog.ts` | Blog articles (title, excerpt, category, cover render, body blocks) — add a post by adding an entry |
+| `src/pages/` | Home, Blog index (`/blog`), article (`/blog/<slug>`) and 404 pages |
+| `src/router.tsx` | Tiny History-API router + `Link` (no dependency) |
 | `src/components/` | One component (+ CSS) per section: Navbar, Hero, TrustStats, AboutDoctor, Expertise, Experience, KneeVisualization, PatientJourney, HospitalSection, AppointmentCTA, Footer |
 | `src/three/` | 3D: `HeroKneeScene` (X-ray knee + particles), `KneeScene` (interactive knee section), `xray.ts` (radiograph shader), `LazyKnee` (in-view + idle loading, fine-line fallback), `kneeGeometry` (model decoder) |
 | `public/images/expertise/` | Turntable sprite sheets (24 frames) rendered from real 3D scenes |
@@ -30,6 +33,9 @@ Nothing below has been invented. Values live in `src/data/site.ts`:
 - `contact.timings` — "Mon – Sat, 9 AM – 5 PM" as listed on Practo; confirm with the hospital.
 - Address now reads "2A, R.S.No. 90/1A, Donka Road, Kanuru, Penamaluru Mandal, Vijayawada, Andhra Pradesh 520007" (matches Google Maps, Practo and other directories). Srikara's own website lists "MG Road, 520001" for Vijayawada, which looks like template data — worth a quick check with the hospital.
 - In `index.html`, make `og:image` absolute once the domain is known, and add `og:url`.
+
+- **Blog articles are draft copy.** The four posts in `src/data/blog.ts` are general patient-education text written for the design; they make no outcome claims. Dr. Manoj should approve or replace each one, and add a `date`, before launch.
+- **Hosting:** the blog uses real URLs (`/blog`, `/blog/<slug>`), so the host must serve `index.html` for unknown paths (SPA fallback — e.g. a Netlify `_redirects` rule `/* /index.html 200`, or Vercel rewrites).
 
 ## Content sources
 

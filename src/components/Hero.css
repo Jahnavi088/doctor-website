@@ -44,7 +44,7 @@
   min-height: calc(100svh - var(--header-h));
 }
 .hero__copy {
-  padding-top: clamp(40px, 8vh, 96px);
+  padding-top: clamp(32px, 6vh, 72px);
   padding-bottom: 32px;
   align-self: center;
   max-width: 640px;
@@ -58,8 +58,8 @@
   color: #7cc8dc;
 }
 .hero__title {
-  margin-top: 22px;
-  font-size: clamp(2.7rem, 6vw, 5.4rem);
+  margin-top: clamp(12px, 2.2vh, 22px);
+  font-size: clamp(2.7rem, min(6vw, 8.6vh), 5.4rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -84,7 +84,7 @@
   color: transparent;
 }
 .hero__quals {
-  margin-top: 20px;
+  margin-top: clamp(12px, 2vh, 20px);
   font-family: var(--font-display);
   font-size: clamp(1rem, 1.3vw, 1.15rem);
   font-weight: 500;
@@ -96,7 +96,7 @@
   flex-wrap: wrap;
   gap: 8px 0;
   list-style: none;
-  margin: 26px 0 0;
+  margin: clamp(14px, 2.4vh, 26px) 0 0;
   padding: 0;
   font-size: 0.8rem;
   font-weight: 600;
@@ -115,7 +115,7 @@
   background: #5fb9d3;
 }
 .hero__desc {
-  margin-top: 20px;
+  margin-top: clamp(12px, 2vh, 20px);
   max-width: 44ch;
   font-size: clamp(1.02rem, 1.3vw, 1.15rem);
   line-height: 1.65;
@@ -125,7 +125,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 36px;
+  margin-top: clamp(20px, 3.4vh, 36px);
 }
 .hero__ghost {
   --btn-bg: transparent;
@@ -140,7 +140,7 @@
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  margin-top: 40px;
+  margin-top: clamp(20px, 3.4vh, 40px);
   padding: 10px 18px 10px 10px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
@@ -245,18 +245,42 @@
 }
 
 @media (min-width: 1024px) {
+  /* hero + stats strip together fill exactly one screen, so the next scroll lands on About */
+  .hero {
+    --hero-h: clamp(420px, calc(100svh - var(--header-h) - var(--trust-h)), 780px);
+  }
   .hero__grid {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     column-gap: 48px;
-    min-height: min(calc(100svh - var(--header-h)), 860px);
+    height: var(--hero-h);
+    min-height: 0;
   }
   .hero__copy {
-    padding-bottom: clamp(56px, 9vh, 110px);
+    padding-block: 24px;
   }
+  /* the portrait is sized by the hero's height, not its width */
   .hero__visual {
-    width: min(100%, 520px);
+    width: auto;
+    height: calc(var(--hero-h) - clamp(24px, 5vh, 56px));
     justify-self: end;
-    margin-top: 48px;
+  }
+  .hero__portrait,
+  .hero__portrait img {
+    height: 100%;
+  }
+  .hero__portrait img {
+    width: auto;
+    max-width: none;
+  }
+}
+
+/* short laptop screens: drop the affiliation pill (the stats strip below names the hospital) */
+@media (min-width: 1024px) and (max-height: 720px) {
+  .hero__affil {
+    display: none;
+  }
+  .hero__copy {
+    padding-block: 16px;
   }
 }
 
@@ -278,7 +302,7 @@
   }
   .hero__visual {
     margin-top: 16px;
-    width: min(92%, 440px);
+    width: min(78%, 360px);
   }
 }
 @media (max-width: 480px) {

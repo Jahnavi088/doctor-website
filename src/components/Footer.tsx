@@ -1,9 +1,11 @@
-import { bookHref, bookLinkProps, contact, disclaimer, doctor, nav } from '../data/site'
+import { bookHref, bookLinkProps, contact, disclaimer, doctor, footerNav } from '../data/site'
+import { sectionHref } from '../router'
+import { Link } from './Link'
 import { Monogram } from './ui/Logo'
 import { Arrow } from './ui/Icons'
 import './Footer.css'
 
-export function Footer() {
+export function Footer({ path }: { path: string }) {
   return (
     <footer className="footer">
       <div className="container">
@@ -23,9 +25,9 @@ export function Footer() {
           <nav className="footer__col" aria-label="Footer">
             <h2 className="footer__h">Navigation</h2>
             <ul>
-              {nav.map((n) => (
-                <li key={n.id}>
-                  <a href={`#${n.id}`}>{n.label}</a>
+              {footerNav.map((n) => (
+                <li key={n.label}>
+                  <Link href={n.path ?? sectionHref(n.id!, path)}>{n.label}</Link>
                 </li>
               ))}
             </ul>

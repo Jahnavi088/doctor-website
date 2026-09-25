@@ -1,34 +1,33 @@
 import { Navbar } from './components/Navbar'
-import { Hero } from './components/Hero'
-import { TrustStats } from './components/TrustStats'
-import { AboutDoctor } from './components/AboutDoctor'
-import { Expertise } from './components/Expertise'
-import { KneeVisualization } from './components/KneeVisualization'
-import { Experience } from './components/Experience'
-import { PatientJourney } from './components/PatientJourney'
-import { HospitalSection } from './components/HospitalSection'
-import { AppointmentCTA } from './components/AppointmentCTA'
 import { Footer } from './components/Footer'
+import { findPost } from './data/blog'
+import { HomePage } from './pages/HomePage'
+import { BlogPage } from './pages/BlogPage'
+import { BlogPostPage } from './pages/BlogPostPage'
+import { NotFoundPage } from './pages/NotFoundPage'
+import { usePath, useScrollOnNavigate } from './router'
+
+function Page({ path }: { path: string }) {
+  if (path === '/') return <HomePage />
+  if (path === '/blog') return <BlogPage />
+  const post = path.startsWith('/blog/') ? findPost(path.slice(6)) : undefined
+  if (post) return <BlogPostPage key={post.slug} post={post} />
+  return <NotFoundPage />
+}
 
 export default function App() {
+  const path = usePath()
+  useScrollOnNavigate(path)
   return (
     <>
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <Navbar />
+      <Navbar path={path} />
       <main id="main">
-        <Hero />
-        <TrustStats />
-        <AboutDoctor />
-        <Expertise />
-        <Experience />
-        <KneeVisualization />
-        <PatientJourney />
-        <HospitalSection />
-        <AppointmentCTA />
+        <Page path={path} />
       </main>
-      <Footer />
+      <Footer path={path} />
     </>
   )
 }

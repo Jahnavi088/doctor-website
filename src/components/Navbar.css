@@ -189,7 +189,7 @@
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1000px) {
   .nav__links {
     display: none;
   }
@@ -208,7 +208,7 @@
     display: inline;
   }
 }
-@media (min-width: 561px) and (max-width: 1180px) {
+@media (min-width: 561px) and (max-width: 1000px) {
   .logo__role {
     display: block;
   }

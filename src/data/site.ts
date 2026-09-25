@@ -58,12 +58,26 @@ export const bookHref = contact.bookingUrl ?? (contact.phone ? `tel:${contact.ph
 /** Extra props for the "Book" links: external booking pages open in a new tab. */
 export const bookLinkProps = /^https?:/.test(bookHref) ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
-export const nav = [
+/** A home-page section (`id`) or a separate page (`path`). */
+export type NavItem = { label: string; id?: string; path?: string }
+
+/** Header: only the key destinations. */
+export const nav: NavItem[] = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'expertise', label: 'Expertise' },
+  { path: '/blog', label: 'Blog' },
+  { id: 'appointment', label: 'Contact' },
+]
+
+/** Footer: every section. */
+export const footerNav: NavItem[] = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'expertise', label: 'Expertise' },
   { id: 'experience', label: 'Experience' },
   { id: 'hospital', label: 'Hospital' },
+  { path: '/blog', label: 'Blog' },
   { id: 'appointment', label: 'Contact' },
 ]
 

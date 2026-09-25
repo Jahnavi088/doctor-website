@@ -54,6 +54,7 @@
 /* lead card: dark, with a 3D render */
 .exp__card--lead {
   grid-column: 1 / -1;
+  container-type: inline-size;
   display: grid;
   grid-template-columns: 1fr;
   background:
@@ -77,7 +78,9 @@
 .exp__big {
   margin-top: 18px;
   font-family: var(--font-display);
-  font-size: clamp(4rem, 11vw, 8.4rem);
+  /* sized to the card, so "4,000+" never runs past it */
+  font-size: clamp(3.2rem, 17cqi, 8.4rem);
+  white-space: nowrap;
   font-weight: 500;
   letter-spacing: -0.05em;
   line-height: 0.95;
@@ -86,7 +89,10 @@
   background-clip: text;
   color: transparent;
 }
-.exp__card--lead .exp__sub,
+.exp__card--lead .exp__sub {
+  max-width: 30ch;
+  color: rgba(255, 255, 255, 0.62);
+}
 .exp__lead-img {
   justify-self: center;
   width: min(100%, 300px);
