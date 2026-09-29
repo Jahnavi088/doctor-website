@@ -1,7 +1,7 @@
 import { useEffect, useSyncExternalStore } from 'react'
 
 /**
- * A very small History-API router: the site only has the home page, /blog and /blog/:slug.
+ * A very small History-API router: home, /profile, /expertise, /services, /contact, /appointment, /note, /blog and /blog/:slug.
  * The host must serve index.html for unknown paths (SPA fallback) — Vite dev/preview already do.
  * Internal links use <Link> (src/components/Link.tsx).
  */
@@ -30,6 +30,25 @@ export function navigate(to: string) {
   }
   window.history.pushState(null, '', url.pathname + url.search + url.hash)
   listeners.forEach((fn) => fn())
+}
+
+/**
+ * Plain <a href="/..."> links (e.g. the shared Book Appointment buttons) route client-side too,
+ * so moving between pages never reloads the site.
+ */
+export function useInternalLinks() {
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const a = (e.target as Element | null)?.closest?.('a')
+      const href = a?.getAttribute('href')
+      if (!a || !href || !href.startsWith('/') || href.startsWith('//') || a.target || a.hasAttribute('download')) return
+      e.preventDefault()
+      navigate(href)
+    }
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
+  }, [])
 }
 
 /** After a page change, jump to the #section in the URL, or to the top. */

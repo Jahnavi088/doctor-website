@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { bookHref, bookLinkProps, nav, type NavItem } from '../data/site'
-import { sectionHref } from '../router'
 import { Link } from './Link'
 import { Logo } from './ui/Logo'
 import { Arrow } from './ui/Icons'
@@ -9,7 +8,6 @@ import './Navbar.css'
 export function Navbar({ path }: { path: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const [active, setActive] = useState('home')
   const menuBtn = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
@@ -19,24 +17,9 @@ export function Navbar({ path }: { path: string }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const onHome = path === '/'
-  const hrefOf = (n: NavItem) => (n.path ?? sectionHref(n.id!, path))
-  const isCurrent = (n: NavItem) => (n.path ? path.startsWith(n.path) : onHome && active === n.id)
+  const hrefOf = (n: NavItem) => n.path ?? `/#${n.id}`
+  const isCurrent = (n: NavItem) => (n.path === '/' ? path === '/' : !!n.path && (path === n.path || path.startsWith(n.path + '/')))
 
-  // scroll-spy (home page only)
-  useEffect(() => {
-    if (!onHome) return
-    // watch every section, so links un-highlight over sections that are not in the header (Experience, Hospital…)
-    const sections = Array.from(document.querySelectorAll<HTMLElement>('main section'))
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(e.target.id)
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    )
-    sections.forEach((s) => io.observe(s))
-    return () => io.disconnect()
-  }, [onHome])
 
   // mobile menu: lock scroll, close on Escape
   useEffect(() => {
@@ -58,7 +41,7 @@ export function Navbar({ path }: { path: string }) {
   return (
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${open ? 'nav--open' : ''}`}>
       <div className="container nav__inner">
-        <Link href={sectionHref('home', path)} className="nav__brand" aria-label="Dr. Manoj Kumar Jagarlamudi — home" onClick={() => setOpen(false)}>
+        <Link href="/" className="nav__brand" aria-label="Dr. Manoj Kumar Jagarlamudi — home" onClick={() => setOpen(false)}>
           <Logo />
         </Link>
 
@@ -66,7 +49,7 @@ export function Navbar({ path }: { path: string }) {
           <ul>
             {nav.map((n) => (
               <li key={n.label}>
-                <Link href={hrefOf(n)} aria-current={isCurrent(n) ? 'true' : undefined}>
+                <Link href={hrefOf(n)} aria-current={isCurrent(n) ? 'page' : undefined}>
                   {n.label}
                 </Link>
               </li>
@@ -100,7 +83,7 @@ export function Navbar({ path }: { path: string }) {
           <ol>
             {nav.map((n, i) => (
               <li key={n.label} style={{ ['--i' as string]: i }}>
-                <Link href={hrefOf(n)} aria-current={isCurrent(n) ? 'true' : undefined} onClick={() => setOpen(false)}>
+                <Link href={hrefOf(n)} aria-current={isCurrent(n) ? 'page' : undefined} onClick={() => setOpen(false)}>
                   <span className="nav__sheet-num">{String(i + 1).padStart(2, '0')}</span>
                   {n.label}
                 </Link>
@@ -109,7 +92,7 @@ export function Navbar({ path }: { path: string }) {
           </ol>
         </nav>
         <a href={bookHref} {...bookLinkProps} className="btn nav__sheet-cta" onClick={() => setOpen(false)}>
-          Book an Appointment <Arrow />
+          Book Appointment <Arrow />
         </a>
       </div>
     </header>

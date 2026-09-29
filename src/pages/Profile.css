@@ -1,0 +1,258 @@
+/* ---------- header portrait: fills the header height and stands on its bottom edge ---------- */
+@media (min-width: 900px) {
+  .prof-head .phero__art {
+    align-self: stretch;
+    margin-block: calc(-1 * var(--ph-pad) + 20px) calc(-1 * var(--ph-pad));
+  }
+}
+.prof-art {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.prof-art__img {
+  height: 100%;
+  width: auto;
+  max-width: none;
+  mix-blend-mode: multiply; /* the photo's pale studio backdrop melts into the header ground */
+  -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 12%);
+  mask-image: linear-gradient(0deg, transparent 0%, #000 12%);
+}
+
+/* ---------- biography: sticky heading beside the text ---------- */
+.prof-bio {
+  background: #fff;
+}
+.prof-bio .hs-kicker {
+  background: var(--sky);
+  box-shadow: none;
+}
+.prof-bio__grid {
+  display: grid;
+  gap: 32px;
+}
+.prof-btn {
+  --btn-bg: var(--brand);
+  min-height: 48px;
+  margin-top: 26px;
+  padding-inline: 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 12px 26px -14px rgba(29, 95, 160, 0.75);
+}
+.prof-btn:hover {
+  --btn-bg: #174f86;
+}
+.prof-bio__body > p {
+  max-width: 62ch;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+.prof-bio__body > p + p {
+  margin-top: 14px;
+}
+.prof-bio__body .prof-bio__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--navy-deep);
+}
+.prof-bio__body mark {
+  padding: 0 2px;
+  background: linear-gradient(transparent 62%, rgba(29, 95, 160, 0.16) 62%);
+  color: var(--brand);
+}
+.prof-bio__lead mark {
+  color: var(--brand);
+}
+
+/* credentials: a clean ruled grid */
+.prof-cred {
+  display: grid;
+  margin: 34px 0 0;
+  border-top: 2px solid var(--navy-deep);
+}
+.prof-cred > div {
+  display: grid;
+  gap: 3px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e3edf5;
+  transition: background-color 300ms var(--ease);
+}
+.prof-cred dt {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.prof-cred dd {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--navy-deep);
+}
+@media (min-width: 640px) {
+  .prof-cred {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+}
+@media (min-width: 960px) {
+  .prof-bio__grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(48px, 7vw, 110px);
+    align-items: start;
+  }
+  .prof-bio__head {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+  .prof-cred {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- training: timeline that fills on scroll ---------- */
+.prof-time {
+  --p: 0;
+  position: relative;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0 0 0 30px;
+  list-style: none;
+}
+/* the track and its blue fill (vertical on phones) */
+.prof-time::before,
+.prof-time::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 2px;
+  background: #cfe0ee;
+}
+.prof-time::after {
+  background: var(--brand);
+  transform-origin: top;
+  transform: scaleY(var(--p));
+  transition: transform 120ms linear;
+}
+.prof-time__step {
+  position: relative;
+  padding: 20px 22px;
+  border: 1px solid #dbe8f3;
+  border-radius: 18px;
+  background: #fff;
+  transition:
+    border-color 500ms var(--ease),
+    box-shadow 500ms var(--ease),
+    transform 500ms var(--ease),
+    background-color 500ms var(--ease);
+}
+.prof-time__node {
+  position: absolute;
+  z-index: 1;
+  left: -30px;
+  top: 24px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #cfe0ee;
+  border-radius: 50%;
+  background: #fff;
+  transition: border-color 400ms var(--ease), background-color 400ms var(--ease), box-shadow 400ms var(--ease);
+}
+.prof-time__year {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #9db6ca;
+  transition: color 500ms var(--ease);
+}
+.prof-time__title {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy-deep);
+}
+.prof-time__place {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+/* reached steps light up in brand blue */
+.prof-time__step[data-reached='true'] {
+  border-color: #c5dbec;
+  box-shadow: 0 20px 40px -30px rgba(29, 95, 160, 0.55);
+}
+.prof-time__step[data-reached='true'] .prof-time__year {
+  color: var(--brand);
+}
+.prof-time__step[data-reached='true'] .prof-time__node {
+  border-color: var(--brand);
+  background: var(--brand);
+  box-shadow: 0 0 0 5px rgba(29, 95, 160, 0.16);
+}
+/* "Today" becomes the filled brand-blue card once reached */
+.prof-time__step[data-now='true'][data-reached='true'] {
+  border-color: transparent;
+  background: linear-gradient(150deg, #2469ad 0%, var(--brand) 55%, #174f86 100%);
+}
+.prof-time__step[data-now='true'][data-reached='true'] .prof-time__year,
+.prof-time__step[data-now='true'][data-reached='true'] .prof-time__title {
+  color: #fff;
+}
+.prof-time__step[data-now='true'][data-reached='true'] .prof-time__place {
+  color: rgba(255, 255, 255, 0.82);
+}
+.prof-time__step:hover {
+  transform: translateY(-3px);
+}
+
+/* wide screens: a horizontal timeline with the track above the cards */
+@media (min-width: 900px) {
+  .prof-time {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding: 34px 0 0;
+  }
+  .prof-time::before,
+  .prof-time::after {
+    left: 8px;
+    right: 8px;
+    top: 7px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+  .prof-time::after {
+    transform-origin: left;
+    transform: scaleX(var(--p));
+  }
+  .prof-time__node {
+    left: 0;
+    top: -34px;
+  }
+  .prof-time__step {
+    padding: 24px 24px 26px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prof-time::after,
+  .prof-time__step,
+  .prof-time__node,
+  .prof-time__year {
+    transition: none;
+  }
+}

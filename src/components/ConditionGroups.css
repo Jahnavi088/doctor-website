@@ -1,0 +1,84 @@
+/* Conditions: two grouped columns of hairline rows — a reference list, not a card grid. */
+.cg-wrap {
+  display: grid;
+  gap: 40px;
+}
+.cg__head {
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--navy-deep);
+}
+.cg__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--navy-deep);
+}
+.cg__title::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f08a3c;
+  box-shadow: 0 0 0 4px rgba(240, 138, 60, 0.18);
+}
+.cg__intro {
+  margin-top: 6px;
+  font-size: 0.93rem;
+  color: var(--muted);
+}
+.cg__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cg__row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: baseline;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #d9e5ee;
+  transition: background-color 300ms var(--ease);
+}
+.cg__name {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.cg__text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.cg__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+}
+.cg__link:hover {
+  border-color: var(--navy);
+}
+@media (min-width: 900px) {
+  .cg-wrap {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 88px);
+  }
+}
+@media (max-width: 560px) {
+  .cg__row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 12px 0;
+  }
+}

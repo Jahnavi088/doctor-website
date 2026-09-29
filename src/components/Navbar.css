@@ -1,6 +1,9 @@
 .nav {
-  position: sticky;
+  /* fixed (the page is offset by --header-h), so the bar can shrink on scroll without moving content */
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   background: rgba(246, 248, 248, 0.72);
   backdrop-filter: saturate(1.4) blur(14px);
@@ -15,6 +18,7 @@
 }
 .nav__inner {
   height: var(--header-h);
+  transition: height 400ms var(--ease);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,8 +36,9 @@
   gap: 12px;
 }
 .logo__mark {
-  height: 38px;
+  height: 44px;
   width: auto;
+  margin-top: -2px; /* optical: the knee finial sits above the letters */
 }
 .logo__text {
   display: grid;
@@ -42,13 +47,14 @@
 .logo__name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   letter-spacing: -0.01em;
   color: var(--navy);
 }
 .logo__role {
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  margin-top: 1px;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -88,10 +94,10 @@
   transition: transform 500ms var(--ease);
 }
 .nav__links a:hover,
-.nav__links a[aria-current='true'] {
+.nav__links a[aria-current='page'] {
   color: var(--navy);
 }
-.nav__links a[aria-current='true']::after,
+.nav__links a[aria-current='page']::after,
 .nav__links a:hover::after {
   transform: scaleX(1);
 }
@@ -212,5 +218,18 @@
 @media (min-width: 561px) and (max-width: 1000px) {
   .logo__role {
     display: block;
+  }
+}
+
+/* desktop: slightly shorter bar once the page scrolls */
+@media (min-width: 1001px) {
+  .nav--scrolled .nav__inner {
+    height: 60px;
+  }
+  .nav--scrolled .logo__mark {
+    height: 38px;
+  }
+  .logo__mark {
+    transition: height 400ms var(--ease);
   }
 }

@@ -15,9 +15,9 @@ npm run preview   # serve the build
 | --- | --- |
 | `src/data/site.ts` | **All content**: doctor facts, stats (with source), expertise, procedures, knee principles, journey, contact details |
 | `src/data/blog.ts` | Blog articles (title, excerpt, category, cover render, body blocks) — add a post by adding an entry |
-| `src/pages/` | Home, Blog index (`/blog`), article (`/blog/<slug>`) and 404 pages |
+| `src/pages/` | Home (overview), Profile (`/profile`), Expertise (`/expertise`), Services (`/services`), Contact (`/contact`), Blog index (`/blog`), article (`/blog/<slug>`) and 404 pages |
 | `src/router.tsx` | Tiny History-API router + `Link` (no dependency) |
-| `src/components/` | One component (+ CSS) per section: Navbar, Hero, TrustStats, AboutDoctor, Expertise, Experience, KneeVisualization, PatientJourney, HospitalSection, AppointmentCTA, Footer |
+| `src/components/` | One component (+ CSS) per section. Home, in order: Hero → Credibility → AboutDoctor → ExpertiseAreas → Conditions → ServicesOverview → Approach → Experience → PatientJourney → BlogPreview → AppointmentCTA → ContactLocation → Footer (the overview sections live in `HomeSections.tsx`) |
 | `src/three/` | 3D: `HeroKneeScene` (X-ray knee + particles), `KneeScene` (interactive knee section), `xray.ts` (radiograph shader), `LazyKnee` (in-view + idle loading, fine-line fallback), `kneeGeometry` (model decoder) |
 | `public/images/expertise/` | Turntable sprite sheets (24 frames) rendered from real 3D scenes |
 | `src/index.css` | Design tokens (colours tuned to the MK mark, type, spacing) |
@@ -34,6 +34,10 @@ Nothing below has been invented. Values live in `src/data/site.ts`:
 - Address now reads "2A, R.S.No. 90/1A, Donka Road, Kanuru, Penamaluru Mandal, Vijayawada, Andhra Pradesh 520007" (matches Google Maps, Practo and other directories). Srikara's own website lists "MG Road, 520001" for Vijayawada, which looks like template data — worth a quick check with the hospital.
 - In `index.html`, make `og:image` absolute once the domain is known, and add `og:url`.
 
+- **Expertise areas and conditions need Dr. Manoj's approval.** `expertiseAreas` and `conditions` in `src/data/site.ts` are general descriptions derived from his specialties.
+- **Services list needs Dr. Manoj's approval.** Practo lists no services, so the six in `services` (`src/data/site.ts`) are derived from his four specialties. Edit or remove entries freely.
+- **"Leave us a note" form is not connected.** Set `contact.noteEndpoint` (Formspree, or Web3Forms plus `noteAccessKey`) or `contact.email`. Until then the form says plainly that online notes are not connected.
+- **Photos and testimonials:** add entries to `gallery` and `testimonials` in `src/data/site.ts`. The section on the Services page appears automatically; it stays hidden while both are empty. Use only genuine, consented feedback.
 - **Blog articles are draft copy.** The four posts in `src/data/blog.ts` are general patient-education text written for the design; they make no outcome claims. Dr. Manoj should approve or replace each one, and add a `date`, before launch.
 - **Hosting:** the blog uses real URLs (`/blog`, `/blog/<slug>`), so the host must serve `index.html` for unknown paths (SPA fallback — e.g. a Netlify `_redirects` rule `/* /index.html 200`, or Vercel rewrites).
 
@@ -47,6 +51,31 @@ Nothing below has been invented. Values live in `src/data/site.ts`:
 
 - The MK logo artwork is unchanged; its background was removed and the monogram cropped from the name line (the name is set in live type). A vector/high-resolution logo from the designer would improve sharpness.
 - Only one portrait was supplied, so the hero and About sections share it (About hides it on stacked layouts). A second photo would help.
+- Home hero image (`public/images/hero-knee*.webp`): "Knees, Osteoarthritis, Body" by TungArt7 on Pixabay (AI-generated illustration), https://pixabay.com/illustrations/knees-osteoarthritis-body-x-ray-8941890/ — Pixabay Content License (free commercial use, no attribution required). Downloaded 28 Sep 2026 at 1280px; a larger download needs a Pixabay login.
+- Home "Areas of expertise" photos (`public/images/expertise-photos/*.webp`), all Pixabay Content License, downloaded 29 Sep 2026 at 1280px and resized to 800px:
+  - Joint Replacement: "Operation, Operating Room, Surgery" by sasint, https://pixabay.com/photos/operation-operating-room-surgery-1807543/
+  - Arthroscopy: "Operation Theater, Laparoscopy" by provakar, https://pixabay.com/photos/operation-theater-laparoscopy-6142851/
+  - Robotic Joint Replacement: "Hand, Lamp, Operating Room" by fernandozhiminaicela, https://pixabay.com/photos/hand-lamp-operating-room-surgery-4566535/
+  - Trauma Care: "Roentgen, X-ray Image, Clinic" by spinheike, https://pixabay.com/photos/roentgen-x-ray-image-clinic-924237/
+- Service photos (`public/images/service-photos/<slug>.webp`, used on the home "Treatments and services" row and on /services), all Pixabay Content License, downloaded 29 Sep 2026 and resized to 720px:
+  - Knee Replacement: knee X-ray with implants by Andersonvr, https://pixabay.com/photos/doctor-orthopedics-x-ray-knee-1740044/
+  - Hip Replacement: senior couple walking by pasja1000, https://pixabay.com/photos/senior-elderly-people-couple-3336451/
+  - Robotic Joint Replacement: surgical team by sasint, https://pixabay.com/photos/surgery-hospital-doctor-care-1822458/
+  - Arthroscopy: laparoscopic theatre by hysw001, https://pixabay.com/photos/surgery-nephrectomy-laparoscopy-2058088/
+  - Fracture & Trauma Care: ankle fracture X-ray with plate by Taokinesis, https://pixabay.com/photos/ankle-fracture-foot-medical-2253057/
+  - Joint Pain & Arthritis Care: knee examination by kumarsu6745_, https://pixabay.com/photos/knee-orthopedics-therapy-pain-10309879/
+- Blog article photos (`public/images/blog/<slug>.webp`, used on the blog cards and each article header), all Pixabay Content License, downloaded 29 Sep 2026 and resized to 1200px:
+  - Preparing for knee or hip replacement: https://pixabay.com/photos/disease-chronic-pain-treatment-8198852/
+  - Knee arthroscopy explained: https://pixabay.com/photos/surgery-medical-medicine-doctor-79688/
+  - Robotic-arm assisted joint replacement: https://pixabay.com/photos/surgical-instruments-hands-81489/
+  - After a fracture: https://pixabay.com/photos/ankle-calf-muscle-achilles-tendon-3135710/
+- Home Experience lead-card photo (`public/images/experience-walking.webp`): older adults walking with trekking poles, https://pixabay.com/photos/elderly-forest-trekking-women-6806996/ — Pixabay Content License. Downloaded 29 Sep 2026 at 1280px.
+- Expertise page area photos (`public/images/expertise-areas/<slug>.webp`), all Pixabay Content License, downloaded 29 Sep 2026 and resized to 900px:
+  - Joint Replacement: knee X-ray with arthritis, https://pixabay.com/photos/knee-x-rays-arthritis-skeleton-5314881/
+  - Arthroscopy: operation theatre, https://pixabay.com/photos/operation-theater-laparoscopy-6142851/
+  - Knee Care: knee physiotherapy, https://pixabay.com/photos/physiotherapy-treatment-legs-knees-5624921/
+  - Hip Care: older adults walking, https://pixabay.com/photos/elderly-forest-trekking-women-6806996/
+- Blog header image (`public/images/blog-legs*.webp`): "Ai Generated, Leg, Feet" (X-ray legs) by myshoun on Pixabay (AI-generated illustration), https://pixabay.com/illustrations/ai-generated-leg-feet-x-ray-9390017/ — Pixabay Content License. Downloaded 29 Sep 2026 at 1280px.
 - The 3D knee is a stylised model, not a medical scan. To regenerate: `pip install numpy scipy scikit-image && python tools/build_knee.py`.
 - Expertise images are pre-rendered from 3D (implant, arthroscope, robotic cut planes, fracture plate) so the cards stay light. To re-render:
   `python tools/build_knee.py --extras`, start `npm run dev -- --port 5180`, then `npm i --no-save playwright-core && node tools/sprites/render-sprites.mjs http://localhost:5180` (uses Microsoft Edge).

@@ -1,0 +1,47 @@
+/* ---------- header: hours and place, no card ---------- */
+.chours {
+  justify-self: end;
+  width: min(100%, 420px);
+  padding-left: clamp(24px, 3vw, 44px);
+  border-left: 1px solid #cddcea;
+}
+.chours__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--steel);
+}
+.chours__days {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--navy-deep);
+}
+.chours__time {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--brand);
+}
+.chours__place {
+  margin-top: clamp(20px, 3.6vh, 32px);
+  padding-top: clamp(20px, 3.6vh, 32px);
+  border-top: 1px solid #cddcea;
+}
+.chours__addr {
+  display: grid;
+  margin: 8px 0 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.chours__addr strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+}

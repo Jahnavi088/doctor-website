@@ -1,0 +1,495 @@
+/* ------------------------------------------------------------------
+   Leave us a note — white form card beside a quiet side panel,
+   on the home page's sky ground.
+------------------------------------------------------------------- */
+.note {
+  background: linear-gradient(180deg, #f3f8fc 0%, #fff 40%, #f3f8fc 100%);
+}
+/* page intro (the note page has no separate header band) */
+.note__intro {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.note__intro .crumbs ol {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.note__intro .crumbs li:not(:last-child)::after {
+  content: '/';
+  margin-left: 8px;
+  color: #a9bccb;
+}
+.note__intro .crumbs a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.note__title {
+  margin-top: 14px;
+  font-size: clamp(1.9rem, min(3.6vw, 7vh), 2.9rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--navy-deep);
+}
+.note__title span {
+  color: var(--brand);
+}
+.note__lede {
+  margin-top: 12px;
+  max-width: 70ch;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.note__book {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
+  white-space: nowrap;
+}
+.note__book:hover {
+  border-color: var(--brand);
+}
+.note__grid {
+  display: grid;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ---------- form card ---------- */
+.note__card {
+  padding: clamp(22px, 3.2vw, 40px);
+  border: 1px solid #dfeaf3;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(25, 50, 72, 0.04), 0 40px 80px -56px rgba(25, 50, 72, 0.45);
+}
+.nform {
+  display: grid;
+  gap: 18px;
+}
+.nform__title {
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--navy-deep);
+}
+.nform__hint {
+  margin-top: -12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.nform em {
+  font-style: normal;
+  color: #d9622b;
+}
+
+/* topic chips */
+.nform__topics {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.nform__topics legend {
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy-deep);
+}
+.nform__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nform__chip {
+  position: relative;
+  cursor: pointer;
+}
+.nform__chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.nform__chip span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: 1px solid #d6e5f1;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--navy);
+  transition: background-color 250ms var(--ease), border-color 250ms var(--ease), color 250ms var(--ease);
+}
+.nform__chip:hover span {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.nform__chip input:checked + span {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: #fff;
+}
+.nform__chip input:focus-visible + span {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* fields */
+.nform__row {
+  display: grid;
+  gap: 18px;
+}
+.nform__field {
+  display: grid;
+  gap: 7px;
+}
+.nform__field > span,
+.nform__msg-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy-deep);
+}
+.nform__msg-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nform__count {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: #9db6ca;
+}
+.nform input:not([type='checkbox']):not([type='radio']),
+.nform textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d6e5f1;
+  border-radius: 12px;
+  background: #f8fbfd;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  transition: border-color 250ms var(--ease), background-color 250ms var(--ease), box-shadow 250ms var(--ease);
+}
+.nform textarea {
+  min-height: 132px;
+  resize: vertical;
+  line-height: 1.55;
+}
+.nform input::placeholder,
+.nform textarea::placeholder {
+  color: #9aabb8;
+}
+.nform input:hover,
+.nform textarea:hover {
+  border-color: #b9d2e6;
+}
+.nform input:focus,
+.nform textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(29, 95, 160, 0.12);
+}
+.nform__hp {
+  position: absolute;
+  left: -9999px;
+}
+.nform__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--muted);
+  cursor: pointer;
+}
+.nform__consent input {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  accent-color: var(--brand);
+}
+.nform__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 4px;
+}
+.nform__submit {
+  --btn-bg: var(--brand);
+  min-height: 50px;
+  padding-inline: 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 12px 26px -14px rgba(29, 95, 160, 0.75);
+}
+.nform__submit:hover {
+  --btn-bg: #174f86;
+}
+.nform__submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+.nform__status {
+  flex: 1 1 220px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.nform__status a {
+  color: var(--brand);
+  font-weight: 600;
+}
+.nform__ph {
+  font-size: 0.78rem;
+  color: #9aabb8;
+}
+
+/* sent */
+.note__done {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  padding-block: 12px;
+}
+.note__done-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--sky);
+  color: var(--brand);
+}
+.note__done h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy-deep);
+}
+.note__done p {
+  max-width: 46ch;
+  color: var(--muted);
+}
+.note__done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 8px;
+}
+.nform__again {
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--brand);
+  cursor: pointer;
+}
+
+/* ---------- side panel ---------- */
+.note__side {
+  display: grid;
+  gap: 26px;
+}
+.note__h {
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy-deep);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy-deep);
+}
+.note__steps {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.note__steps li {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e3edf5;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.note__steps strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--navy-deep);
+}
+.note__num {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--brand);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+}
+.note__ticks {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.note__ticks li {
+  position: relative;
+  padding: 11px 0 11px 26px;
+  border-bottom: 1px solid #e3edf5;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.note__ticks li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 17px;
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid var(--brand);
+  border-bottom: 2px solid var(--brand);
+  transform: rotate(-45deg);
+}
+.note__warn {
+  padding: 16px 18px;
+  border-left: 3px solid #f08a3c;
+  border-radius: 0 14px 14px 0;
+  background: #fff7f0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.note__warn strong {
+  color: var(--navy-deep);
+}
+.note__alt {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.note__alt a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
+}
+
+@media (min-width: 640px) {
+  .nform__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1000px) {
+  .note__grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 88px);
+  }
+  .note__side {
+    position: sticky;
+    top: calc(var(--header-h) + 28px);
+    padding-top: 8px;
+  }
+}
+
+/* ---------- slim prompt that links to the note page ---------- */
+.note-prompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  max-width: 860px;
+  margin: clamp(36px, 5vw, 56px) auto 0;
+  padding: 16px 18px 16px 16px;
+  border: 1px solid #d6e5f1;
+  border-radius: 18px;
+  background: var(--sky);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 350ms var(--ease), border-color 350ms var(--ease), box-shadow 350ms var(--ease), transform 350ms var(--ease);
+}
+.note-prompt:hover,
+.note-prompt:focus-visible {
+  border-color: #b9d2e6;
+  background: #fff;
+  box-shadow: 0 18px 36px -24px rgba(29, 95, 160, 0.45);
+  transform: translateY(-2px);
+}
+.note-prompt__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 6px 16px -10px rgba(29, 95, 160, 0.6);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+.note-prompt__copy {
+  display: grid;
+  flex: 1 1 260px;
+  gap: 2px;
+}
+.note-prompt__title {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--navy-deep);
+}
+.note-prompt__text {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.note-prompt__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--brand);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  transition: background-color 350ms var(--ease);
+}
+.note-prompt__go .arrow {
+  transition: transform 350ms var(--ease);
+}
+.note-prompt:hover .note-prompt__go {
+  background: #174f86;
+}
+.note-prompt:hover .note-prompt__go .arrow {
+  transform: translateX(4px);
+}

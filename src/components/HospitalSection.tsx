@@ -9,14 +9,12 @@ export function HospitalSection() {
   const q = encodeURIComponent(contact.mapQuery)
 
   return (
-    <section id="hospital" className="section hospital" aria-labelledby="hospital-title" ref={ref}>
+    <section id="hospital" className="section hs hs--sky hospital" aria-labelledby="hospital-title" ref={ref}>
       <div className="container hospital__grid">
         <div className="hospital__info">
-          <p className="eyebrow reveal">Hospital affiliation</p>
-          <h2 id="hospital-title" className="h2 reveal" style={{ ['--i' as string]: 1, marginTop: 20 }}>
-            {doctor.hospital}
-            <br />
-            <span className="hospital__city">{doctor.city}</span>
+          <p className="hs-kicker reveal">Where to find us</p>
+          <h2 id="hospital-title" className="hs-title reveal" style={{ ['--i' as string]: 1 }}>
+            {doctor.hospital}, <span>{doctor.city}.</span>
           </h2>
           <p className="hospital__lede reveal" style={{ ['--i' as string]: 2 }}>
             Dr. Manoj practises at {doctor.hospital}, {doctor.city}.
@@ -46,11 +44,11 @@ export function HospitalSection() {
           </dl>
 
           <div className="hospital__links reveal" style={{ ['--i' as string]: 4 }}>
-            <a className="text-link" href={`https://www.google.com/maps/search/?api=1&query=${q}`} target="_blank" rel="noopener noreferrer">
+            <a className="hospital__link" href={`https://www.google.com/maps/search/?api=1&query=${q}`} target="_blank" rel="noopener noreferrer">
               Get directions <ArrowUpRight />
               <span className="visually-hidden"> (opens in a new tab)</span>
             </a>
-            <a className="text-link" href={contact.hospitalUrl} target="_blank" rel="noopener noreferrer">
+            <a className="hospital__link" href={contact.hospitalUrl} target="_blank" rel="noopener noreferrer">
               Hospital website <ArrowUpRight />
               <span className="visually-hidden"> (opens in a new tab)</span>
             </a>

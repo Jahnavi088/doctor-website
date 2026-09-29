@@ -20,7 +20,8 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 import { loadKnee, type KneeParts } from "./kneeGeometry";
 import type { KneeMode } from "../data/site";
 
-export type KneeVariant = "hero" | "explore";
+/** hero: silver knee (unused on the page now) · explore: interactive section · showcase: light porcelain knee for the home hero */
+export type KneeVariant = "hero" | "explore" | "showcase";
 
 export type KneeSceneProps = {
   variant: KneeVariant;
@@ -148,12 +149,16 @@ function Knee({
   const invalidate = useThree((st) => st.invalidate);
 
   const mats = useMemo(() => {
+    const showcase = variant === "showcase";
     const bone = new MeshPhysicalMaterial({
-      color: variant === "hero" ? "#dfe3e6" : "#d9dee1",
-      metalness: variant === "hero" ? 0.6 : 0.5,
-      roughness: 0.34,
-      clearcoat: 0.5,
-      clearcoatRoughness: 0.3,
+      color: showcase ? "#f4f8fa" : variant === "hero" ? "#dfe3e6" : "#d9dee1",
+      metalness: showcase ? 0 : variant === "hero" ? 0.6 : 0.5,
+      roughness: showcase ? 0.5 : 0.34,
+      clearcoat: showcase ? 0.35 : 0.5,
+      clearcoatRoughness: showcase ? 0.4 : 0.3,
+      sheen: showcase ? 0.6 : 0,
+      sheenColor: new Color("#d7ecf2"),
+      envMapIntensity: showcase ? 0.45 : 1,
     });
     const pat = bone.clone();
     const meniscus = new MeshPhysicalMaterial({
@@ -203,6 +208,7 @@ function Knee({
     const still = reducedMotion;
     if (!still) st.t += dt;
     const explore = variant === "explore";
+    const showcase = variant === "showcase";
 
     // --- targets
     let flex = 0;
@@ -226,18 +232,22 @@ function Knee({
         axis = 0.55;
         hl = 1;
       }
+    } else if (showcase) {
+      // gentle sway (no full spin), menisci shown in teal
+      yaw = still ? -0.45 : -0.45 + Math.sin(st.t * 0.22) * 0.38;
+      lig = 0.9;
     } else if (!still) {
       yaw =
         -0.45 +
         Math.sin(st.t * 0.12) * 0.32 -
         Math.min(window.scrollY, 900) * 0.0006;
     }
-    if (!still) yaw += pointer.x * (explore ? 0.12 : 0.22);
+    if (!still && !showcase) yaw += pointer.x * (explore ? 0.12 : 0.22);
     yaw += userYaw?.current ?? 0;
     const pitch = still ? 0.04 : 0.04 + pointer.y * (explore ? 0.05 : 0.08);
 
     // --- ease towards targets (snap on the first frame and with reduced motion)
-    const k = still || st.first ? 1 : 1 - Math.exp(-dt * 3.2);
+    const k = still || st.first || showcase ? 1 : 1 - Math.exp(-dt * 3.2);
     st.flex += (flex - st.flex) * k;
     st.yaw += (yaw - st.yaw) * k;
     st.pitch += (pitch - st.pitch) * k;
@@ -252,7 +262,7 @@ function Knee({
       root.current.rotation.set(st.pitch, st.yaw, 0);
       root.current.position.y = still
         ? 0
-        : Math.sin(st.t * 0.55) * (explore ? 0.02 : 0.05);
+        : Math.sin(st.t * 0.55) * (explore ? 0.02 : showcase ? 0.08 : 0.05);
     }
     if (tibia.current) tibia.current.rotation.x = st.flex;
     // the kneecap glides round the front of the femur: it turns less than the tibia
@@ -339,7 +349,7 @@ export default function KneeScene(props: KneeSceneProps) {
     };
   }, []);
 
-  const hero = props.variant === "hero";
+  const hero = props.variant !== "explore";
   return (
     <Canvas
       dpr={[1, hero ? 1.5 : 1.75]}
@@ -348,7 +358,7 @@ export default function KneeScene(props: KneeSceneProps) {
       }
       camera={{
         fov: hero ? 22 : 24,
-        position: [0, hero ? 0.1 : 0.05, hero ? 12.4 : 8.6],
+        position: [0, hero ? 0.1 : 0.05, props.variant === "showcase" ? 9.15 : hero ? 12.4 : 8.6],
         near: 0.1,
         far: 50,
       }}
@@ -357,7 +367,16 @@ export default function KneeScene(props: KneeSceneProps) {
       aria-hidden="true"
     >
       <Studio />
-      {!hero && <CameraFit base={8.6} />}
+      {props.variant === "showcase" && (
+        <>
+          {/* bright, soft studio light so the bone reads as porcelain on a light page */}
+          <hemisphereLight args={["#ffffff", "#8fb3c2", 0.55]} />
+          <directionalLight position={[-4, 5, 5]} intensity={2.7} />
+          <directionalLight position={[5, -1, -4]} intensity={1.4} color="#7cc8dc" />
+        </>
+      )}
+      {props.variant === "explore" && <CameraFit base={8.6} />}
+      {props.variant === "showcase" && <CameraFit base={9.15} />}
       {parts && <Knee {...props} parts={parts} />}
     </Canvas>
   );

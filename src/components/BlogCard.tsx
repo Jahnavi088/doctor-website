@@ -10,7 +10,7 @@ export function BlogCard({ post, featured = false, className = '', style }: { po
     <article className={`bcard ${featured ? 'bcard--featured' : ''} ${className}`} style={style}>
       <Link href={`/blog/${post.slug}`} className="bcard__link">
         <div className="bcard__cover" aria-hidden="true">
-          <img src={`/images/expertise/${post.cover}-still.webp`} alt="" width={360} height={360} loading="lazy" decoding="async" />
+          <img src={`/images/blog/${post.slug}.webp`} alt="" width={1200} height={800} loading="lazy" decoding="async" />
         </div>
         <div className="bcard__body">
           <p className="bcard__meta">

@@ -1,47 +1,26 @@
-import { useRef, type PointerEvent } from 'react'
-import { expertise, type Glyph } from '../data/site'
+import { expertise, expertiseAreas, type Glyph } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
+import { Head } from './HomeSections'
 import './Expertise.css'
 
-const FRAMES = 24
-
-const renderAlt: Record<Glyph, string> = {
-  replacement: '3D render of a knee with a joint-replacement implant: femoral component, tibial tray and insert',
-  arthroscopy: '3D render of a knee joint with an arthroscope and probe entering the joint space',
-  robotic: '3D render of a knee with planned bone-cut planes and alignment axis, as used in robotic-assisted surgery',
-  trauma: '3D render of a fractured tibia fixed with a plate and screws',
-}
-
-/**
- * Turntable of a pre-rendered 3D scene (tools/sprites). Spins slowly on its own;
- * on hover the rotation follows the pointer.
- */
-function Turntable({ type }: { type: Glyph }) {
-  const strip = useRef<HTMLDivElement>(null)
-  const onMove = (e: PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType !== 'mouse' || !strip.current) return
-    const r = e.currentTarget.getBoundingClientRect()
-    const f = Math.min(FRAMES - 1, Math.max(0, Math.floor(((e.clientX - r.left) / r.width) * FRAMES)))
-    strip.current.style.setProperty('--frame', String(f))
-    strip.current.dataset.scrub = 'true'
-  }
-  const onLeave = () => {
-    if (strip.current) delete strip.current.dataset.scrub
-  }
-  return (
-    <div className="xp__render" onPointerMove={onMove} onPointerLeave={onLeave}>
-      <div className="xp__strip" ref={strip}>
-        <img
-          src={`/images/expertise/${type}.webp`}
-          alt={renderAlt[type]}
-          width={360 * FRAMES}
-          height={360}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    </div>
-  )
+/** Real photographs (Pixabay Content License, see README › Assets). */
+const photo: Record<Glyph, { src: string; alt: string }> = {
+  replacement: {
+    src: '/images/expertise-photos/replacement.webp',
+    alt: 'Surgeons in green scrubs operating beside a C-arm X-ray unit in an orthopaedic theatre',
+  },
+  arthroscopy: {
+    src: '/images/expertise-photos/arthroscopy.webp',
+    alt: 'Surgical team performing a minimally invasive procedure guided by camera monitors',
+  },
+  robotic: {
+    src: '/images/expertise-photos/robotic.webp',
+    alt: 'A gloved hand positioning the lights above an operating table',
+  },
+  trauma: {
+    src: '/images/expertise-photos/trauma.webp',
+    alt: 'X-ray of a foot fracture fixed with a plate and screws, shown on a clinic monitor',
+  },
 }
 
 export function Expertise() {
@@ -49,33 +28,31 @@ export function Expertise() {
   return (
     <section id="expertise" className="section xp" aria-labelledby="expertise-title" ref={ref}>
       <div className="container">
-        <header className="section-head section-head--split">
-          <div>
-            <p className="eyebrow reveal">Areas of expertise</p>
-            <h2 id="expertise-title" className="h2 reveal" style={{ ['--i' as string]: 1, marginTop: 20 }}>
-              Expertise that
-              <br />
-              <span className="xp__accent">restores movement</span>
-            </h2>
-          </div>
-          <p className="lede reveal" style={{ ['--i' as string]: 2 }}>
-            Specialized orthopaedic care focused on movement, mobility and joint health.
-          </p>
-        </header>
+        <Head
+          id="expertise-title"
+          kicker="Areas of expertise"
+          title={
+            <>
+              Expertise that <span>restores movement.</span>
+            </>
+          }
+          link={{ href: '/expertise', label: `View all ${expertiseAreas.length} areas of expertise` }}
+        />
 
         <ol className="xp__grid">
           {expertise.map((e, i) => (
             <li key={e.title} className="xp__card reveal" style={{ ['--i' as string]: i }}>
+              <div className="xp__photo">
+                <img src={photo[e.glyph].src} alt={photo[e.glyph].alt} width={800} height={560} loading="lazy" decoding="async" />
+              </div>
               <div className="xp__body">
                 <span className="xp__num">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="xp__title">{e.title}</h3>
                 <p className="xp__text">{e.text}</p>
               </div>
-              <Turntable type={e.glyph} />
             </li>
           ))}
         </ol>
-    
       </div>
     </section>
   )

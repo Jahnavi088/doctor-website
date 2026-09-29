@@ -1,103 +1,67 @@
-import { useEffect, useRef } from 'react'
 import { bookHref, bookLinkProps, doctor } from '../data/site'
-import { useMediaQuery, useReducedMotion } from '../hooks/useReveal'
-import { LazyKnee } from '../three/LazyKnee'
 import { Arrow } from './ui/Icons'
-import { Monogram } from './ui/Logo'
 import './Hero.css'
 
+/**
+ * Home hero — bright clinical ground (white → pale sky blue) with the introduction on
+ * the left and a large X-ray-style knee illustration on the right, feathered into the
+ * background. Image: Pixabay (TungArt7), Pixabay Content License — see README › Assets.
+ */
 export function Hero() {
-  const compact = useMediaQuery('(max-width: 1023px)')
-  const reduced = useReducedMotion()
-  const portrait = useRef<HTMLDivElement>(null)
-
-  // gentle parallax on the portrait
-  useEffect(() => {
-    if (reduced) return
-    let raf = 0
-    const onScroll = () => {
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => {
-        const y = Math.min(window.scrollY, 800)
-        portrait.current?.style.setProperty('--py', `${y * 0.08}px`)
-      })
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [reduced])
-
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
-      {/* full-bleed radiograph-style knee behind everything */}
-      <div className="hero__scene" aria-hidden="true">
-        <LazyKnee variant="hero" compact={compact} className="hero__knee" />
+      <div className="hero__art" aria-hidden="true">
+        <img
+          src="/images/hero-knee.webp"
+          srcSet="/images/hero-knee-720.webp 720w, /images/hero-knee.webp 1280w"
+          sizes="(max-width: 899px) 100vw, 60vw"
+          alt=""
+          width={1280}
+          height={717}
+          fetchPriority="high"
+          decoding="async"
+        />
       </div>
-      <div className="hero__vignette" aria-hidden="true" />
 
-      <div className="container hero__grid">
-        <div className="hero__copy">
-          <p className="hero__eyebrow hero__in" style={{ ['--i' as string]: 0 }}>
-            {doctor.role} · Joint Replacement · Arthroscopy
-          </p>
-          <h1 id="hero-title" className="hero__title">
-            <span className="hero__line">
-              <span className="hero__in" style={{ ['--i' as string]: 1 }}>
-                {doctor.nameLines[0]}
-              </span>
-            </span>
-            <span className="hero__line">
-              <span className="hero__in hero__accent" style={{ ['--i' as string]: 2 }}>
-                {doctor.nameLines[1]}
-              </span>
-            </span>
+      <div className="hero__inner">
+        <p className="hero__kicker">Orthopaedic &amp; Joint Replacement Surgeon</p>
+        <p className="hero__headline" aria-hidden="true">
+          Helping you move
+          <br />
+          <span>with confidence.</span>
+        </p>
+        <div className="hero__who">
+          <h1 id="hero-title" className="hero__name">
+            <span className="visually-hidden">Helping you move with confidence: </span>
+            {doctor.name}
           </h1>
-          <p className="hero__quals hero__in" style={{ ['--i' as string]: 3 }}>
-            {doctor.qualifications}
+          <p className="hero__creds">{doctor.qualifications.split(', ').join(' · ')}</p>
+          <p className="hero__place">
+            {doctor.hospital}, {doctor.city}
           </p>
-          <ul className="hero__focus hero__in" style={{ ['--i' as string]: 4 }} aria-label="Specializations">
-            {doctor.focus.map((f) => (
-              <li key={f}>{f}</li>
-            ))}
-          </ul>
-          <p className="hero__desc hero__in" style={{ ['--i' as string]: 5 }}>
-            Specialized orthopaedic care focused on restoring mobility, precision and quality of life.
-          </p>
-          <div className="hero__ctas hero__in" style={{ ['--i' as string]: 6 }}>
-            <a href={bookHref} {...bookLinkProps} className="btn btn--light">
-              Book an Appointment <Arrow />
-            </a>
-            <a href="#expertise" className="btn hero__ghost">
-              Explore Expertise
-            </a>
-          </div>
-          <a href="#hospital" className="hero__affil hero__in" style={{ ['--i' as string]: 7 }}>
-            <Monogram height={30} className="hero__affil-mark" />
-            <span>
-              <small>Practising at</small>
-              <strong>
-                {doctor.hospital}, {doctor.city}
-              </strong>
-            </span>
-          </a>
         </div>
-
-        <div className="hero__visual">
-          <div className="hero__halo" aria-hidden="true" />
-          <div className="hero__portrait" ref={portrait}>
-            <img
-              src="/images/dr-manoj-820.webp"
-              srcSet="/images/dr-manoj-520.webp 520w, /images/dr-manoj-820.webp 820w, /images/dr-manoj-1100.webp 1100w"
-              sizes="(min-width: 1024px) 520px, 86vw"
-              width={820}
-              height={1226}
-              alt="Dr. Manoj Kumar Jagarlamudi, orthopaedic surgeon, in blue surgical scrubs with arms folded"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </div>
+        <p className="hero__text">
+          Specialized care in
+          <br />
+          <strong>
+            <span>Joint Replacement ·</span> <span>Arthroscopy ·</span> <span>Knee &amp; Hip Care</span>
+          </strong>
+        </p>
+        <ul className="hero__facts">
+          <li>
+            <strong>4,000+</strong> Surgeries
+          </li>
+          <li>
+            <strong>10+</strong> Years Experience
+          </li>
+        </ul>
+        <div className="hero__actions">
+          <a href={bookHref} {...bookLinkProps} className="btn hero__btn">
+            Book Appointment <Arrow />
+          </a>
+          <a href="#expertise" className="hero__link">
+            View Expertise <Arrow size={14} />
+          </a>
         </div>
       </div>
     </section>

@@ -21,7 +21,7 @@ export function Monogram({ height = 40, className }: { height?: number; classNam
 export function Logo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
   return (
     <span className={`logo logo--${tone}`}>
-      <Monogram height={38} className="logo__mark" />
+      <Monogram height={44} className="logo__mark" />
       <span className="logo__text">
         <span className="logo__name">{doctor.name}</span>
         <span className="logo__role">Joint Replacement Surgeon</span>

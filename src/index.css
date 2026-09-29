@@ -15,11 +15,13 @@
   --muted: #5f6d78;
   --line: #e1e7e9;
   --line-strong: #cfd8db;
+  --brand: #1d5fa0;         /* bright brand blue (home hero and overview) */
+  --sky: #e6f1fa;           /* pale sky ground */
 
   --font-display: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
   --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
 
-  --container: 1240px;
+  --container: 1440px;
   --gutter: clamp(16px, 4vw, 48px);
   /* section spacing and headings also shrink on short screens (laptops with browser chrome) */
   --section: clamp(48px, min(6vw, 10vh), 96px);
@@ -28,7 +30,6 @@
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
   --dur: 700ms;
   --header-h: 72px;
-  --trust-h: clamp(96px, 15vh, 128px); /* stats strip under the hero, desktop */
 }
 
 *,
@@ -45,6 +46,7 @@ html {
 
 body {
   margin: 0;
+  padding-top: var(--header-h); /* room for the fixed navbar */
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
@@ -290,4 +292,108 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- Page transition ---------- */
+.page {
+  animation: pageIn 700ms var(--ease) both;
+}
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ---------- "View more" link: label + round arrow button ---------- */
+.more-link {
+  --ml-fg: var(--navy);
+  --ml-ring: var(--line-strong);
+  --ml-fill: var(--navy);
+  --ml-on: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ml-fg);
+  text-decoration: none;
+}
+.more-link__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid var(--ml-ring);
+  border-radius: 50%;
+  color: var(--ml-fg);
+  transition: border-color 500ms var(--ease), color 500ms var(--ease);
+}
+.more-link__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--ml-fill);
+  transform: scale(0);
+  transition: transform 500ms var(--ease);
+}
+.more-link__btn .arrow {
+  position: relative;
+  transition: transform 500ms var(--ease);
+}
+.more-link:hover .more-link__btn,
+.more-link:focus-visible .more-link__btn {
+  border-color: var(--ml-fill);
+  color: var(--ml-on);
+}
+.more-link:hover .more-link__btn::before,
+.more-link:focus-visible .more-link__btn::before {
+  transform: scale(1);
+}
+.more-link:hover .more-link__btn .arrow,
+.more-link:focus-visible .more-link__btn .arrow {
+  transform: translateX(3px);
+}
+.more-link--light {
+  --ml-fg: #fff;
+  --ml-ring: rgba(255, 255, 255, 0.3);
+  --ml-fill: #fff;
+  --ml-on: var(--navy);
+}
+.more-link--solid .more-link__btn {
+  border-color: var(--ml-fill);
+  background: var(--ml-fill);
+  color: var(--ml-on);
+}
+
+/* ---------- Dark "radiograph" section skin, shared by inner pages ---------- */
+.dark {
+  background:
+    radial-gradient(70% 50% at 80% 0%, rgba(46, 116, 146, 0.22), transparent 70%),
+    #08131c;
+  color: rgba(255, 255, 255, 0.7);
+}
+.dark .eyebrow {
+  color: #7cc8dc;
+}
+.dark .h2,
+.dark h3 {
+  color: #fff;
+}
+.dark .lede {
+  color: rgba(255, 255, 255, 0.6);
+}
+.grad-text {
+  background: linear-gradient(100deg, #e4eef2, #7cc8dc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.section--mist {
+  background: var(--mist-2);
 }

@@ -35,3 +35,34 @@ export function KneeLineDrawing({ className }: { className?: string }) {
     </svg>
   )
 }
+
+/** Front-view right hip (half pelvis + proximal femur) as a fine-line study, matching the knee drawing. */
+export function HipLineDrawing({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 240 520" aria-hidden="true" focusable="false">
+      <g {...common} strokeWidth={1.1}>
+        {/* iliac wing */}
+        <path d="M18 40c30-26 92-34 140-14 22 9 30 30 22 52-8 20-26 30-30 52-3 16 2 30-6 42" />
+        <path d="M18 40c-6 34 6 64 30 84 18 15 28 34 30 56" />
+        {/* acetabulum (socket) */}
+        <path d="M78 180c8-26 34-40 60-36 22 4 34 20 36 38" />
+        <path d="M84 196c2 22 16 36 34 42" opacity={0.6} />
+        {/* pubis / ischium */}
+        <path d="M78 200c-10 26-14 50-6 70 8 20 30 26 44 14 10-9 8-24 2-36" opacity={0.8} />
+        <path d="M86 238c10 8 22 10 30 6" opacity={0.5} />
+        {/* femoral head, neck, trochanters */}
+        <circle cx="136" cy="186" r="30" />
+        <path d="M156 206c10 12 20 20 36 22" />
+        <path d="M150 214c2 16-2 28-12 40" />
+        <path d="M192 228c14-4 22 6 20 20-2 10-8 16-10 26" />
+        <path d="M138 254c-8 10-10 20-6 30" opacity={0.7} />
+        {/* femoral shaft */}
+        <path d="M132 284c4 60 6 140 8 236M202 274c-6 64-10 150-12 246" />
+        {/* axis + measurement marks */}
+        <path d="M136 120v400" strokeDasharray="2 5" opacity={0.35} />
+        <circle cx="136" cy="186" r="46" opacity={0.25} />
+        <path d="M72 186H56M216 186h-16" opacity={0.5} />
+      </g>
+    </svg>
+  )
+}

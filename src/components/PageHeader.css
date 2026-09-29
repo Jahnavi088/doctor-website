@@ -1,0 +1,232 @@
+/* ------------------------------------------------------------------
+   Inner-page header — same bright ground and type as the home hero:
+   white → pale sky blue, bold navy title with a brand-blue second line,
+   one short lede, one primary button and one text link.
+------------------------------------------------------------------- */
+.phero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 55% 70% at 20% 40%, #ffffff 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(100deg, #f7fbfe 0%, #eef5fb 45%, var(--sky) 100%);
+  border-bottom: 1px solid #dde9f3;
+  color: var(--navy);
+}
+.phero__inner {
+  --ph-pad: clamp(28px, 5vh, 60px);
+  display: grid;
+  align-items: center;
+  gap: 32px;
+  padding-block: var(--ph-pad);
+}
+/* every inner page gets the same header height on desktop */
+@media (min-width: 900px) {
+  .phero__inner {
+    min-height: clamp(440px, 52svh, 560px);
+  }
+}
+
+/* ---------- breadcrumb ---------- */
+.phero__crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.phero__crumbs li:not(:last-child)::after {
+  content: '/';
+  margin-left: 8px;
+  color: #a9bccb;
+}
+.phero__crumbs a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.phero__crumbs a:hover {
+  text-decoration: underline;
+}
+.phero__crumbs [aria-current] {
+  color: var(--muted);
+}
+
+/* ---------- copy ---------- */
+/* a plain line of text, not a badge: reads like a subtitle a person would write */
+.phero__eyebrow {
+  margin-top: clamp(20px, 3.4vh, 32px);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--steel);
+}
+.phero__title {
+  margin-top: 8px;
+  font-size: clamp(2.2rem, min(4.4vw, 8.6vh), 3.9rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--navy-deep);
+}
+.phero__title em {
+  font-style: normal;
+  color: var(--brand);
+}
+.phero__lede {
+  margin-top: 18px;
+  max-width: 52ch;
+  font-size: clamp(1rem, 1.25vw, 1.08rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- actions (mirrors .hero__btn / .hero__link) ---------- */
+.phero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+  margin-top: clamp(22px, 3.6vh, 32px);
+}
+.phero__btn {
+  --btn-bg: var(--brand);
+  min-height: 50px;
+  padding-inline: 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 12px 26px -12px rgba(29, 95, 160, 0.75);
+  transition: background-color 350ms var(--ease), box-shadow 350ms var(--ease);
+}
+.phero__btn:hover {
+  --btn-bg: #174f86;
+}
+.phero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 6px;
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  transition: border-color 350ms var(--ease);
+}
+.phero__link:hover {
+  border-color: var(--brand);
+}
+
+/* short facts line under the lede (e.g. blog totals) */
+.phero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.phero__facts strong {
+  margin-right: 6px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+
+/* ---------- motion ---------- */
+.phero__in {
+  animation: pheroIn 700ms var(--ease) both;
+  animation-delay: calc(60ms + var(--i, 0) * 70ms);
+}
+@keyframes pheroIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.phero__art {
+  position: relative;
+  animation: pheroIn 900ms var(--ease) 200ms both;
+}
+
+/* ---------- optional feathered illustration (mirrors .hero__art) ---------- */
+.phero__backdrop {
+  position: absolute;
+  z-index: -1;
+  isolation: isolate;
+  inset: 0 0 0 auto;
+  width: 50%;
+}
+.phero__backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 18%, #000 36%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 18%, #000 36%);
+  animation: pheroIn 1000ms var(--ease) 120ms both;
+}
+/* dark X-ray style art: toned down, and its left edge lightened (not darkened) into the pale ground */
+.phero__backdrop--dark img {
+  filter: saturate(0.8) contrast(0.9) brightness(0.9);
+  opacity: 0.82;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 16%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 16%);
+}
+.phero__backdrop--dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #edf4fb 0%, rgba(237, 244, 251, 0.75) 10%, rgba(237, 244, 251, 0.2) 24%, rgba(237, 244, 251, 0) 36%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.phero--backdrop .phero__copy {
+  max-width: 620px;
+}
+@media (max-width: 899px) {
+  .phero__backdrop {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .phero--art .phero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 48px;
+  }
+}
+@media (max-width: 899px) {
+  .phero__art {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .phero__actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- optional rounded photo on the right (Services, Leave us a note) ---------- */
+.phero-photo {
+  justify-self: end;
+  width: 100%;
+  max-width: 520px;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  max-height: min(360px, 56vh);
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--sky);
+  box-shadow: 0 34px 64px -40px rgba(25, 50, 72, 0.55);
+}
+.phero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

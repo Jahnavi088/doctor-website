@@ -3,10 +3,11 @@ import { doctor, education } from '../data/site'
 import { useInView, useReducedMotion, useReveal } from '../hooks/useReveal'
 import { Monogram } from './ui/Logo'
 import { ArrowUpRight } from './ui/Icons'
+import { Link } from './Link'
 import './Experience.css'
 
 /** Counts from 0 to `to` once visible (instant with reduced motion). */
-function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
+export function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
   const [ref, inView] = useInView<HTMLSpanElement>('0px')
   const reduced = useReducedMotion()
   const [n, setN] = useState(0)
@@ -59,23 +60,24 @@ export function Experience() {
         </header>
 
         <div className="exp__bento">
+          {/* photo: Pixabay Content License, see README › Assets */}
           <article className="exp__card exp__card--lead reveal">
-            <div className="exp__lead-copy">
+            <img
+              className="exp__lead-img"
+              src="/images/experience-walking.webp"
+              alt="A group of older adults out walking with trekking poles on a forest path"
+              width={1280}
+              height={853}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="exp__glass">
               <p className="exp__label">Successful surgeries</p>
               <p className="exp__big">
                 <CountUp to={4000} suffix="+" />
               </p>
               <p className="exp__sub">Restoring mobility and improving patients’ quality of life.</p>
             </div>
-            <img
-              className="exp__lead-img"
-              src="/images/expertise/replacement-still.webp"
-              alt=""
-              width={360}
-              height={360}
-              loading="lazy"
-              decoding="async"
-            />
           </article>
 
           <article className="exp__card reveal" style={{ ['--i' as string]: 1 }}>
@@ -94,7 +96,7 @@ export function Experience() {
             </p>
           </article>
 
-          <a href="#hospital" className="exp__card exp__card--hospital reveal" style={{ ['--i' as string]: 3 }}>
+          <Link href="/contact#hospital" className="exp__card exp__card--hospital reveal" style={{ ['--i' as string]: 3 }}>
             <Monogram height={44} className="exp__mark" />
             <span className="exp__hosp">
               <span className="exp__label">Practising at</span>
@@ -104,7 +106,7 @@ export function Experience() {
             <span className="exp__go" aria-hidden="true">
               <ArrowUpRight size={18} />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

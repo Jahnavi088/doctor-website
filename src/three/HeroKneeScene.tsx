@@ -66,9 +66,9 @@ function Knee({ parts, reducedMotion, compact, onReady }: Props & { parts: KneeP
   const mat = useMemo(() => createXrayMaterial({ joint: new Vector3(0, -0.04, -0.04), jointStrength: 1.15 }), [])
   useEffect(() => () => mat.dispose(), [mat])
 
-  // size the knee to the stage: tall on desktop, behind the portrait on phones
-  const scale = (viewport.height * (compact ? 0.92 : 0.9)) / 4.3
-  const baseX = compact ? viewport.width * 0.02 : viewport.width * 0.06
+  // size the knee to the stage: a supporting graphic on desktop, behind the portrait on phones
+  const scale = (viewport.height * (compact ? 0.92 : 0.74)) / 4.3
+  const baseX = compact ? viewport.width * 0.02 : viewport.width * 0.01
   const baseY = compact ? viewport.height * 0.02 : -viewport.height * 0.02
 
   useFrame((state, delta) => {

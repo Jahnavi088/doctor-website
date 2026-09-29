@@ -1,105 +1,73 @@
+/* Home › 11. A single bright call to action in the hero's brand blue. */
 .cta {
-  padding-bottom: var(--section);
+  padding-block: var(--section);
+  background: #fff;
 }
 .cta__panel {
   position: relative;
-  display: grid;
-  gap: 48px;
-  padding: clamp(36px, 6vw, 88px) clamp(22px, 5vw, 80px);
-  background: var(--navy);
-  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(40px, 6vw, 72px) clamp(22px, 5vw, 64px);
   overflow: hidden;
-  color: rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+  background:
+    radial-gradient(60% 90% at 85% 0%, rgba(120, 190, 240, 0.45), transparent 70%),
+    radial-gradient(50% 80% at 0% 100%, rgba(240, 138, 60, 0.18), transparent 70%),
+    linear-gradient(120deg, #174f86 0%, var(--brand) 55%, #2a78bf 100%);
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
 }
-.cta__panel::before {
-  /* single large arc — condyle curve from the MK mark */
-  content: '';
-  position: absolute;
-  width: 70vmax;
-  aspect-ratio: 1;
-  right: -38vmax;
-  top: -30vmax;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.cta .eyebrow {
-  color: #9cc3cf;
-}
-.cta .h2 {
+.cta__title {
+  max-width: 18ch;
+  font-size: clamp(1.9rem, min(3.8vw, 7vh), 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   color: #fff;
 }
 .cta__body {
-  margin-top: 22px;
-  font-size: 1.1rem;
+  max-width: 52ch;
+  margin-top: 14px;
+  font-size: 1.02rem;
 }
 .cta__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 28px;
+  margin-top: 28px;
 }
-.cta__ghost {
-  --btn-bg: transparent;
-  --btn-fg: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+.cta__btn {
+  --btn-bg: #fff;
+  --btn-fg: var(--brand);
+  min-height: 54px;
+  padding-inline: 30px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 14px 30px -14px rgba(8, 30, 60, 0.6);
 }
-.cta__ghost:hover {
-  --btn-bg: transparent;
+.cta__btn:hover {
+  --btn-bg: #e8f2fb;
+}
+.cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 6px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: border-color 350ms var(--ease);
+}
+.cta__link:hover {
   border-color: #fff;
 }
-.cta__details {
-  position: relative;
-  margin: 0;
-  align-self: end;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-}
-.cta__details:focus {
-  outline: none;
-}
-.cta__details > div {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4px;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-}
-.cta__details dt {
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-}
-.cta__details dd {
-  margin: 0;
-  color: #fff;
-}
-.cta__details a {
-  color: #fff;
-  text-underline-offset: 4px;
-}
-.cta__ph {
-  display: inline-block;
-  padding: 2px 8px;
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-@media (min-width: 960px) {
-  .cta__panel {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-    gap: 80px;
-  }
-  .cta__details > div {
-    grid-template-columns: 140px 1fr;
-    align-items: baseline;
-  }
-}
 @media (max-width: 480px) {
-  .cta__actions .btn {
+  .cta__btn {
     flex: 1 1 100%;
-    min-height: 56px;
   }
 }

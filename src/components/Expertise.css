@@ -1,163 +1,119 @@
+/* Home "Areas of expertise": the hero's bright sky ground, with frosted-glass cards
+   holding real clinical photographs. */
 .xp {
-  --card: #0c1a26; /* matches the baked background of the renders */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background:
-    radial-gradient(70% 50% at 80% 0%, rgba(46, 116, 146, 0.22), transparent 70%),
-    #08131c;
-  color: rgba(255, 255, 255, 0.7);
-}
-.xp .eyebrow {
-  color: #7cc8dc;
-}
-.xp .h2 {
-  color: #fff;
-}
-.xp .lede {
-  color: rgba(255, 255, 255, 0.6);
-}
-.xp__accent {
-  background: linear-gradient(100deg, #e4eef2, #7cc8dc);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+    radial-gradient(ellipse 55% 70% at 15% 20%, #ffffff 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(100deg, #f7fbfe 0%, #eef5fb 45%, var(--sky) 100%);
 }
 
+/* same rule line as "Treatments and services" above the items */
 .xp__grid {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: clamp(20px, 3vh, 28px) 0 0;
+  border-top: 2px solid var(--navy-deep);
   display: grid;
   gap: 20px;
 }
 .xp__card {
-  position: relative;
   display: grid;
-  grid-template-columns: 1fr;
+  align-content: start;
   overflow: hidden;
-  background: var(--card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 20px;
-  transition: border-color 600ms var(--ease), transform 600ms var(--ease);
-}
-.xp__card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(60% 60% at 80% 40%, rgba(95, 208, 234, 0.12), transparent 70%);
-  opacity: 0;
-  transition: opacity 600ms var(--ease);
-  pointer-events: none;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 1px 0 rgba(25, 50, 72, 0.04), 0 22px 44px -30px rgba(25, 50, 72, 0.35);
+  transition: box-shadow 500ms var(--ease), transform 500ms var(--ease);
 }
 .xp__card:hover {
-  border-color: rgba(124, 200, 220, 0.35);
-}
-.xp__card:hover::before {
-  opacity: 1;
-}
-.xp__body {
-  position: relative;
-  z-index: 1;
-  padding: 24px 20px 0;
-  display: flex;
-  flex-direction: column;
-}
-.xp__num {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: #7cc8dc;
-}
-.xp__num::after {
-  content: '';
-  display: inline-block;
-  width: 28px;
-  height: 1px;
-  margin-left: 12px;
-  vertical-align: middle;
-  background: rgba(124, 200, 220, 0.5);
-}
-.xp__title {
-  margin-top: 18px;
-  font-size: clamp(1.35rem, 2vw, 1.7rem);
-  color: #fff;
-}
-.xp__text {
-  margin-top: 12px;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 40ch;
+  transform: translateY(-3px);
+  box-shadow: 0 1px 0 rgba(25, 50, 72, 0.04), 0 28px 50px -28px rgba(29, 95, 160, 0.4);
 }
 
-/* turntable */
-.xp__render {
-  position: relative;
-  aspect-ratio: 1;
-  width: min(100%, 230px);
-  justify-self: center;
+.xp__photo {
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  cursor: ew-resize;
+  border-radius: 13px;
+  background: var(--mist-2);
 }
-.xp__strip {
-  --frame: 0;
-  position: absolute;
-  inset: 0;
-  width: 2400%;
-  animation: xpTurn 14s steps(24) infinite;
-}
-.xp__strip img {
+.xp__photo img {
   width: 100%;
   height: 100%;
-  max-width: none;
+  object-fit: cover;
+  transition: transform 900ms var(--ease);
 }
-.xp__strip[data-scrub] {
-  animation: none;
-  transform: translateX(calc(var(--frame) * -100% / 24));
-}
-@keyframes xpTurn {
-  to {
-    transform: translateX(-100%);
-  }
-}
-.xp__render::after {
-  /* soften the square edges of the render into the card */
-  content: '';
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 40px 20px var(--card);
-  pointer-events: none;
+.xp__card:hover .xp__photo img {
+  transform: scale(1.04);
 }
 
-@media (min-width: 900px) {
+.xp__body {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 10px 12px;
+}
+.xp__num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.xp__title {
+  margin-top: 6px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.xp__text {
+  margin-top: 8px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+@media (min-width: 600px) {
   .xp__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+@media (min-width: 1000px) {
+  .xp__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+/* short laptop screens: a wider, shorter photo keeps the row compact */
+@media (min-width: 900px) and (max-height: 700px) {
+  .xp__photo {
+    aspect-ratio: 16 / 10;
+  }
+}
+/* phones: two per row, photo + title; the detail is on /expertise */
+@media (max-width: 599px) {
+  .xp__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
   .xp__card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 240px);
-    align-items: center;
-    min-height: 300px;
+    padding: 6px;
+    border-radius: 16px;
+  }
+  .xp__photo {
+    border-radius: 11px;
   }
   .xp__body {
-    padding: 36px 8px 36px 36px;
-    height: 100%;
+    padding: 10px 6px 6px;
   }
+  .xp__num,
   .xp__text {
-    margin-top: auto;
-    padding-top: 12px;
+    display: none;
   }
   .xp__title {
-    margin-top: 48px;
-  }
-  .xp__render {
-    width: 100%;
-  }
-}
-@media (min-width: 1200px) {
-  .xp__card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 280px);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .xp__strip {
-    animation: none;
+    margin-top: 0;
+    font-size: 0.98rem;
   }
 }
