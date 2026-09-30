@@ -1,3 +1,4 @@
+import type { Picto } from '../components/ui/Pictos'
 /**
  * Single source of truth for everything the site says about Dr. Manoj.
  *
@@ -406,20 +407,32 @@ export const expertiseAreas: ExpertiseArea[] = [
  */
 export type ConditionGroup = 'pain' | 'injury'
 
-export const conditionGroups: { id: ConditionGroup; title: string; text: string }[] = [
-  { id: 'pain', title: 'Pain, arthritis & joint problems', text: 'Problems that build up over time and slowly limit movement.' },
-  { id: 'injury', title: 'Injuries & movement problems', text: 'Damage from a fall, an accident, sport or a sudden twist.' },
+export const conditionGroups: { id: ConditionGroup; title: string; short: string; text: string; photo: { src: string; alt: string } }[] = [
+  {
+    id: 'pain',
+    title: 'Pain, arthritis & joint problems',
+    short: 'Pain & arthritis',
+    text: 'Problems that build up over time and slowly limit movement.',
+    photo: { src: '/images/service-photos/joint-pain-consultation.webp', alt: 'A clinician examining a patient’s painful knee' },
+  },
+  {
+    id: 'injury',
+    title: 'Injuries & movement problems',
+    short: 'Injuries',
+    text: 'Damage from a fall, an accident, sport or a sudden twist.',
+    photo: { src: '/images/blog/after-a-fracture.webp', alt: 'A clinician examining a patient’s injured ankle' },
+  },
 ]
 
-export const conditions: { title: string; text: string; group: ConditionGroup; area?: string; service?: string }[] = [
-  { title: 'Knee pain', text: 'Pain or stiffness that affects walking and stairs.', group: 'pain', area: 'knee-care' },
-  { title: 'Hip pain', text: 'Pain in the groin, hip or thigh.', group: 'pain', area: 'hip-care' },
-  { title: 'Osteoarthritis', text: 'Wear of the cartilage in the knee or hip.', group: 'pain', area: 'joint-replacement' },
-  { title: 'Joint stiffness', text: 'Loss of movement in everyday tasks.', group: 'pain', area: 'joint-replacement' },
-  { title: 'Ligament injuries', text: 'ACL and other tears, often from sport.', group: 'injury', area: 'arthroscopy' },
-  { title: 'Meniscus tears', text: 'Damage to the knee’s cartilage cushions.', group: 'injury', area: 'arthroscopy' },
-  { title: 'Sports injuries', text: 'Joint injuries from sport and exercise.', group: 'injury', area: 'arthroscopy' },
-  { title: 'Fractures', text: 'Broken bones after a fall or accident.', group: 'injury', service: 'trauma-care' },
+export const conditions: { title: string; text: string; group: ConditionGroup; picto: Picto; area?: string; service?: string }[] = [
+  { title: 'Knee pain', text: 'Pain or stiffness that affects walking and stairs.', group: 'pain', picto: 'knee', area: 'knee-care' },
+  { title: 'Hip pain', text: 'Pain in the groin, hip or thigh.', group: 'pain', picto: 'hip', area: 'hip-care' },
+  { title: 'Osteoarthritis', text: 'Wear of the cartilage in the knee or hip.', group: 'pain', picto: 'arthritis', area: 'joint-replacement' },
+  { title: 'Joint stiffness', text: 'Loss of movement in everyday tasks.', group: 'pain', picto: 'stiffness', area: 'joint-replacement' },
+  { title: 'Ligament injuries', text: 'ACL and other tears, often from sport.', group: 'injury', picto: 'ligament', area: 'arthroscopy' },
+  { title: 'Meniscus tears', text: 'Damage to the knee’s cartilage cushions.', group: 'injury', picto: 'meniscus', area: 'arthroscopy' },
+  { title: 'Sports injuries', text: 'Joint injuries from sport and exercise.', group: 'injury', picto: 'sport', area: 'arthroscopy' },
+  { title: 'Fractures', text: 'Broken bones after a fall or accident.', group: 'injury', picto: 'fracture', service: 'trauma-care' },
 ]
 
 /** Home › 7. Approach to care. */
@@ -447,9 +460,9 @@ export const approach = [
 ]
 
 /** Home › 9. Patient journey — the practical steps, from booking to recovery. */
-export const journeyHome = [
-  { title: 'Book', text: 'Book online through Practo, choosing a time that suits you.' },
-  { title: 'Consultation', text: 'Meet Dr. Manoj at Srikara Hospitals and talk through your concerns.' },
-  { title: 'Treatment', text: 'Begin the treatment agreed at your consultation.' },
-  { title: 'Recovery', text: 'Follow-up visits and guidance until you are moving well again.' },
+export const journeyHome: { title: string; text: string; picto: Picto }[] = [
+  { title: 'Book', text: 'Book online through Practo, choosing a time that suits you.', picto: 'calendar' },
+  { title: 'Consultation', text: 'Meet Dr. Manoj at Srikara Hospitals and talk through your concerns.', picto: 'consult' },
+  { title: 'Treatment', text: 'Begin the treatment agreed at your consultation.', picto: 'treatment' },
+  { title: 'Recovery', text: 'Follow-up visits and guidance until you are moving well again.', picto: 'recovery' },
 ]

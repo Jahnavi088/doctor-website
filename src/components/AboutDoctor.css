@@ -1,7 +1,7 @@
 /* Home profile section: one white card on the sky ground — framed portrait + tabbed summary. */
 .about {
   background: linear-gradient(180deg, #f3f8fc 0%, var(--sky) 100%);
-  padding-block: clamp(56px, 10vh, 110px);
+  padding-block: var(--section);
 }
 .about__card {
   display: grid;

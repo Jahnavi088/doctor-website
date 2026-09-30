@@ -69,14 +69,14 @@
   }
 }
 
-/* ---------- areas: large photo + summary, alternating ---------- */
+/* ---------- areas: sticky photo column + scrolling text (inline photos on phones) ---------- */
 .xpa-list {
   background: #fff;
 }
 .xpa {
   display: grid;
-  gap: 28px;
-  padding-block: clamp(40px, 7vh, 72px);
+  gap: 20px;
+  padding-block: clamp(24px, 5vh, 44px);
   scroll-margin-top: 16px;
 }
 .xpa + .xpa {
@@ -91,49 +91,144 @@
 .xpa__photo {
   position: relative;
   margin: 0;
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 20px;
   background: var(--sky);
-  box-shadow: 0 34px 64px -42px rgba(25, 50, 72, 0.55);
 }
 .xpa__photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1000ms var(--ease);
-}
-.xpa:hover .xpa__photo img {
-  transform: scale(1.03);
 }
 /* frosted label on the photo */
 .xpa__tag {
   position: absolute;
-  left: 16px;
-  bottom: 16px;
+  left: 12px;
+  bottom: 12px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 16px 7px 7px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 6px 14px 6px 6px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: var(--navy-deep);
 }
 .xpa__tag span {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--brand);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: #fff;
+}
+
+/* the sticky stage (wide screens only) */
+.xpa-stage {
+  display: none;
+}
+@media (min-width: 960px) {
+  .xpa-scroll {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+  .xpa-stage {
+    display: block;
+    position: sticky;
+    top: calc(var(--header-h) + 20px);
+  }
+  .xpa-stage__frame {
+    position: relative;
+    height: min(460px, calc(100svh - var(--header-h) - 40px));
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--navy-deep);
+    box-shadow: 0 34px 64px -42px rgba(25, 50, 72, 0.55);
+  }
+  .xpa-stage__frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 700ms var(--ease), transform 1400ms var(--ease);
+  }
+  .xpa-stage__frame img[data-on='true'] {
+    opacity: 1;
+    transform: none;
+  }
+  /* progress: which area you are reading, as four segments */
+  .xpa-stage__bar {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.88);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  .xpa-stage__bar span {
+    display: grid;
+    gap: 8px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--muted);
+    transition: color 400ms var(--ease);
+  }
+  .xpa-stage__bar i {
+    position: relative;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #d6e4ef;
+  }
+  .xpa-stage__bar i::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--brand);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 600ms var(--ease);
+  }
+  .xpa-stage__bar span[data-on='true'],
+  .xpa-stage__bar span[data-done='true'] {
+    color: var(--navy-deep);
+  }
+  .xpa-stage__bar span[data-on='true'] i::after,
+  .xpa-stage__bar span[data-done='true'] i::after {
+    transform: none;
+  }
+  .xpa__photo--inline {
+    display: none;
+  }
+  /* each block is roughly one stage tall, so the photo changes about once per screen */
+  .xpa {
+    min-height: min(460px, calc(100svh - var(--header-h) - 40px));
+    align-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xpa-stage__frame img {
+    transition: none;
+  }
 }
 .xpa__num {
   font-family: var(--font-display);
@@ -168,7 +263,7 @@
 }
 .xpa__focus,
 .xpa__related {
-  margin-top: 26px;
+  margin-top: 20px;
 }
 .xpa__focus h3,
 .xpa__related h3 {
@@ -241,13 +336,4 @@
     column-gap: 28px;
   }
 }
-@media (min-width: 960px) {
-  .xpa {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(40px, 6vw, 96px);
-  }
-  .xpa:nth-child(even) .xpa__photo {
-    order: 2;
-  }
-}
+

@@ -40,7 +40,7 @@ export function Head({ id, kicker, title, lede, link }: { id: string; kicker: st
 export function Conditions() {
   const ref = useReveal<HTMLElement>()
   return (
-    <section className="section hs hs--airy" aria-labelledby="conditions-title" ref={ref}>
+    <section className="section hs hs--sky" aria-labelledby="conditions-title" ref={ref}>
       <div className="container">
         <Head
           id="conditions-title"
@@ -57,14 +57,14 @@ export function Conditions() {
   )
 }
 
-/* ---------- 6. Services: four main treatments in one row (all six are on /services) ---------- */
-const homeServiceSlugs = ['knee-replacement', 'hip-replacement', 'arthroscopy', 'trauma-care']
+/* ---------- 6. Services: a bento of five treatments, the first one large (all six are on /services) ---------- */
+const homeServiceSlugs = ['knee-replacement', 'hip-replacement', 'robotic-joint-replacement', 'arthroscopy', 'trauma-care']
 const homeServices = homeServiceSlugs.map((slug) => services.find((s) => s.slug === slug)!)
 
 export function ServicesOverview() {
   const ref = useReveal<HTMLElement>()
   return (
-    <section className="section hs hs--sky" aria-labelledby="svc-title" ref={ref}>
+    <section className="section hs" aria-labelledby="svc-title" ref={ref}>
       <div className="container">
         <Head
           id="svc-title"
@@ -74,21 +74,19 @@ export function ServicesOverview() {
               Treatments and <span>services.</span>
             </>
           }
-          lede="Every option is explained before a decision is made, and non-surgical care is always part of the conversation."
           link={{ href: '/services', label: `View all ${services.length} services` }}
         />
-        <ol className="scol">
+        <ol className="bento">
           {homeServices.map((s, i) => (
-            <li key={s.slug} className="reveal" style={{ ['--i' as string]: i }}>
-              <Link href={`/services#${s.slug}`} className="scol__item">
-                <span className="scol__photo" aria-hidden="true">
-                  <img src={`/images/service-photos/${s.slug}.webp`} alt="" width={720} height={540} loading="lazy" decoding="async" />
+            <li key={s.slug} className={`bento__tile reveal ${i === 0 ? 'bento__tile--lead' : ''}`} style={{ ['--i' as string]: i }}>
+              <Link href={`/services#${s.slug}`} className="bento__link">
+                <img src={`/images/service-photos/${s.slug}.webp`} alt="" width={720} height={540} loading="lazy" decoding="async" />
+                <span className="bento__body">
+                  <span className="bento__title">{s.title}</span>
+                  <span className="bento__text">{s.short}</span>
                 </span>
-                <span className="scol__num">{String(i + 1).padStart(2, '0')}</span>
-                <span className="scol__title">{s.title}</span>
-                <span className="scol__text">{s.short}</span>
-                <span className="scol__go">
-                  Details <Arrow size={14} />
+                <span className="bento__go" aria-hidden="true">
+                  <ArrowUpRight size={16} />
                 </span>
               </Link>
             </li>
@@ -99,18 +97,25 @@ export function ServicesOverview() {
   )
 }
 
-/* ---------- 7. Approach to care ---------- */
+/* ---------- 7. Approach to care: steps on the left, a photo for the open step on the right ---------- */
 const STEP_MS = 5000
 
+const approachPhotos = [
+  { src: '/images/expertise-areas/knee-care.webp', alt: 'A knee fitted with sensor pads during an examination' },
+  { src: '/images/expertise-areas/joint-replacement.webp', alt: 'A knee X-ray used to plan treatment' },
+  { src: '/images/expertise-areas/arthroscopy.webp', alt: 'An orthopaedic surgical team in theatre' },
+  { src: '/images/experience-walking.webp', alt: 'A group of older adults walking outdoors with walking poles' },
+]
+
 /**
- * Interactive stepper: one step is open at a time (wider, filled, with detail points).
+ * Image tabs: one step is open at a time (its detail points shown, its photo on the right).
  * Hover, click or focus opens a step; it also moves on by itself, paused while the
  * visitor is interacting and off entirely with reduced motion.
  */
 function ApproachSteps() {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
-  const [ref, inView] = useInView<HTMLOListElement>('0px')
+  const [ref, inView] = useInView<HTMLDivElement>('0px')
   const reduced = useReducedMotion()
   const auto = inView && !paused && !reduced
 
@@ -121,50 +126,61 @@ function ApproachSteps() {
   }, [auto, active])
 
   return (
-    <ol
+    <div
       ref={ref}
-      className={`approach ${auto ? 'approach--auto' : ''}`}
-      style={{ ['--step-ms' as string]: `${STEP_MS}ms` }}
+      className="approach reveal"
+      data-auto={auto}
+      style={{ ['--step-ms' as string]: `${STEP_MS}ms`, ['--i' as string]: 2 }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      {approach.map((s, i) => {
-        const open = i === active
-        return (
-          <li key={s.title} className="approach__step reveal" data-open={open} style={{ ['--i' as string]: i }}>
-            <button
-              type="button"
-              className="approach__head"
-              aria-expanded={open}
-              aria-controls={`approach-${i}`}
-              onClick={() => setActive(i)}
-              onMouseEnter={() => setActive(i)}
-            >
-              <span className="approach__num">{String(i + 1).padStart(2, '0')}</span>
-              <span className="approach__title">{s.title}</span>
-            </button>
-            <p className="approach__text">{s.text}</p>
-            <div id={`approach-${i}`} className="approach__more" hidden={!open}>
-              <ul>
-                {s.points.map((pt) => (
-                  <li key={pt}>{pt}</li>
-                ))}
-              </ul>
-            </div>
-            {open && <span key={active} className="approach__timer" aria-hidden="true" />}
-          </li>
-        )
-      })}
-    </ol>
+      <ol className="approach__list">
+        {approach.map((s, i) => {
+          const open = i === active
+          return (
+            <li key={s.title} className="approach__step" data-open={open}>
+              <button
+                type="button"
+                className="approach__head"
+                aria-expanded={open}
+                aria-controls={`approach-${i}`}
+                onClick={() => setActive(i)}
+                onMouseEnter={() => setActive(i)}
+              >
+                <span className="approach__num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="approach__title">{s.title}</span>
+              </button>
+              <div id={`approach-${i}`} className="approach__more" hidden={!open}>
+                <p className="approach__text">{s.text}</p>
+                <ul>
+                  {s.points.map((pt) => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+              </div>
+              {open && <span key={active} className="approach__timer" aria-hidden="true" />}
+            </li>
+          )
+        })}
+      </ol>
+      <figure className="approach__figure">
+        {approachPhotos.map((ph, i) => (
+          <img key={ph.src} src={ph.src} alt={i === active ? ph.alt : ''} data-on={i === active} loading="lazy" decoding="async" />
+        ))}
+        <figcaption key={active} className="approach__cap">
+          <span>{String(active + 1).padStart(2, '0')}</span> {approach[active].title}
+        </figcaption>
+      </figure>
+    </div>
   )
 }
 
 export function Approach() {
   const ref = useReveal<HTMLElement>()
   return (
-    <section className="section hs" aria-labelledby="approach-title" ref={ref}>
+    <section className="section hs hs--sky" aria-labelledby="approach-title" ref={ref}>
       <div className="container">
         <Head
           id="approach-title"
@@ -182,11 +198,12 @@ export function Approach() {
   )
 }
 
-/* ---------- 10. Blog ---------- */
+/* ---------- 10. Blog: the newest article large, the next two as a compact list ---------- */
 export function BlogPreview() {
   const ref = useReveal<HTMLElement>()
+  const [lead, ...rest] = posts.slice(0, 3)
   return (
-    <section className="section hs" aria-labelledby="blogp-title" ref={ref}>
+    <section className="section hs hs--sky" aria-labelledby="blogp-title" ref={ref}>
       <div className="container">
         <Head
           id="blogp-title"
@@ -199,9 +216,27 @@ export function BlogPreview() {
           link={{ href: '/blog', label: 'All articles' }}
         />
         <div className="blogp">
-          {posts.slice(0, 3).map((p, i) => (
-            <BlogCard key={p.slug} post={p} className="reveal" style={{ ['--i' as string]: i }} />
-          ))}
+          <BlogCard post={lead} className="blogp__lead reveal" style={{ ['--i' as string]: 1 }} />
+          <ul className="blogp__list">
+            {rest.map((p, i) => (
+              <li key={p.slug} className="reveal" style={{ ['--i' as string]: i + 2 }}>
+                <Link href={`/blog/${p.slug}`} className="blogp__item">
+                  <span className="blogp__thumb" aria-hidden="true">
+                    <img src={`/images/blog/${p.slug}.webp`} alt="" width={1200} height={800} loading="lazy" decoding="async" />
+                  </span>
+                  <span className="blogp__copy">
+                    <span className="blogp__meta">
+                      {p.category} · {p.readMins} min read
+                    </span>
+                    <span className="blogp__title">{p.title}</span>
+                    <span className="blogp__go">
+                      Read article <Arrow size={14} />
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -221,7 +256,7 @@ export function ContactLocation() {
     { label: 'Phone', value: contact.phone, href: contact.phone && `tel:${contact.phone.replace(/\s+/g, '')}`, ph: 'Phone number to be added' },
   ]
   return (
-    <section id="location" className="section hs hs--sky" aria-labelledby="loc-title" ref={ref}>
+    <section id="location" className="section hs" aria-labelledby="loc-title" ref={ref}>
       <div className="container loc">
         <div className="loc__info">
           <Head

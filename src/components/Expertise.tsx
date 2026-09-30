@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { expertise, expertiseAreas, type Glyph } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { Head } from './HomeSections'
@@ -23,8 +24,13 @@ const photo: Record<Glyph, { src: string; alt: string }> = {
   },
 }
 
+/**
+ * Expanding photo panels: one area is open (wide, with its description), the others are
+ * slim photo strips. Hover, focus or tap opens a panel; on phones they stack.
+ */
 export function Expertise() {
   const ref = useReveal<HTMLElement>()
+  const [open, setOpen] = useState(0)
   return (
     <section id="expertise" className="section xp" aria-labelledby="expertise-title" ref={ref}>
       <div className="container">
@@ -39,17 +45,24 @@ export function Expertise() {
           link={{ href: '/expertise', label: `View all ${expertiseAreas.length} areas of expertise` }}
         />
 
-        <ol className="xp__grid">
+        <ol className="xp__panels reveal" style={{ ['--i' as string]: 2 }}>
           {expertise.map((e, i) => (
-            <li key={e.title} className="xp__card reveal" style={{ ['--i' as string]: i }}>
-              <div className="xp__photo">
-                <img src={photo[e.glyph].src} alt={photo[e.glyph].alt} width={800} height={560} loading="lazy" decoding="async" />
-              </div>
-              <div className="xp__body">
+            <li key={e.title} className="xp__panel" data-open={i === open} onMouseEnter={() => setOpen(i)}>
+              <img src={photo[e.glyph].src} alt={photo[e.glyph].alt} width={800} height={560} loading="lazy" decoding="async" />
+              <button
+                type="button"
+                className="xp__head"
+                aria-expanded={i === open}
+                aria-controls={`xp-${i}`}
+                onClick={() => setOpen(i)}
+                onFocus={() => setOpen(i)}
+              >
                 <span className="xp__num">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="xp__title">{e.title}</h3>
-                <p className="xp__text">{e.text}</p>
-              </div>
+                <span className="xp__title">{e.title}</span>
+              </button>
+              <p id={`xp-${i}`} className="xp__text">
+                {e.text}
+              </p>
             </li>
           ))}
         </ol>

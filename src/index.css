@@ -1,20 +1,21 @@
 /* ------------------------------------------------------------------
-   Design tokens — tuned to the MK mark: deep navy letterforms,
-   brushed-silver knee, pale blue-grey ground.
+   Design tokens — tuned to the MK mark: deep navy letterforms (#183048),
+   brushed-silver knee, pale blue-grey ground. Every neutral shares the
+   logo's hue (~210°) so greys never read green next to the blues.
 ------------------------------------------------------------------- */
 :root {
-  --bg: #f6f8f8;
+  --bg: #f5f8fb;
   --surface: #ffffff;
   --ink: #14202b;
   --navy: #193248;          /* MK letterforms */
   --navy-deep: #11222f;
-  --steel: #3a6377;         /* secondary blue */
-  --mist: #dde8eb;          /* logo ground */
-  --mist-2: #ecf2f3;
-  --silver: #a8b1b7;
-  --muted: #5f6d78;
-  --line: #e1e7e9;
-  --line-strong: #cfd8db;
+  --steel: #3b5f7e;         /* secondary blue (logo hue) */
+  --mist: #dde7f0;          /* logo ground */
+  --mist-2: #edf2f7;
+  --silver: #a6afb8;
+  --muted: #5b6a79;
+  --line: #e1e8ef;
+  --line-strong: #cdd8e3;
   --brand: #1d5fa0;         /* bright brand blue (home hero and overview) */
   --sky: #e6f1fa;           /* pale sky ground */
 
@@ -23,8 +24,9 @@
 
   --container: 1440px;
   --gutter: clamp(16px, 4vw, 48px);
-  /* section spacing and headings also shrink on short screens (laptops with browser chrome) */
-  --section: clamp(48px, min(6vw, 10vh), 96px);
+  /* section spacing: kept tight so the page reads as one flow, not a stack of islands;
+     it also shrinks on short screens (laptops with browser chrome) */
+  --section: clamp(28px, min(3.6vw, 6vh), 56px);
   --radius: 4px;
 
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
@@ -191,7 +193,7 @@ button {
 
 /* ---------- Buttons ---------- */
 .btn {
-  --btn-bg: var(--navy);
+  --btn-bg: var(--brand);   /* blue = interactive; navy is kept for information */
   --btn-fg: #fff;
   display: inline-flex;
   align-items: center;
@@ -212,7 +214,7 @@ button {
   transition: background-color 400ms var(--ease), border-color 400ms var(--ease), color 400ms var(--ease);
 }
 .btn:hover {
-  --btn-bg: var(--navy-deep);
+  --btn-bg: #174f86;
 }
 .btn .arrow {
   transition: transform 450ms var(--ease);
@@ -275,14 +277,42 @@ button {
   opacity: 1;
   transform: none;
 }
+/* photos: wipe up into view instead of fading. The clip sits on the image, not on the
+   observed frame, so the frame keeps its full box and the observer still sees it. */
+.reveal.reveal--clip {
+  opacity: 1;
+  transform: none;
+}
+.reveal--clip > img {
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.12);
+  transition: clip-path 1100ms var(--ease), transform 1600ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.reveal--clip.is-in > img {
+  clip-path: inset(0 0 0 0);
+  transform: none;
+}
+.reveal--clip > figcaption {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms var(--ease) 700ms, transform 600ms var(--ease) 700ms;
+}
+.reveal--clip.is-in > figcaption {
+  opacity: 1;
+  transform: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  .reveal,
+  .reveal--clip > img,
+  .reveal--clip > figcaption {
     opacity: 1;
     transform: none;
+    clip-path: none;
     transition: none;
   }
   *,

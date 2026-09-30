@@ -143,11 +143,80 @@ a.copt--main:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* wide screens: bento — the main option tall on the left, the others as slim rows beside it */
 @media (min-width: 1000px) {
-  .copts--3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .copts {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 14px;
   }
-  .copts--4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .copts > li:first-child {
+    grid-row: span 3;
+  }
+  .copts--3 > li:first-child {
+    grid-row: span 2;
+  }
+  .copts > li:first-child .copt {
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+  }
+  /* a large faint copy of the icon, so the main card reads as the obvious choice */
+  .copts > li:first-child .copt__icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .copts > li:first-child .copt::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    bottom: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 36px solid rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+  .copts > li:not(:first-child) .copt {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'icon title label'
+      'icon text action';
+    align-items: center;
+    column-gap: 18px;
+    row-gap: 2px;
+    padding: 18px 22px;
+  }
+  .copts > li:not(:first-child) .copt__top {
+    display: contents;
+  }
+  .copts > li:not(:first-child) .copt__icon {
+    grid-area: icon;
+  }
+  .copts > li:not(:first-child) .copt__label {
+    grid-area: label;
+    justify-self: end;
+  }
+  .copts > li:not(:first-child) .copt__title {
+    grid-area: title;
+    margin: 0;
+  }
+  .copts > li:not(:first-child) .copt__text {
+    grid-area: text;
+    margin: 0;
+  }
+  .copts > li:not(:first-child) .copt__action {
+    grid-area: action;
+    justify-self: end;
+    margin: 0;
+    padding-top: 0;
+  }
+  .copts > li:first-child .copt__title {
+    margin-top: 28px;
+    font-size: 1.6rem;
+  }
+  .copts > li:first-child .copt__text {
+    max-width: 34ch;
+    font-size: 1rem;
   }
 }

@@ -3,9 +3,9 @@ import { useReveal } from '../hooks/useReveal'
 import { PageHeader } from '../components/PageHeader'
 import { Faq } from '../components/Faq'
 import { AppointmentCTA } from '../components/AppointmentCTA'
-import { MoreLink } from '../components/MoreLink'
 import { Link } from '../components/Link'
 import { Arrow } from '../components/ui/Icons'
+import { ServiceGlyph } from '../components/ui/ServiceIcons'
 import { useDocumentTitle } from './useDocumentTitle'
 import '../components/HomeSections.css'
 import './Services.css'
@@ -20,13 +20,16 @@ const photoAlt: Record<string, string> = {
   'joint-pain-consultation': 'A clinician examining a patient’s knee',
 }
 
-/** One treatment: a large photo beside its summary, sides alternating down the page. */
+/** One treatment: a photo (wipes into view) beside its summary; the steps it involves as a numbered flow. */
 function ServiceRow({ s, i }: { s: Service; i: number }) {
   const ref = useReveal<HTMLElement>()
   return (
     <article id={s.slug} className="svr" aria-labelledby={`${s.slug}-title`} ref={ref}>
-      <figure className="svr__photo reveal">
+      <figure className="svr__photo reveal reveal--clip">
         <img src={`/images/service-photos/${s.slug}.webp`} alt={photoAlt[s.slug] ?? ''} width={720} height={540} loading="lazy" decoding="async" />
+        <figcaption className="svr__badge" aria-hidden="true">
+          <ServiceGlyph name={s.icon} size={30} />
+        </figcaption>
       </figure>
       <div className="svr__body">
         <p className="svr__num reveal">
@@ -41,11 +44,14 @@ function ServiceRow({ s, i }: { s: Service; i: number }) {
         <div className="svr__facts reveal" style={{ ['--i' as string]: 3 }}>
           <div>
             <h3>What it may involve</h3>
-            <ul>
-              {s.involves.map((x) => (
-                <li key={x}>{x}</li>
+            <ol className="svr__steps">
+              {s.involves.map((x, n) => (
+                <li key={x} style={{ ['--n' as string]: n }}>
+                  <span>{n + 1}</span>
+                  {x}
+                </li>
               ))}
-            </ul>
+            </ol>
           </div>
           <div>
             <h3>Commonly considered for</h3>
@@ -124,7 +130,11 @@ export function ServicesPage() {
           </>
         }
         lede="General answers to common questions. Your own plan is always discussed in person."
-        aside={<MoreLink href="/note">Ask your own question</MoreLink>}
+        aside={
+          <Link href="/note" className="hs-more">
+            Ask your own question <Arrow size={14} />
+          </Link>
+        }
       />
 
       <AppointmentCTA />

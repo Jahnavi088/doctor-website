@@ -1,4 +1,5 @@
 import { bookHref, bookLinkProps, doctor, expertiseAreas, services, type ExpertiseArea } from '../data/site'
+import { useEffect, useRef, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { PageHeader } from '../components/PageHeader'
 import { AppointmentCTA } from '../components/AppointmentCTA'
@@ -39,14 +40,15 @@ const photoAlt: Record<string, string> = {
   'hip-care': 'A group of older adults out walking with trekking poles',
 }
 
-/** One area: large photo with a frosted label, then summary, focus list and related treatments. */
+/** One area: summary, focus list and related treatments (the photo shows inline on phones only;
+ *  wider screens show it in the sticky column beside the text). */
 function Area({ a, i }: { a: ExpertiseArea; i: number }) {
   const ref = useReveal<HTMLElement>()
   const related = services.filter((s) => a.services.includes(s.slug))
   const num = String(i + 1).padStart(2, '0')
   return (
     <article id={a.slug} className="xpa" aria-labelledby={`${a.slug}-title`} ref={ref}>
-      <figure className="xpa__photo reveal">
+      <figure className="xpa__photo xpa__photo--inline reveal">
         <img src={`/images/expertise-areas/${a.slug}.webp`} alt={photoAlt[a.slug] ?? ''} width={900} height={600} loading="lazy" decoding="async" />
         <figcaption className="xpa__tag">
           <span>{num}</span>
@@ -93,6 +95,52 @@ function Area({ a, i }: { a: ExpertiseArea; i: number }) {
   )
 }
 
+/**
+ * Sticky scroll: the photo column stays in view while the four areas scroll past beside it;
+ * the photo crossfades to whichever area is in the middle of the screen.
+ */
+function AreaScroller() {
+  const [active, setActive] = useState(0)
+  const listRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>('.xpa') ?? [])
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(items.indexOf(e.target as HTMLElement))
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    )
+    items.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+  return (
+    <div className="section xpa-list">
+      <div className="container xpa-scroll">
+        <div className="xpa-stage" aria-hidden="true">
+          <div className="xpa-stage__frame">
+            {expertiseAreas.map((a, i) => (
+              <img key={a.slug} src={`/images/expertise-areas/${a.slug}.webp`} alt="" data-on={i === active} loading="lazy" decoding="async" />
+            ))}
+            <div className="xpa-stage__bar">
+              {expertiseAreas.map((a, i) => (
+                <span key={a.slug} data-on={i === active} data-done={i < active}>
+                  <i />
+                  {a.title}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div ref={listRef}>
+          {expertiseAreas.map((a, i) => (
+            <Area key={a.slug} a={a} i={i} />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function ExpertisePage() {
   useDocumentTitle(`Expertise | ${doctor.name}`)
   const ref = useReveal<HTMLElement>()
@@ -121,15 +169,9 @@ export function ExpertisePage() {
         </a>
       </PageHeader>
 
-      <div className="section xpa-list">
-        <div className="container">
-          {expertiseAreas.map((a, i) => (
-            <Area key={a.slug} a={a} i={i} />
-          ))}
-        </div>
-      </div>
+      <AreaScroller />
 
-      <section id="conditions" className="section hs hs--sky hs--airy" aria-labelledby="conds-title" ref={ref}>
+      <section id="conditions" className="section hs hs--sky" aria-labelledby="conds-title" ref={ref}>
         <div className="container">
           <Head
             id="conds-title"

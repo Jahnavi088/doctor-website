@@ -3,6 +3,16 @@
   padding-block: var(--section);
   background: #fff;
 }
+/* inner pages: straight after a white section, don't double the white gap */
+.home-skin > .faq + .cta,
+.home-skin > .svc-list + .cta,
+.home-skin > .prof-bio + .cta {
+  padding-top: 0;
+}
+/* home: the CTA sits on the sky band between the white FAQ and the white contact section */
+.home .cta {
+  background: linear-gradient(180deg, #f3f8fc 0%, var(--sky) 100%);
+}
 .cta__panel {
   position: relative;
   display: flex;

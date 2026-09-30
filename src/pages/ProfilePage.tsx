@@ -6,17 +6,18 @@ import { Head } from '../components/HomeSections'
 import { Highlighted } from '../components/AboutDoctor'
 import { AppointmentCTA } from '../components/AppointmentCTA'
 import { Arrow } from '../components/ui/Icons'
+import { PictoIcon, type Picto } from '../components/ui/Pictos'
 import { useDocumentTitle } from './useDocumentTitle'
 import '../components/HomeSections.css'
 import './Profile.css'
 
-const credentials = [
-  { k: 'Qualifications', v: doctor.qualifications },
-  { k: 'Specialisation', v: 'Orthopaedic Surgery · Joint Replacement' },
-  { k: 'Experience', v: `${doctor.experience.overall} overall, ${doctor.experience.specialist}` },
-  { k: 'Hospital', v: `${doctor.hospital}, ${doctor.city}` },
-  { k: 'Registration', v: doctor.registration.number },
-  { k: 'Council', v: `${doctor.registration.council}, ${doctor.registration.year}` },
+const credentials: { k: string; v: string; icon: Picto }[] = [
+  { k: 'Qualifications', v: doctor.qualifications, icon: 'cap' },
+  { k: 'Specialisation', v: 'Orthopaedic Surgery · Joint Replacement', icon: 'knee' },
+  { k: 'Experience', v: `${doctor.experience.overall} overall, ${doctor.experience.specialist}`, icon: 'clock' },
+  { k: 'Hospital', v: `${doctor.hospital}, ${doctor.city}`, icon: 'hospital' },
+  { k: 'Registration', v: doctor.registration.number, icon: 'badge' },
+  { k: 'Council', v: `${doctor.registration.council}, ${doctor.registration.year}`, icon: 'shield' },
 ]
 
 function Portrait() {
@@ -47,9 +48,6 @@ function Biography() {
           <h2 id="bio-title" className="hs-title reveal" style={{ ['--i' as string]: 1 }}>
             Precision in <span>orthopaedic care.</span>
           </h2>
-          <a href={bookHref} {...bookLinkProps} className="btn prof-btn reveal" style={{ ['--i' as string]: 2 }}>
-            Book Appointment <Arrow size={15} />
-          </a>
         </div>
 
         <div className="prof-bio__body">
@@ -59,15 +57,19 @@ function Biography() {
             </p>
           ))}
 
-          <dl className="prof-cred reveal" style={{ ['--i' as string]: 4 }}>
-            {credentials.map((c) => (
-              <div key={c.k}>
-                <dt>{c.k}</dt>
-                <dd>{c.v}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
+
+        <dl className="prof-cred">
+          {credentials.map((c, i) => (
+            <div key={c.k} className="reveal" style={{ ['--i' as string]: i }}>
+              <span className="prof-cred__icon" aria-hidden="true">
+                <PictoIcon name={c.icon} size={22} />
+              </span>
+              <dt>{c.k}</dt>
+              <dd>{c.v}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   )

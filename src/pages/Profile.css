@@ -71,48 +71,63 @@
   color: var(--brand);
 }
 
-/* credentials: a clean ruled grid */
+/* credentials: six facts with a pictogram each, in one ruled band under the text */
 .prof-cred {
   display: grid;
-  margin: 34px 0 0;
+  gap: 0 28px;
+  margin: 0;
   border-top: 2px solid var(--navy-deep);
 }
 .prof-cred > div {
   display: grid;
-  gap: 3px;
-  padding: 16px 0;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: center;
+  padding: 14px 0;
   border-bottom: 1px solid #e3edf5;
-  transition: background-color 300ms var(--ease);
+}
+.prof-cred__icon {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--sky);
+  color: var(--brand);
+  transition: background-color 350ms var(--ease), color 350ms var(--ease);
+}
+.prof-cred > div:hover .prof-cred__icon {
+  background: var(--brand);
+  color: #fff;
 }
 .prof-cred dt {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--brand);
 }
 .prof-cred dd {
   margin: 0;
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--navy-deep);
 }
 @media (min-width: 640px) {
   .prof-cred {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 32px;
   }
 }
 @media (min-width: 960px) {
   .prof-bio__grid {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: clamp(48px, 7vw, 110px);
+    column-gap: clamp(48px, 7vw, 110px);
+    row-gap: 28px;
     align-items: start;
   }
-  .prof-bio__head {
-    position: sticky;
-    top: calc(var(--header-h) + 32px);
-  }
   .prof-cred {
+    grid-column: 1 / -1;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
