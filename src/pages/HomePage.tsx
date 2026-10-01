@@ -3,7 +3,7 @@ import { AboutDoctor } from '../components/AboutDoctor'
 import { PatientJourney } from '../components/PatientJourney'
 import { AppointmentCTA } from '../components/AppointmentCTA'
 import { Expertise } from '../components/Expertise'
-import { Approach, BlogPreview, Conditions, ContactLocation, ServicesOverview } from '../components/HomeSections'
+import { Approach, Conditions, ContactLocation, ServicesOverview, StoriesPreview } from '../components/HomeSections'
 import { Faq } from '../components/Faq'
 import { Link } from '../components/Link'
 import { Arrow } from '../components/ui/Icons'
@@ -11,7 +11,7 @@ import { homeFaqs, journeyHome } from '../data/site'
 
 /**
  * Home = overview. Each section is short and links on to the page with the detail:
- * Profile (doctor), Expertise (specialisations), Services (treatments), Blog, Contact.
+ * Profile (doctor), Expertise (specialisations), Services (treatments), Testimonials, Contact.
  */
 export function HomePage() {
   return (
@@ -42,7 +42,7 @@ export function HomePage() {
         lede="The practical side of your care: how to book, what happens at your visit, and the follow-up afterwards."
       />
       {/* 10 */}
-      <BlogPreview />
+      <StoriesPreview />
       {/* FAQ: the most common questions; full lists on Services and Contact */}
       <Faq
         id="faq"

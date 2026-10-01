@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { approach, contact, doctor, services } from '../data/site'
-import { posts } from '../data/blog'
+import { featuredTestimonial, procedureLabel, testimonials } from '../data/media'
 import { useInView, useReducedMotion, useReveal } from '../hooks/useReveal'
-import { BlogCard } from './BlogCard'
+import { QuoteMark, SampleTag, VideoTile, useLightbox, type LightboxItem } from './media/Media'
 import { ConditionGroups } from './ConditionGroups'
 import { Link } from './Link'
 import { Arrow, ArrowUpRight } from './ui/Icons'
@@ -10,7 +10,7 @@ import './HomeSections.css'
 
 /**
  * The home page is an overview: each section here is short and links on to the page
- * that holds the full detail (Profile, Expertise, Services, Blog, Contact).
+ * that holds the full detail (Profile, Expertise, Services, Testimonials, Contact).
  */
 
 export function Head({ id, kicker, title, lede, link }: { id: string; kicker: string; title: ReactNode; lede?: string; link?: { href: string; label: string } }) {
@@ -198,47 +198,70 @@ export function Approach() {
   )
 }
 
-/* ---------- 10. Blog: the newest article large, the next two as a compact list ---------- */
-export function BlogPreview() {
+/* ---------- 10. Patient stories: the featured story large (or its video, once there is one), two more beside it ---------- */
+export function StoriesPreview() {
   const ref = useReveal<HTMLElement>()
-  const [lead, ...rest] = posts.slice(0, 3)
+  const lead = featuredTestimonial
+  const others = testimonials.filter((t) => t !== lead).slice(0, 2)
+  const items: LightboxItem[] = lead?.video ? [{ kind: 'video', src: lead.video.src, poster: lead.video.poster, caption: lead.name, meta: procedureLabel(lead.procedure) }] : []
+  const lb = useLightbox(items)
+  if (!lead) return null
+
   return (
-    <section className="section hs hs--sky" aria-labelledby="blogp-title" ref={ref}>
+    <section className="section hs hs--sky" aria-labelledby="stories-title" ref={ref}>
       <div className="container">
         <Head
-          id="blogp-title"
-          kicker="Patient education"
+          id="stories-title"
+          kicker="Patient stories"
           title={
             <>
-              From the <span>blog.</span>
+              In our patients’ <span>own words.</span>
             </>
           }
-          link={{ href: '/blog', label: 'All articles' }}
+          link={{ href: '/testimonials', label: 'All patient stories' }}
         />
-        <div className="blogp">
-          <BlogCard post={lead} className="blogp__lead reveal" style={{ ['--i' as string]: 1 }} />
-          <ul className="blogp__list">
-            {rest.map((p, i) => (
-              <li key={p.slug} className="reveal" style={{ ['--i' as string]: i + 2 }}>
-                <Link href={`/blog/${p.slug}`} className="blogp__item">
-                  <span className="blogp__thumb" aria-hidden="true">
-                    <img src={`/images/blog/${p.slug}.webp`} alt="" width={1200} height={800} loading="lazy" decoding="async" />
+        <div className="psv">
+          <div className="psv__film reveal" style={{ ['--i' as string]: 1 }}>
+            {lead.video ? (
+              <VideoTile poster={lead.video.poster} duration={lead.video.duration} label={`Play video: ${lead.name}, ${procedureLabel(lead.procedure)}`} onPlay={() => lb.open(0)}>
+                <span className="psv__proc">{procedureLabel(lead.procedure)}</span>
+                <span className="psv__filmquote">“{lead.quote}”</span>
+              </VideoTile>
+            ) : (
+              <figure className="psv__quote psv__quote--lead">
+                <div className="psv__quotetop">
+                  <QuoteMark />
+                  {lead.placeholder && <SampleTag />}
+                </div>
+                <blockquote>{lead.quote}</blockquote>
+                <figcaption>
+                  <span>
+                    <strong>{lead.name}</strong> · {procedureLabel(lead.procedure)}
                   </span>
-                  <span className="blogp__copy">
-                    <span className="blogp__meta">
-                      {p.category} · {p.readMins} min read
-                    </span>
-                    <span className="blogp__title">{p.title}</span>
-                    <span className="blogp__go">
-                      Read article <Arrow size={14} />
-                    </span>
+                </figcaption>
+              </figure>
+            )}
+          </div>
+          <div className="psv__side">
+            {others.map((w, i) => (
+              <figure key={w.quote} className={`psv__quote ${i === 1 ? 'psv__quote--blue' : ''} reveal`} style={{ ['--i' as string]: i + 2 }}>
+                <div className="psv__quotetop">
+                  <QuoteMark />
+                  {w.placeholder && <SampleTag tone={i === 1 ? 'dark' : 'light'} />}
+                </div>
+                <blockquote>{w.quote}</blockquote>
+                <figcaption>
+                  {w.photo && <img className="psv__avatar" src={w.photo.src} alt="" loading="lazy" decoding="async" />}
+                  <span>
+                    <strong>{w.name}</strong> · {procedureLabel(w.procedure)}
                   </span>
-                </Link>
-              </li>
+                </figcaption>
+              </figure>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
+      {lb.node}
     </section>
   )
 }

@@ -16,7 +16,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px 40px;
-  margin-bottom: clamp(20px, min(3vw, 4.5vh), 32px);
+  margin-bottom: clamp(28px, min(3.6vw, 6vh), 48px);
 }
 .hs-kicker {
   display: inline-flex;
@@ -418,117 +418,121 @@
   }
 }
 
-/* ---------- 10. blog: one lead article + a compact list ---------- */
-.blogp {
+/* ---------- 10. patient stories: video testimonial | two written quotes ---------- */
+.psv {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
-.blogp__list {
-  display: grid;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+@media (min-width: 960px) {
+  .psv {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 18px;
+  }
 }
-.blogp__item {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 18px;
-  height: 100%;
-  padding: 10px;
-  border: 1px solid #dbe8f3;
-  border-radius: 18px;
-  background: #fff;
-  color: inherit;
-  text-decoration: none;
-  transition: box-shadow 500ms var(--ease), transform 500ms var(--ease);
+.psv__film .vtile {
+  min-height: clamp(320px, 52vh, 460px);
 }
-.blogp__item:hover {
-  box-shadow: 0 24px 48px -30px rgba(17, 34, 47, 0.35);
-  transform: translateY(-2px);
+.psv__film .vtile__play {
+  width: 72px;
+  height: 72px;
 }
-.blogp__thumb {
-  min-height: 130px;
-  overflow: hidden;
-  border-radius: 12px;
-  background: var(--mist-2);
+.psv__film .vtile__play svg {
+  width: 24px;
+  height: 24px;
 }
-.blogp__thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 900ms var(--ease);
-}
-.blogp__item:hover .blogp__thumb img {
-  transform: scale(1.05);
-}
-.blogp__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px 8px 8px 0;
-}
-.blogp__meta {
+.psv__proc {
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: #a9d2f5;
 }
-.blogp__title {
-  flex: 1;
+.psv__filmquote {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.015em;
-  color: var(--navy-deep);
-  transition: color 300ms var(--ease);
-}
-.blogp__item:hover .blogp__title {
-  color: var(--brand);
-}
-.blogp__go {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.86rem;
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
   font-weight: 600;
-  color: var(--brand);
+  line-height: 1.32;
 }
-.blogp__lead .bcard__link {
-  border-color: #dbe8f3;
-  border-radius: 18px;
+.psv__side {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 14px;
 }
-@media (min-width: 900px) {
-  .blogp {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 20px;
-  }
-  .blogp__list {
-    grid-auto-rows: 1fr;
-  }
-  .blogp__lead .bcard__cover {
-    aspect-ratio: 16 / 7.5;
-  }
-  .blogp__lead .bcard__excerpt {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+.psv__quote {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: clamp(22px, 2.6vw, 32px);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(25, 50, 72, 0.05), 0 20px 44px -34px rgba(17, 34, 47, 0.5);
 }
-@media (max-width: 520px) {
-  .blogp__item {
-    grid-template-columns: 110px minmax(0, 1fr);
-    gap: 12px;
-  }
-  .blogp__thumb {
-    min-height: 96px;
-  }
-  .blogp__title {
-    font-size: 0.98rem;
-  }
+.psv__quotetop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.psv__quotetop .qmark {
+  width: 34px;
+}
+.psv__quote blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.32rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--navy-deep);
+}
+.psv__quote figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.psv__quote figcaption strong {
+  color: var(--navy);
+}
+/* the featured story when it has no video: large type, filling the left column */
+.psv__quote--lead {
+  height: 100%;
+  min-height: clamp(300px, 46vh, 420px);
+}
+.psv__quote--lead .qmark {
+  width: 52px;
+}
+.psv__quote--lead blockquote {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.38;
+}
+
+/* the patient's photo, cropped round, beside their name */
+.psv__avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* the second quote in brand blue, so the pair doesn't read as two identical cards */
+.psv__quote--blue {
+  background: linear-gradient(160deg, #1d5fa0 0%, #174f86 100%);
+  box-shadow: 0 24px 44px -30px rgba(29, 95, 160, 0.9);
+}
+.psv__quote--blue .qmark {
+  color: #9ccbf3;
+}
+.psv__quote--blue blockquote,
+.psv__quote--blue figcaption strong {
+  color: #fff;
+}
+.psv__quote--blue figcaption {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 /* ---------- 12. contact + location ---------- */

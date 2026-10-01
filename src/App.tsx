@@ -1,16 +1,14 @@
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
 import { BackToTop } from './components/BackToTop'
-import { findPost } from './data/blog'
 import { HomePage } from './pages/HomePage'
-import { BlogPage } from './pages/BlogPage'
+import { TestimonialsPage } from './pages/TestimonialsPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ServicesPage } from './pages/ServicesPage'
 import { ExpertisePage } from './pages/ExpertisePage'
 import { ContactPage } from './pages/ContactPage'
 import { NotePage } from './pages/NotePage'
 import { AppointmentPage } from './pages/AppointmentPage'
-import { BlogPostPage } from './pages/BlogPostPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { useInternalLinks, usePath, useScrollOnNavigate } from './router'
 
@@ -22,9 +20,7 @@ function Page({ path }: { path: string }) {
   if (path === '/contact') return <ContactPage />
   if (path === '/note') return <NotePage />
   if (path === '/appointment') return <AppointmentPage />
-  if (path === '/blog') return <BlogPage />
-  const post = path.startsWith('/blog/') ? findPost(path.slice(6)) : undefined
-  if (post) return <BlogPostPage key={post.slug} post={post} />
+  if (path === '/testimonials') return <TestimonialsPage />
   return <NotFoundPage />
 }
 

@@ -84,7 +84,7 @@ export const nav: NavItem[] = [
   { path: '/profile', label: 'Profile' },
   { path: '/expertise', label: 'Expertise' },
   { path: '/services', label: 'Services' },
-  { path: '/blog', label: 'Blog' },
+  { path: '/testimonials', label: 'Testimonials' },
   { path: '/contact', label: 'Contact' },
 ]
 
@@ -334,16 +334,6 @@ export const homeFaqs: Faq[] = [
 ]
 
 /* ------------------------------------------------------------------
-   To be supplied by the clinic. Sections using these stay hidden while empty.
-------------------------------------------------------------------- */
-
-/** Patient testimonials: add only genuine, consented feedback. */
-export const testimonials: { quote: string; name: string; detail?: string }[] = []
-
-/** Photos for the Services page gallery, e.g. { src: '/images/gallery/ot.webp', alt: '…', caption: '…' } */
-export const gallery: { src: string; alt: string; caption?: string }[] = []
-
-/* ------------------------------------------------------------------
    Home page (landing) content. Informational wording only: no outcome claims.
 ------------------------------------------------------------------- */
 
@@ -420,7 +410,7 @@ export const conditionGroups: { id: ConditionGroup; title: string; short: string
     title: 'Injuries & movement problems',
     short: 'Injuries',
     text: 'Damage from a fall, an accident, sport or a sudden twist.',
-    photo: { src: '/images/blog/after-a-fracture.webp', alt: 'A clinician examining a patient’s injured ankle' },
+    photo: { src: '/images/photos/after-a-fracture.webp', alt: 'A clinician examining a patient’s injured ankle' },
   },
 ]
 

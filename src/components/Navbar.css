@@ -54,9 +54,10 @@
 .logo__role {
   margin-top: 1px;
   font-size: 0.66rem;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--steel); /* the logo's own blue-grey, so the tagline reads as part of the mark */
 }
 .logo--light .logo__name {
   color: #fff;
@@ -241,5 +242,18 @@
   }
   .logo__mark {
     transition: height 400ms var(--ease);
+  }
+}
+
+/* seven page links: on narrow laptops the button keeps to one line and shortens to "Book" */
+.nav__cta {
+  white-space: nowrap;
+}
+@media (min-width: 1001px) and (max-width: 1180px) {
+  .nav__cta-long {
+    display: none;
+  }
+  .nav__cta-short {
+    display: inline;
   }
 }

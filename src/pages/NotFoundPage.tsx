@@ -2,7 +2,7 @@ import { Arrow } from '../components/ui/Icons'
 import { Link } from '../components/Link'
 import { useDocumentTitle } from './useDocumentTitle'
 import '../components/PageHeader.css'
-import './Blog.css'
+import './NotFound.css'
 
 export function NotFoundPage() {
   useDocumentTitle('Page not found')

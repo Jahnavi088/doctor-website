@@ -10,10 +10,10 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgba(12, 26, 38, 0.88);
+  background: var(--brand);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 16px 36px -14px rgba(8, 19, 28, 0.6);
+  box-shadow: 0 14px 30px -12px rgba(29, 95, 160, 0.7);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -26,18 +26,18 @@
   transform: none;
 }
 .totop:hover {
-  background: var(--navy);
+  background: #174f86;
 }
 .totop svg {
   fill: none;
   transform: rotate(-90deg);
 }
 .totop__track {
-  stroke: rgba(255, 255, 255, 0.14);
+  stroke: rgba(255, 255, 255, 0.25);
   stroke-width: 2;
 }
 .totop__ring {
-  stroke: #7cc8dc;
+  stroke: #fff;
   stroke-width: 2;
   stroke-linecap: round;
   transition: stroke-dashoffset 120ms linear;
@@ -55,5 +55,5 @@
   transform: rotate(90deg) translateX(-2px);
 }
 .totop:focus-visible {
-  outline-color: #7cc8dc;
+  outline-color: var(--brand);
 }

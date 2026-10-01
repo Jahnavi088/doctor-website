@@ -1,7 +1,7 @@
 import { useEffect, useSyncExternalStore } from 'react'
 
 /**
- * A very small History-API router: home, /profile, /expertise, /services, /contact, /appointment, /note, /blog and /blog/:slug.
+ * A very small History-API router: home, /profile, /expertise, /services, /contact, /appointment, /note and /testimonials.
  * The host must serve index.html for unknown paths (SPA fallback) — Vite dev/preview already do.
  * Internal links use <Link> (src/components/Link.tsx).
  */

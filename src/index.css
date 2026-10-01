@@ -24,9 +24,9 @@
 
   --container: 1440px;
   --gutter: clamp(16px, 4vw, 48px);
-  /* section spacing: kept tight so the page reads as one flow, not a stack of islands;
-     it also shrinks on short screens (laptops with browser chrome) */
-  --section: clamp(28px, min(3.6vw, 6vh), 56px);
+  /* section spacing: enough air above and below each band that sections read as calm,
+     separate chapters; still eases off on short laptop screens (≈72px at 1366×600) */
+  --section: clamp(56px, min(6.4vw, 12vh), 112px);
   --radius: 4px;
 
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);

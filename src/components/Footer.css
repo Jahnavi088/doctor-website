@@ -1,10 +1,14 @@
-/* Deep-navy footer in the home palette: navy ground, white type, brand blue for actions. */
+/* Light footer in the home palette: the hero's pale-sky ground, navy type, brand blue for actions.
+   A shade deeper than the page's sky bands, so it still reads as the end of the page. */
 .footer {
   position: relative;
   padding: clamp(56px, 8vw, 88px) 0 26px;
-  background: var(--navy-deep);
+  background:
+    radial-gradient(ellipse 50% 80% at 12% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, #eaf3fb 0%, #dcebf7 100%);
+  border-top: 1px solid #d3e3f0;
   font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.66);
+  color: var(--muted);
 }
 /* a thin brand-blue line along the top edge */
 .footer::before {
@@ -35,6 +39,7 @@
   flex-shrink: 0;
   border-radius: 16px;
   background: #fff;
+  box-shadow: 0 1px 0 rgba(25, 50, 72, 0.06), 0 10px 24px -14px rgba(29, 95, 160, 0.45);
 }
 .footer__name {
   display: block;
@@ -42,13 +47,13 @@
   font-size: 1.12rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: #fff;
+  color: var(--navy-deep);
 }
 .footer__role {
   display: block;
   margin-top: 2px;
   font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--steel);
 }
 .footer__about {
   margin-top: 18px;
@@ -69,23 +74,24 @@
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 600;
+  box-shadow: 0 12px 26px -14px rgba(29, 95, 160, 0.75);
 }
 .footer__book:hover {
-  --btn-bg: #2a78bf;
+  --btn-bg: #174f86;
 }
 .footer__note {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding-block: 4px;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
   font-weight: 600;
-  color: #fff;
+  color: var(--brand);
   text-decoration: none;
   transition: border-color 300ms var(--ease);
 }
 .footer__note:hover {
-  border-color: #fff;
+  border-color: var(--brand);
 }
 .footer__book .arrow,
 .footer__note .arrow {
@@ -102,7 +108,7 @@
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--navy-deep);
 }
 .footer__col ul {
   display: grid;
@@ -113,7 +119,7 @@
 }
 .footer__col ul a {
   position: relative;
-  color: rgba(255, 255, 255, 0.66);
+  color: var(--muted);
   text-decoration: none;
   transition: color 300ms var(--ease), padding-left 300ms var(--ease);
 }
@@ -124,13 +130,13 @@
   top: 50%;
   width: 0;
   height: 1.5px;
-  background: #6fb1ea;
+  background: var(--brand);
   transition: width 300ms var(--ease);
 }
 .footer__col ul a:hover,
 .footer__col ul a[aria-current='page'] {
   padding-left: 16px;
-  color: #fff;
+  color: var(--brand);
 }
 .footer__col ul a:hover::before,
 .footer__col ul a[aria-current='page']::before {
@@ -139,7 +145,7 @@
 .footer__strong {
   font-family: var(--font-display);
   font-weight: 700;
-  color: #fff;
+  color: var(--navy-deep);
 }
 .footer__addr {
   display: grid;
@@ -155,7 +161,7 @@
 .footer__time span {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #6fb1ea;
+  color: var(--brand);
 }
 .footer__map {
   display: inline-flex;
@@ -163,14 +169,14 @@
   gap: 6px;
   margin-top: 16px;
   padding-block: 4px;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
   font-weight: 600;
-  color: #fff;
+  color: var(--brand);
   text-decoration: none;
   transition: border-color 300ms var(--ease);
 }
 .footer__map:hover {
-  border-color: #fff;
+  border-color: var(--brand);
 }
 
 /* ---------- legal bar ---------- */
@@ -179,9 +185,9 @@
   gap: 10px;
   margin-top: clamp(40px, 6vw, 64px);
   padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid #c9dcec;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: #6b7c8c;
 }
 .footer__disclaimer {
   max-width: 78ch;

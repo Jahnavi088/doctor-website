@@ -6,7 +6,7 @@ import './Footer.css'
 
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.mapQuery)}`
 
-/** Deep-navy footer: identity + booking, pages, treatments, visit details, then a slim legal bar. */
+/** Light sky footer: identity + booking, pages, treatments, visit details, then a slim legal bar. */
 export function Footer({ path }: { path: string }) {
   return (
     <footer className="footer">
