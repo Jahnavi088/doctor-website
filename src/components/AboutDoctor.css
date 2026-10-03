@@ -1,4 +1,4 @@
-/* Home profile section: one white card on the sky ground — framed portrait + tabbed summary. */
+/* Home profile section: one white card on the sky ground — framed portrait + short summary. */
 .about {
   background: linear-gradient(180deg, #f3f8fc 0%, var(--sky) 100%);
   padding-block: var(--section);
@@ -129,91 +129,28 @@
   color: var(--steel);
 }
 
-/* tabs: an underlined row, the active one in brand blue */
-.about__tabs {
-  display: flex;
-  gap: 4px;
-  margin-top: 22px;
-  border-bottom: 1px solid #dfe9f2;
-}
-.about__tab {
-  position: relative;
-  padding: 10px 14px 12px;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 300ms var(--ease);
-}
-.about__tab:first-child {
-  padding-left: 0;
-}
-.about__tab::after {
-  content: '';
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: -1px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--brand);
-  transform: scaleX(0);
-  transition: transform 350ms var(--ease);
-}
-.about__tab:first-child::after {
-  left: 0;
-}
-.about__tab:hover {
-  color: var(--navy-deep);
-}
-.about__tab[aria-selected='true'] {
-  color: var(--brand);
-}
-.about__tab[aria-selected='true']::after {
-  transform: scaleX(1);
-}
-.about__tab:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
-
-/* panels share one height so switching never makes the page jump */
-.about__panels {
-  display: grid;
-  min-height: 176px;
-  margin-top: 20px;
-}
-.about__panel {
-  animation: aboutIn 450ms var(--ease) both;
-}
-@keyframes aboutIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-}
 .about__bio-lead {
   max-width: 54ch;
+  margin-top: 22px;
   font-family: var(--font-display);
   font-size: clamp(1.08rem, 1.45vw, 1.25rem);
   line-height: 1.6;
   color: var(--navy);
 }
+/* key phrases: bold brand colour, no background */
 .about__bio-lead mark {
-  padding: 0 2px;
-  background: linear-gradient(transparent 62%, rgba(29, 95, 160, 0.16) 62%);
+  padding: 0;
+  background: none;
+  font-weight: 700;
   color: var(--brand);
 }
+
 .about__stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 8px;
-  max-width: 480px;
-  margin-top: 10px;
+  gap: 10px;
+  max-width: 540px;
+  margin-top: 20px;
 }
 @media (min-width: 540px) {
   .about__stats {
@@ -221,65 +158,34 @@
   }
 }
 .about__stat {
-  padding: 6px 8px;
-  border-radius: 10px;
-  background: var(--sky);
-  border: 1px solid rgba(29, 95, 160, 0.08);
+  padding: 10px 12px 11px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f6faff 0%, var(--sky) 100%);
+  border: 1px solid rgba(29, 95, 160, 0.1);
+  border-top: 3px solid var(--brand);
+  transition: transform 350ms var(--ease), box-shadow 350ms var(--ease);
+}
+.about__stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px -16px rgba(29, 95, 160, 0.6);
 }
 .about__stat strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 0.96rem;
+  font-size: 1.2rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--brand);
   line-height: 1.1;
 }
 .about__stat span {
   display: block;
-  font-size: 0.68rem;
+  margin-top: 3px;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: var(--navy-deep);
-  margin-top: 1px;
-}
-.about__edu {
-  margin-top: 16px;
-  font-size: 0.93rem;
-  font-weight: 600;
+  line-height: 1.25;
   color: var(--navy-deep);
 }
-.about__list {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.about__list li {
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 14px;
-  padding: 11px 0;
-  border-bottom: 1px solid #e8f0f6;
-  font-size: 0.9rem;
-  line-height: 1.45;
-  color: var(--muted);
-}
-.about__list li:first-child {
-  padding-top: 0;
-}
-.about__list strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: var(--navy-deep);
-}
-.about__year {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--brand);
-}
-
 .about__actions {
   margin-top: 24px;
 }
@@ -324,21 +230,9 @@
   .about__frame {
     aspect-ratio: 1.12 / 1;
   }
-  .about__panels {
-    min-height: 160px;
-  }
 }
 @media (max-width: 480px) {
-  .about__tab {
-    padding-inline: 10px;
-    font-size: 0.86rem;
-  }
   .about__tag > span {
     white-space: normal;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .about__panel {
-    animation: none;
   }
 }

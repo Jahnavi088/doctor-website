@@ -493,3 +493,41 @@
 .note-prompt:hover .note-prompt__go .arrow {
   transform: translateX(4px);
 }
+
+/* plain variant: one centred line under the option cards */
+.note-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 6px 18px;
+  margin: clamp(28px, 4vw, 40px) auto 0;
+  font-size: 0.93rem;
+  text-align: center;
+  color: var(--muted);
+}
+.note-line strong {
+  font-weight: 700;
+  color: var(--navy-deep);
+}
+.note-line__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 3px;
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 300ms var(--ease);
+}
+.note-line__go:hover {
+  border-color: var(--brand);
+}
+.note-line__go .arrow {
+  transition: transform 300ms var(--ease);
+}
+.note-line__go:hover .arrow {
+  transform: translateX(4px);
+}

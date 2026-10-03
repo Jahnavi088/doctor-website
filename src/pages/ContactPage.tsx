@@ -53,8 +53,8 @@ function Ways() {
             </>
           }
         />
-        <ContactOptions keys={['whatsapp', 'phone', 'email']} highlight="whatsapp" />
-        <NotePrompt title="Have a question before you book?" text="Send a short note and the clinic team will get back to you." />
+        <ContactOptions keys={['whatsapp', 'phone']} highlight="whatsapp" />
+        <NotePrompt plain title="Have a question before booking?" text="Send us a message and our team will get back to you." />
       </div>
     </section>
   )

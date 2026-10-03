@@ -39,7 +39,8 @@ export function HomePage() {
             to recovery.
           </>
         }
-        lede="The practical side of your care: how to book, what happens at your visit, and the follow-up afterwards."
+        lede="A simple, guided approach to getting the right orthopaedic care."
+        compact
       />
       {/* 10 */}
       <StoriesPreview />

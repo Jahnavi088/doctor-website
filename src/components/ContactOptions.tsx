@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { contact, doctor, phoneHref, whatsappHref } from '../data/site'
+import { contact, phoneHref, whatsappHref } from '../data/site'
 import { Arrow, ArrowUpRight } from './ui/Icons'
 import './ContactOptions.css'
 
@@ -55,9 +55,9 @@ const options: Record<OptionKey, Option> = {
   },
   whatsapp: {
     icon: 'whatsapp',
-    label: 'Recommended',
-    title: 'Book on WhatsApp',
-    text: `Message ${doctor.shortName}’s appointment desk on +91 85005 64321 to book your preferred consultation slot.`,
+    label: 'Book an appointment',
+    title: 'WhatsApp the appointment desk',
+    text: 'Message the appointment desk to book your consultation.',
     href: whatsappHref,
     action: 'Book on WhatsApp',
     pending: 'WhatsApp number coming soon',
@@ -65,9 +65,9 @@ const options: Record<OptionKey, Option> = {
   },
   phone: {
     icon: 'phone',
-    label: 'Phone',
-    title: 'Call the clinic',
-    text: 'Speak directly with the appointment desk on +91 85005 64321 during consultation hours.',
+    label: 'Need help first?',
+    title: 'Call the appointment desk',
+    text: 'Speak with the appointment desk during consultation hours.',
     href: phoneHref,
     action: contact.phone ? `Call ${contact.phone}` : 'Call now',
     pending: 'Phone number to be added',

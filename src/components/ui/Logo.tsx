@@ -1,5 +1,3 @@
-import { doctor } from '../../data/site'
-
 /**
  * The supplied MK mark (monogram with knee joint), background removed.
  * The artwork itself is unchanged — only cropped away from the raster's name line,
@@ -18,14 +16,11 @@ export function Monogram({ height = 40, className }: { height?: number; classNam
   )
 }
 
+/** Header brand: the monogram alone — the doctor's name is the hero headline instead. */
 export function Logo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
   return (
     <span className={`logo logo--${tone}`}>
-      <Monogram height={44} className="logo__mark" />
-      <span className="logo__text">
-        <span className="logo__name">{doctor.name}</span>
-        <span className="logo__role">Joint Replacement Surgeon</span>
-      </span>
+      <Monogram height={52} className="logo__mark" />
     </span>
   )
 }

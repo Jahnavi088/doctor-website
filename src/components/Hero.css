@@ -8,7 +8,7 @@
   --edge: max(var(--gutter), calc((100vw - var(--container)) / 2));
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   min-height: clamp(520px, calc(100svh - var(--header-h)), 820px);
   overflow: hidden;
   isolation: isolate;
@@ -39,7 +39,7 @@
 .hero__inner {
   position: relative;
   width: 100%;
-  padding: 40px var(--edge);
+  padding: clamp(22px, 4.5vh, 44px) var(--edge) 40px;
 }
 .hero__kicker {
   display: inline-flex;
@@ -64,175 +64,151 @@
   background: #f08a3c;
   box-shadow: 0 0 0 4px rgba(240, 138, 60, 0.18);
 }
-.hero__headline {
-  margin-top: 18px;
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, min(5vw, 10vh), 4.7rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  white-space: nowrap;
-  color: var(--navy-deep);
-  animation: heroRise 900ms var(--ease) 160ms both;
-}
-.hero__headline span {
-  color: var(--brand);
-}
-.hero__who {
-  margin-top: clamp(16px, 2.8vh, 24px);
-  animation: heroFade 700ms var(--ease) 320ms both;
-}
+/* the doctor's name is the headline: word by word it rises out of a mask, then the
+   surname catches a slow, recurring light sweep */
 .hero__name {
+  margin-top: clamp(20px, 3.4vh, 30px);
   font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--navy);
+  font-size: clamp(2.4rem, min(4.6vw, 9vh), 4.4rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--navy-deep);
+}
+.hero__name-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.2em; /* room for the descender of the "g" */
+  margin-bottom: -0.14em;
+}
+.hero__word {
+  display: inline-block;
+  animation: heroLine 900ms var(--ease) both;
+  animation-delay: calc(180ms + var(--w) * 120ms);
+}
+.hero__name-line--accent .hero__word {
+  padding-bottom: 0.14em; /* the clipped-text background must reach the descender */
+  margin-bottom: -0.14em;
+  background: linear-gradient(100deg, var(--brand) 0%, var(--brand) 40%, #8fcaf6 50%, var(--brand) 60%, var(--brand) 100%);
+  background-size: 260% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    heroLine 900ms var(--ease) calc(180ms + var(--w) * 120ms) both,
+    heroShine 5s ease-in-out 1400ms infinite;
 }
 .hero__creds {
-  margin-top: 2px;
-  font-size: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin-top: clamp(14px, 2.4vh, 20px);
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--steel);
+  animation: heroFade 700ms var(--ease) 600ms both;
 }
-.hero__place {
-  font-size: 0.9rem;
-  color: var(--muted);
+.hero__creds-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #9dbdd8;
 }
 .hero__text {
-  margin-top: clamp(10px, 1.8vh, 14px);
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: var(--muted);
-  animation: heroFade 700ms var(--ease) 400ms both;
-}
-
-.hero__text strong {
+  margin-top: 6px;
   font-size: 1.02rem;
   font-weight: 600;
   color: var(--navy);
-}
-.hero__text strong span {
-  white-space: nowrap;
+  animation: heroFade 700ms var(--ease) 680ms both;
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px 26px;
-  margin-top: clamp(20px, 3.4vh, 30px);
-  animation: heroFade 700ms var(--ease) 460ms both;
+  gap: 12px 14px;
+  margin-top: clamp(20px, 3.4vh, 28px);
+  animation: heroFade 700ms var(--ease) 840ms both;
 }
 .hero__btn {
   --btn-bg: var(--brand);
+  position: relative;
+  overflow: hidden;
   min-height: 52px;
   padding-inline: 28px;
   border-radius: 999px;
   font-weight: 600;
   box-shadow: 0 12px 26px -12px rgba(29, 95, 160, 0.75);
-  transition: background-color 350ms var(--ease), box-shadow 350ms var(--ease);
+  transition: background-color 350ms var(--ease), box-shadow 350ms var(--ease), transform 350ms var(--ease);
+}
+/* a soft light sweep across the pill on hover */
+.hero__btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease);
+  pointer-events: none;
 }
 .hero__btn:hover {
   --btn-bg: #174f86;
-  box-shadow: 0 16px 30px -12px rgba(29, 95, 160, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 32px -14px rgba(29, 95, 160, 0.85);
 }
-.hero__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding-block: 6px;
-  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--brand);
-  text-decoration: none;
-  transition: border-color 350ms var(--ease);
-}
-.hero__link .arrow {
-  transition: transform 350ms var(--ease);
-}
-.hero__link:hover {
-  border-color: var(--brand);
-}
-.hero__link:hover .arrow {
-  transform: translateX(4px);
+.hero__btn:hover::after {
+  transform: translateX(120%);
 }
 
+/* four surgical figures in one glassy strip; each counts up as it fades in */
 .hero__stats {
-  margin-top: clamp(8px, 1.6vh, 12px);
-  animation: heroFade 700ms var(--ease) 500ms both;
-}
-
-.hero__facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 600px;
+  margin: clamp(16px, 2.8vh, 24px) 0 0;
   padding: 0;
   list-style: none;
-  font-size: 0.82rem;
-  color: var(--muted);
+  border: 1px solid rgba(29, 95, 160, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 36px -26px rgba(29, 95, 160, 0.55);
+  animation: heroFade 700ms var(--ease) 760ms both;
 }
-.hero__facts li {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-}
-.hero__facts li + li::before {
-  content: '';
-  align-self: center;
-  width: 3.5px;
-  height: 3.5px;
-  margin-right: 12px;
-  border-radius: 50%;
-  background: #9dbdd8;
-}
-.hero__facts strong {
-  font-family: var(--font-display);
-  font-size: 1.12rem;
-  font-weight: 800;
-  color: var(--brand);
-}
-
-.hero__milestones {
+.hero__stats li {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 10px;
-  max-width: 480px;
-  margin-top: 9px;
-  padding: 8px 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(29, 95, 160, 0.12);
-  box-shadow: 0 2px 10px rgba(25, 50, 72, 0.03);
+  gap: 2px;
+  padding: 12px 14px;
+  animation: heroRiseSm 700ms var(--ease) both;
+  animation-delay: calc(860ms + var(--i) * 120ms);
 }
-@media (min-width: 580px) {
-  .hero__milestones {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 6px 10px;
-    padding: 8px 12px;
-  }
+.hero__stats li + li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  background: #d3e3f0;
 }
-.hero__milestone {
-  display: flex;
-  flex-direction: column;
-}
-.hero__milestone strong {
+.hero__stats strong {
   font-family: var(--font-display);
-  font-size: 1.02rem;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   font-weight: 800;
-  color: var(--brand);
+  letter-spacing: -0.02em;
   line-height: 1.1;
+  color: var(--brand);
+  font-variant-numeric: tabular-nums;
 }
-.hero__milestone span {
-  margin-top: 1px;
-  font-size: 0.68rem;
+.hero__stats li > span {
+  font-size: 0.74rem;
   font-weight: 600;
+  line-height: 1.25;
   color: var(--navy);
-  line-height: 1.2;
 }
 
 /* ---------- motion ---------- */
@@ -241,10 +217,24 @@
     opacity: 0;
   }
 }
-@keyframes heroRise {
+@keyframes heroLine {
+  from {
+    transform: translateY(105%);
+  }
+}
+@keyframes heroShine {
+  0% {
+    background-position: 100% 0;
+  }
+  28%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+@keyframes heroRiseSm {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(8px);
   }
 }
 @keyframes heroArt {
@@ -278,28 +268,27 @@
   }
 }
 @media (max-width: 560px) {
+  .hero__creds-sep {
+    display: none;
+  }
+  .hero__creds {
+    display: grid;
+    gap: 2px;
+  }
   .hero__kicker {
     font-size: 0.64rem;
     letter-spacing: 0.06em;
   }
-  .hero__headline {
-    white-space: normal;
-  }
   .hero__actions .hero__btn {
     flex: 1 1 100%;
   }
-  .hero__facts {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    justify-content: start;
-    gap: 0 18px;
+  .hero__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .hero__facts li {
-    flex-direction: column;
-    gap: 0;
-    line-height: 1.3;
-  }
-  .hero__facts li + li::before {
+  .hero__stats li:nth-child(3)::before {
     display: none;
+  }
+  .hero__stats li:nth-child(n + 3) {
+    border-top: 1px solid #e1ecf5;
   }
 }

@@ -72,7 +72,6 @@ export const contact = {
   email: null as string | null,
   /** WhatsApp number for appointments */
   whatsapp: whatsappNumber,
-  hospitalUrl: 'https://srikarahospitals.com/',
   /** Consultation hours */
   timings: 'Monday – Saturday, 9:00 AM – 5:00 PM' as string | null,
   // Srikara Hospitals, Vijayawada — matches Google Maps listing (S Number 90/1A,2A,
@@ -145,7 +144,7 @@ export const profileIntro = [
 
 /** Home page introduction: short on purpose; the full biography lives on /profile. */
 export const homeIntro =
-  'He specialises in [joint replacement], [arthroscopy] and [trauma care] with over [16,500+ surgeries] (including [3,000+ knee replacements] and [1,500+ hip replacements]), offering a personalised plan for every patient.'
+  'An orthopaedic surgeon at Srikara Hospitals, Vijayawada, specialising in [joint replacement], [arthroscopy] and [complex trauma care]. With over [16,500 surgeries] performed, he combines surgical precision with a compassionate, personalised approach to every patient.'
 
 export type Glyph = 'replacement' | 'arthroscopy' | 'robotic' | 'trauma'
 
@@ -482,9 +481,14 @@ export const approach = [
 ]
 
 /** Home › 9. Patient journey — the practical steps, from booking to recovery. */
-export const journeyHome: { title: string; text: string; picto: Picto }[] = [
-  { title: 'Book', text: 'Book easily through WhatsApp or by calling +91 85005 64321, choosing a time that suits you.', picto: 'calendar' },
-  { title: 'Consultation', text: 'Meet Dr. Manoj at Srikara Hospitals and talk through your concerns.', picto: 'consult' },
-  { title: 'Treatment', text: 'Begin the treatment agreed at your consultation.', picto: 'treatment' },
-  { title: 'Recovery', text: 'Follow-up visits and guidance until you are moving well again.', picto: 'recovery' },
+export const journeyHome: { title: string; text: string; picto: Picto; link?: { href: string; label: string } }[] = [
+  {
+    title: 'Book',
+    text: 'Book your consultation through WhatsApp or by calling the appointment desk.',
+    picto: 'calendar',
+    link: { href: '/appointment', label: 'Book Consultation' },
+  },
+  { title: 'Consultation', text: 'Meet Dr. Manoj at Srikara Hospitals and discuss your concerns and treatment options.', picto: 'consult' },
+  { title: 'Treatment', text: 'Begin the recommended treatment based on your condition and consultation.', picto: 'cross' },
+  { title: 'Recovery', text: 'Receive follow-up care and guidance throughout your recovery.', picto: 'recovery' },
 ]

@@ -1,5 +1,5 @@
-import { Fragment, useState } from 'react'
-import { contact, doctor, education, homeIntro, surgicalMilestones } from '../data/site'
+import { Fragment } from 'react'
+import { doctor, homeIntro, surgicalMilestones } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { Monogram } from './ui/Logo'
 import { Link } from './Link'
@@ -17,17 +17,9 @@ export function Highlighted({ text }: { text: string }) {
   )
 }
 
-type Tab = 'about' | 'training' | 'practice'
-const tabs: { id: Tab; label: string }[] = [
-  { id: 'about', label: 'About' },
-  { id: 'training', label: 'Qualifications' },
-  { id: 'practice', label: 'Practice' },
-]
-
-/** Home page introduction to the doctor in one card: photo + tabbed summary, leading on to the full profile page. */
+/** Home page introduction to the doctor in one card: photo + short summary, leading on to the full profile page. */
 export function AboutDoctor() {
   const ref = useReveal<HTMLElement>()
-  const [tab, setTab] = useState<Tab>('about')
   return (
     <section id="about" className="section about" aria-labelledby="about-title" ref={ref}>
       <div className="container">
@@ -62,103 +54,16 @@ export function AboutDoctor() {
             </h2>
             <p className="about__role">{doctor.role} · Joint Replacement &amp; Arthroscopy</p>
 
-            <div className="about__tabs" role="tablist" aria-label="About the doctor">
-              {tabs.map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  role="tab"
-                  id={`about-tab-${t.id}`}
-                  aria-selected={tab === t.id}
-                  aria-controls={`about-panel-${t.id}`}
-                  className="about__tab"
-                  onClick={() => setTab(t.id)}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="about__panels">
-              <div
-                id="about-panel-about"
-                role="tabpanel"
-                aria-labelledby="about-tab-about"
-                className="about__panel"
-                hidden={tab !== 'about'}
-              >
-                <p className="about__bio-lead">
-                  <Highlighted text={homeIntro} />
-                </p>
-                <div className="about__stats">
-                  {surgicalMilestones.map((m) => (
-                    <div key={m.label} className="about__stat">
-                      <strong>{m.count}</strong>
-                      <span>{m.short}</span>
-                    </div>
-                  ))}
+            <p className="about__bio-lead">
+              <Highlighted text={homeIntro} />
+            </p>
+            <div className="about__stats">
+              {surgicalMilestones.map((m) => (
+                <div key={m.label} className="about__stat">
+                  <strong>{m.count}</strong>
+                  <span>{m.short}</span>
                 </div>
-                <p className="about__edu">MBBS · MS (Orthopaedics) · Fellowship in Arthroplasty</p>
-              </div>
-              <div
-                id="about-panel-training"
-                role="tabpanel"
-                aria-labelledby="about-tab-training"
-                className="about__panel"
-                hidden={tab !== 'training'}
-              >
-                <ol className="about__list">
-                  {education.map((e) => (
-                    <li key={e.title}>
-                      <span className="about__year">{e.year}</span>
-                      <span>
-                        <strong>{e.title}</strong>
-                        {e.place}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              <div
-                id="about-panel-practice"
-                role="tabpanel"
-                aria-labelledby="about-tab-practice"
-                className="about__panel"
-                hidden={tab !== 'practice'}
-              >
-                <ol className="about__list">
-                  <li>
-                    <span className="about__year">Volume</span>
-                    <span>
-                      <strong>{doctor.surgeries.total} Surgeries</strong>
-                      3,000+ Knee · 1,500+ Hip · 4,000+ Scope · 8k Trauma
-                    </span>
-                  </li>
-                  <li>
-                    <span className="about__year">Where</span>
-                    <span>
-                      <strong>{doctor.hospital}</strong>
-                      {doctor.city}, Andhra Pradesh
-                    </span>
-                  </li>
-                  {contact.timings && (
-                    <li>
-                      <span className="about__year">When</span>
-                      <span>
-                        <strong>Consultations</strong>
-                        {contact.timings}
-                      </span>
-                    </li>
-                  )}
-                  <li>
-                    <span className="about__year">Focus</span>
-                    <span>
-                      <strong>Knee &amp; hip</strong>
-                      Joint replacement, arthroscopy and trauma care
-                    </span>
-                  </li>
-                </ol>
-              </div>
+              ))}
             </div>
 
             <div className="about__actions">

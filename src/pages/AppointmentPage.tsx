@@ -133,7 +133,7 @@ export function AppointmentPage() {
             }
           />
           <ContactOptions keys={['whatsapp', 'phone']} highlight="whatsapp" />
-          <NotePrompt title="Not sure which appointment you need?" text="Send a short note and the clinic team will help." />
+          <NotePrompt plain title="Not sure which appointment you need?" text="Send us a message and our team will help." />
         </div>
       </section>
 

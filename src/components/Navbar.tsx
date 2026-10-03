@@ -59,8 +59,8 @@ export function Navbar({ path }: { path: string }) {
 
         <div className="nav__actions">
           <a href={bookHref} {...bookLinkProps} className="btn btn--sm nav__cta">
-            <span className="nav__cta-long">Book Appointment</span>
-            <span className="nav__cta-short" aria-hidden="true">Book</span>
+            <span className="nav__cta-long">Book Consultation</span>
+            <span className="nav__cta-short" aria-hidden="true">Consult</span>
             <Arrow size={14} />
           </a>
           <button
@@ -92,7 +92,7 @@ export function Navbar({ path }: { path: string }) {
           </ol>
         </nav>
         <a href={bookHref} {...bookLinkProps} className="btn nav__sheet-cta" onClick={() => setOpen(false)}>
-          Book Appointment <Arrow />
+          Book Consultation <Arrow />
         </a>
       </div>
     </header>

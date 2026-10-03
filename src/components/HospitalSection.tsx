@@ -48,10 +48,6 @@ export function HospitalSection() {
               Get directions <ArrowUpRight />
               <span className="visually-hidden"> (opens in a new tab)</span>
             </a>
-            <a className="hospital__link" href={contact.hospitalUrl} target="_blank" rel="noopener noreferrer">
-              Hospital website <ArrowUpRight />
-              <span className="visually-hidden"> (opens in a new tab)</span>
-            </a>
           </div>
         </div>
 

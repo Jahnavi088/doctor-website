@@ -17,7 +17,6 @@ const credentials: { k: string; v: string; icon: Picto }[] = [
   { k: 'Surgical Volume', v: `${doctor.surgeries.total} Surgeries (3k Knee · 1.5k Hip · 4k Scope · 8k Trauma)`, icon: 'treatment' },
   { k: 'Experience', v: `${doctor.experience.overall} overall, ${doctor.experience.specialist}`, icon: 'clock' },
   { k: 'Hospital', v: `${doctor.hospital}, ${doctor.city}`, icon: 'hospital' },
-  { k: 'Registration', v: doctor.registration.number, icon: 'badge' },
 ]
 
 function Portrait() {

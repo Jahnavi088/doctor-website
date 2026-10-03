@@ -10,14 +10,6 @@
   font-size: 0.92rem;
   color: var(--muted);
 }
-/* a thin brand-blue line along the top edge */
-.footer::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  height: 3px;
-  background: linear-gradient(90deg, var(--brand), #3f8fd6 60%, var(--brand));
-}
 .footer__top {
   display: grid;
   gap: 40px;

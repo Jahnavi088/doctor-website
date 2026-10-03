@@ -33,37 +33,15 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
 }
 .logo__mark {
-  height: 44px;
+  height: 52px;
   width: auto;
   margin-top: -2px; /* optical: the knee finial sits above the letters */
+  transition: transform 400ms var(--ease);
 }
-.logo__text {
-  display: grid;
-  line-height: 1.2;
-}
-.logo__name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: -0.01em;
-  color: var(--navy);
-}
-.logo__role {
-  margin-top: 1px;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--steel); /* the logo's own blue-grey, so the tagline reads as part of the mark */
-}
-.logo--light .logo__name {
-  color: #fff;
-}
-.logo--light .logo__role {
-  color: rgba(255, 255, 255, 0.6);
+.nav__brand:hover .logo__mark {
+  transform: scale(1.04);
 }
 
 /* links */
@@ -216,19 +194,14 @@
   }
 }
 @media (max-width: 560px) {
-  .logo__text {
-    display: none;
+  .logo__mark {
+    height: 44px;
   }
   .nav__cta-long {
     display: none;
   }
   .nav__cta-short {
     display: inline;
-  }
-}
-@media (min-width: 561px) and (max-width: 1000px) {
-  .logo__role {
-    display: block;
   }
 }
 
@@ -238,14 +211,14 @@
     height: 60px;
   }
   .nav--scrolled .logo__mark {
-    height: 38px;
+    height: 44px;
   }
   .logo__mark {
-    transition: height 400ms var(--ease);
+    transition: height 400ms var(--ease), transform 400ms var(--ease);
   }
 }
 
-/* seven page links: on narrow laptops the button keeps to one line and shortens to "Book" */
+/* seven page links: on narrow laptops the button keeps to one line and shortens to "Consult" */
 .nav__cta {
   white-space: nowrap;
 }

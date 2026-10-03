@@ -73,11 +73,41 @@
   color: #fff;
 }
 .journey__num {
-  font-size: 0.72rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--brand);
+}
+.journey__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-block: 3px;
+  border-bottom: 1.5px solid rgba(29, 95, 160, 0.35);
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--steel);
+  color: var(--brand);
+  text-decoration: none;
+  transition: border-color 300ms var(--ease);
+}
+.journey__link:hover {
+  border-color: var(--brand);
+}
+.journey__link .arrow {
+  transition: transform 300ms var(--ease);
+}
+.journey__link:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* compact: less air above the heading, so the section stays tied to the one before it */
+.journey--compact {
+  padding-top: calc(var(--section) * 0.6);
+}
+.journey--compact .section-head {
+  margin-bottom: clamp(28px, min(3.6vw, 6vh), 52px);
 }
 .journey__title {
   margin-top: 4px;
@@ -133,4 +163,13 @@
   .journey__track::after {
     transform: none !important;
   }
+}
+/* compact: the supporting line sits directly under the heading */
+.journey--compact .section-head--split {
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 12px;
+}
+.journey--compact .section-head--split .lede {
+  justify-self: start;
 }

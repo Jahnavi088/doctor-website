@@ -22,6 +22,7 @@ export type Picto =
   | 'hospital'
   | 'badge'
   | 'shield'
+  | 'cross'
 
 const paths: Record<Picto, ReactNode> = {
   // thigh bone meeting shin bone
@@ -144,6 +145,8 @@ const paths: Record<Picto, ReactNode> = {
       <path d="m9 12 2 2 4-4" />
     </>
   ),
+  // medical cross: treatment
+  cross: <path d="M9.5 3.5h5v6h6v5h-6v6h-5v-6h-6v-5h6z" />,
 }
 
 export function PictoIcon({ name, size = 24 }: { name: Picto; size?: number }) {

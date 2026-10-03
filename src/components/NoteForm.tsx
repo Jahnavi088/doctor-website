@@ -231,10 +231,24 @@ export function NoteForm({ intro }: { intro?: ReactNode }) {
 export function NotePrompt({
   title = 'Is there a joint question you would like explained?',
   text = 'Suggest a topic for a future article.',
+  plain = false,
 }: {
   title?: string
   text?: string
+  /** a quiet line with a text link, for use under a row of option cards */
+  plain?: boolean
 }) {
+  if (plain)
+    return (
+      <p className="note-line">
+        <span>
+          <strong>{title}</strong> {text}
+        </span>
+        <Link href="/note" className="note-line__go">
+          Ask a Question <Arrow size={14} />
+        </Link>
+      </p>
+    )
   return (
     <Link href="/note" className="note-prompt">
       <span className="note-prompt__icon" aria-hidden="true">
@@ -245,7 +259,7 @@ export function NotePrompt({
         <span className="note-prompt__text">{text}</span>
       </span>
       <span className="note-prompt__go">
-        Leave us a note <Arrow size={14} />
+        Ask a Question <Arrow size={14} />
       </span>
     </Link>
   )
