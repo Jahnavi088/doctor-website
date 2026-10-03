@@ -82,6 +82,7 @@ export function ServicesOverview() {
               <Link href={`/services#${s.slug}`} className="bento__link">
                 <img src={`/images/service-photos/${s.slug}.webp`} alt="" width={720} height={540} loading="lazy" decoding="async" />
                 <span className="bento__body">
+                  {s.stat && <span className="bento__stat">{s.stat}</span>}
                   <span className="bento__title">{s.title}</span>
                   <span className="bento__text">{s.short}</span>
                 </span>
@@ -101,10 +102,10 @@ export function ServicesOverview() {
 const STEP_MS = 5000
 
 const approachPhotos = [
-  { src: '/images/expertise-areas/knee-care.webp', alt: 'A knee fitted with sensor pads during an examination' },
+  { src: '/images/expertise-areas/knee-care.webp', alt: 'A nurse examining a patient on a hospital bed in Pune' },
   { src: '/images/expertise-areas/joint-replacement.webp', alt: 'A knee X-ray used to plan treatment' },
-  { src: '/images/expertise-areas/arthroscopy.webp', alt: 'An orthopaedic surgical team in theatre' },
-  { src: '/images/experience-walking.webp', alt: 'A group of older adults walking outdoors with walking poles' },
+  { src: '/images/photos/hospital-ward.webp', alt: 'A clean, modern hospital ward in Nagpur' },
+  { src: '/images/recovery-walking.webp', alt: 'Doctor assisting a patient with a walker during post-surgery knee rehabilitation and recovery' },
 ]
 
 /**

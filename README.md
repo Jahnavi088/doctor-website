@@ -28,14 +28,14 @@ npm run preview   # serve the build
 
 Nothing below has been invented. Values live in `src/data/site.ts`:
 
-- `contact.phone`, `contact.email` — still placeholders ("to be added").
-- `contact.bookingUrl` — currently his Practo profile, so every "Book" button opens Practo in a new tab. Swap it for a hospital booking link or phone if preferred.
-- `contact.timings` — "Mon – Sat, 9 AM – 5 PM" as listed on Practo; confirm with the hospital.
-- Address now reads "2A, R.S.No. 90/1A, Donka Road, Kanuru, Penamaluru Mandal, Vijayawada, Andhra Pradesh 520007" (matches Google Maps, Practo and other directories). Srikara's own website lists "MG Road, 520001" for Vijayawada, which looks like template data — worth a quick check with the hospital.
+- `contact.phone`, `contact.whatsapp` — connected to appointment desk (+91 85005 64321).
+- `contact.bookingUrl` — WhatsApp booking link with prefilled consultation request message.
+- `contact.timings` — "Mon – Sat, 9 AM – 5 PM"; confirm with the hospital.
+- Address reads "2A, R.S.No. 90/1A, Donka Road, Kanuru, Penamaluru Mandal, Vijayawada, Andhra Pradesh 520007" (matches Google Maps and hospital directories).
 - In `index.html`, make `og:image` absolute once the domain is known, and add `og:url`.
 
 - **Expertise areas and conditions need Dr. Manoj's approval.** `expertiseAreas` and `conditions` in `src/data/site.ts` are general descriptions derived from his specialties.
-- **Services list needs Dr. Manoj's approval.** Practo lists no services, so the six in `services` (`src/data/site.ts`) are derived from his four specialties. Edit or remove entries freely.
+- **Services list needs Dr. Manoj's approval.** The six in `services` (`src/data/site.ts`) are derived from his four specialties. Edit or remove entries freely.
 - **"Leave us a note" form is not connected.** Set `contact.noteEndpoint` (Formspree, or Web3Forms plus `noteAccessKey`) or `contact.email`. Until then the form says plainly that online notes are not connected.
 - **Testimonials:** every entry in `src/data/media.ts` is a clearly labelled placeholder — no real or invented patient reviews are on the site. To publish one, follow the steps at the top of that file: the patient's own words, a name or privacy-safe label they agreed to, the treatment, optional month/year, `verified: true` only if the clinic has confirmed it, optional consented photo/video, then delete `placeholder: true`. Mark one `featured: true` for the large story.
 - **Hosting:** pages use real URLs (`/profile`, `/testimonials`, …), so the host must serve `index.html` for unknown paths (SPA fallback — e.g. a Netlify `_redirects` rule `/* /index.html 200`, or Vercel rewrites).
@@ -43,7 +43,7 @@ Nothing below has been invented. Values live in `src/data/site.ts`:
 ## Content sources
 
 - **Client-provided (†):** biography, 4,000+ surgeries, qualifications (MBBS, MS (Ortho), FIJR), logo, photograph.
-- **Practo profile (\*), checked 24 Sep 2026:** 10 years overall / 5 as specialist; MBBS 2016 and MS Orthopaedics 2021 (Dr. NTR University of Health Sciences); Fellowship in Arthroplasty 2023 (Srikara Hospital); registration APMC/FMR/96473 (Andhra Pradesh Medical Council, 2016); timings; online booking.
+- **Doctor profile (\*):** 10 years overall / 5 as specialist; MBBS 2016 and MS Orthopaedics 2021 (Dr. NTR University of Health Sciences); Fellowship in Arthroplasty 2023 (Srikara Hospital); registration APMC/FMR/96473 (Andhra Pradesh Medical Council, 2016); timings; WhatsApp appointment booking.
 - Deliberately not shown: consultation fee, the hospital's 4.5 rating, and the "100%" feedback figure (it is based on a single patient story).
 
 ## Assets
@@ -51,29 +51,29 @@ Nothing below has been invented. Values live in `src/data/site.ts`:
 - The MK logo artwork is unchanged; its background was removed and the monogram cropped from the name line (the name is set in live type). A vector/high-resolution logo from the designer would improve sharpness.
 - Only one portrait was supplied, so the hero and About sections share it (About hides it on stacked layouts). A second photo would help.
 - Home hero image (`public/images/hero-knee*.webp`): "Knees, Osteoarthritis, Body" by TungArt7 on Pixabay (AI-generated illustration), https://pixabay.com/illustrations/knees-osteoarthritis-body-x-ray-8941890/ — Pixabay Content License (free commercial use, no attribution required). Downloaded 28 Sep 2026 at 1280px; a larger download needs a Pixabay login.
+- 1 Oct 2026: every photo showing people was replaced with one taken in India (location stated by the source); slots with no India-sourced option use people-free photos.
 - Home "Areas of expertise" photos (`public/images/expertise-photos/*.webp`), all Pixabay Content License, downloaded 29 Sep 2026 at 1280px and resized to 800px:
-  - Joint Replacement: "Operation, Operating Room, Surgery" by sasint, https://pixabay.com/photos/operation-operating-room-surgery-1807543/
-  - Arthroscopy: "Operation Theater, Laparoscopy" by provakar, https://pixabay.com/photos/operation-theater-laparoscopy-6142851/
+  - Joint Replacement: eye-surgery theatre in New Delhi by Delhi Eye Centre, https://www.pexels.com/photo/professional-eye-surgery-in-new-delhi-hospital-31000573/ (Pexels License)
+  - Arthroscopy: operating theatre in Mumbai, https://unsplash.com/photos/YSbvqo9YLHA (Unsplash License)
   - Robotic Joint Replacement: "Hand, Lamp, Operating Room" by fernandozhiminaicela, https://pixabay.com/photos/hand-lamp-operating-room-surgery-4566535/
   - Trauma Care: "Roentgen, X-ray Image, Clinic" by spinheike, https://pixabay.com/photos/roentgen-x-ray-image-clinic-924237/
 - Service photos (`public/images/service-photos/<slug>.webp`, used on the home "Treatments and services" row and on /services), all Pixabay Content License, downloaded 29 Sep 2026 and resized to 720px:
   - Knee Replacement: knee X-ray with implants by Andersonvr, https://pixabay.com/photos/doctor-orthopedics-x-ray-knee-1740044/
-  - Hip Replacement: senior couple walking by pasja1000, https://pixabay.com/photos/senior-elderly-people-couple-3336451/
-  - Robotic Joint Replacement: surgical team by sasint, https://pixabay.com/photos/surgery-hospital-doctor-care-1822458/
-  - Arthroscopy: laparoscopic theatre by hysw001, https://pixabay.com/photos/surgery-nephrectomy-laparoscopy-2058088/
+  - Hip Replacement: total hip arthroplasty anatomical model with prosthetic implant and pelvic radiograph
+  - Robotic Joint Replacement: gloved hands with instruments (same source as photos/robotic-joint-replacement below), https://pixabay.com/photos/surgical-instruments-hands-81489/
+  - Arthroscopy: empty operating room with scope equipment (no people) by Mehmet Turgut Kirkgoz, https://www.pexels.com/photo/equipment-in-operation-room-12104186/ (Pexels License)
   - Fracture & Trauma Care: ankle fracture X-ray with plate by Taokinesis, https://pixabay.com/photos/ankle-fracture-foot-medical-2253057/
-  - Joint Pain & Arthritis Care: knee examination by kumarsu6745_, https://pixabay.com/photos/knee-orthopedics-therapy-pain-10309879/
+  - Joint Pain & Arthritis Care: clinical examination of knee joint during an orthopaedic consultation
 - Photos in `public/images/photos/` (formerly the blog covers; now used in Conditions), all Pixabay Content License, downloaded 29 Sep 2026 and resized to 1200px:
-  - Preparing for knee or hip replacement: https://pixabay.com/photos/disease-chronic-pain-treatment-8198852/
-  - Knee arthroscopy explained: https://pixabay.com/photos/surgery-medical-medicine-doctor-79688/
   - Robotic-arm assisted joint replacement: https://pixabay.com/photos/surgical-instruments-hands-81489/
-  - After a fracture: https://pixabay.com/photos/ankle-calf-muscle-achilles-tendon-3135710/
-- Home Experience lead-card photo (`public/images/experience-walking.webp`): older adults walking with trekking poles, https://pixabay.com/photos/elderly-forest-trekking-women-6806996/ — Pixabay Content License. Downloaded 29 Sep 2026 at 1280px.
+  - After a fracture: orthopaedic boot and crutches (no people) by Oliver King, https://www.pexels.com/photo/human-with-broken-leg-with-orthopedic-crutches-4067795/ (Pexels License)
+  - Hospital ward (`hospital-ward.webp`, home Approach "Treatment"): hospital ward in Nagpur by Irshad Pathan, https://unsplash.com/photos/cTH0dAHdqtQ (Unsplash License)
+- Home Experience lead-card and Approach "Recovery" photo (`public/images/recovery-walking.webp` and `public/images/experience-walking.webp`): doctor assisting an older patient with a walker during post-surgery knee rehabilitation and mobility recovery.
 - Expertise page area photos (`public/images/expertise-areas/<slug>.webp`), all Pixabay Content License, downloaded 29 Sep 2026 and resized to 900px:
   - Joint Replacement: knee X-ray with arthritis, https://pixabay.com/photos/knee-x-rays-arthritis-skeleton-5314881/
-  - Arthroscopy: operation theatre, https://pixabay.com/photos/operation-theater-laparoscopy-6142851/
-  - Knee Care: knee physiotherapy, https://pixabay.com/photos/physiotherapy-treatment-legs-knees-5624921/
-  - Hip Care: older adults walking, https://pixabay.com/photos/elderly-forest-trekking-women-6806996/
+  - Arthroscopy: operating theatre in Mumbai, https://unsplash.com/photos/YSbvqo9YLHA (Unsplash License)
+  - Knee Care: nurse examining a patient in a Pune hospital, https://pixabay.com/photos/hospital-nurse-checkup-patient-6805786/ (Pixabay Content License)
+  - Hip Care: older man walking in Davangere, Karnataka by Manoj Kulkarni, https://unsplash.com/photos/MXjQtiq79fo (Unsplash License)
 - The 3D knee is a stylised model, not a medical scan. To regenerate: `pip install numpy scipy scikit-image && python tools/build_knee.py`.
 - Expertise images are pre-rendered from 3D (implant, arthroscope, robotic cut planes, fracture plate) so the cards stay light. To re-render:
   `python tools/build_knee.py --extras`, start `npm run dev -- --port 5180`, then `npm i --no-save playwright-core && node tools/sprites/render-sprites.mjs http://localhost:5180` (uses Microsoft Edge).

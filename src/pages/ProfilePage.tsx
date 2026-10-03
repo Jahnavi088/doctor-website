@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { biography, bookHref, bookLinkProps, contact, doctor, education } from '../data/site'
+import { biography, bookHref, bookLinkProps, contact, doctor, education, surgicalMilestones } from '../data/site'
 import { useReducedMotion, useReveal } from '../hooks/useReveal'
 import { PageHeader } from '../components/PageHeader'
 import { Head } from '../components/HomeSections'
@@ -14,10 +14,10 @@ import './Profile.css'
 const credentials: { k: string; v: string; icon: Picto }[] = [
   { k: 'Qualifications', v: doctor.qualifications, icon: 'cap' },
   { k: 'Specialisation', v: 'Orthopaedic Surgery · Joint Replacement', icon: 'knee' },
+  { k: 'Surgical Volume', v: `${doctor.surgeries.total} Surgeries (3k Knee · 1.5k Hip · 4k Scope · 8k Trauma)`, icon: 'treatment' },
   { k: 'Experience', v: `${doctor.experience.overall} overall, ${doctor.experience.specialist}`, icon: 'clock' },
   { k: 'Hospital', v: `${doctor.hospital}, ${doctor.city}`, icon: 'hospital' },
   { k: 'Registration', v: doctor.registration.number, icon: 'badge' },
-  { k: 'Council', v: `${doctor.registration.council}, ${doctor.registration.year}`, icon: 'shield' },
 ]
 
 function Portrait() {
@@ -57,6 +57,18 @@ function Biography() {
             </p>
           ))}
 
+          <div className="prof-milestones reveal" style={{ ['--i' as string]: biography.length + 1 }}>
+            <h3 className="prof-milestones__title">Documented Surgical Experience ({doctor.surgeries.total})</h3>
+            <div className="prof-milestones__grid">
+              {surgicalMilestones.map((m) => (
+                <div key={m.label} className="prof-milestones__card">
+                  <span className="prof-milestones__num">{m.count}</span>
+                  <span className="prof-milestones__label">{m.label}</span>
+                  <span className="prof-milestones__sub">{m.detail}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <dl className="prof-cred">
@@ -168,8 +180,10 @@ export function ProfilePage() {
           </>
         }
         facts={[
-          { value: '4,000+', label: 'Surgeries' },
-          { value: '10+', label: 'Years experience' },
+          { value: '3,000+', label: 'Knee Replacements' },
+          { value: '1,500+', label: 'Hip Replacements' },
+          { value: '4,000+', label: 'Arthroscopy' },
+          { value: '8,000+', label: 'Trauma Surgeries' },
         ]}
         art={<Portrait />}
         className="prof-head"

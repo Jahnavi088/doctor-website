@@ -1,4 +1,4 @@
-import { bookHref, doctor } from '../data/site'
+import { bookHref, bookLinkProps, doctor } from '../data/site'
 import { NoteForm } from '../components/NoteForm'
 import { Link } from '../components/Link'
 import { Arrow } from '../components/ui/Icons'
@@ -26,7 +26,7 @@ export function NotePage() {
             <p className="note__lede">
               Tell us briefly what you would like to discuss with {doctor.shortName}. The clinic team will get back to you. Please
               keep medical details short: a note is not a consultation.{' '}
-              <a href={bookHref} className="note__book">
+              <a href={bookHref} {...bookLinkProps} className="note__book">
                 Book an appointment instead <Arrow size={13} />
               </a>
             </p>

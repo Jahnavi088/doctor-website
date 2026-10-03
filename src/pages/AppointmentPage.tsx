@@ -112,7 +112,7 @@ export function AppointmentPage() {
       >
         {contact.bookingUrl && (
           <a href={contact.bookingUrl} target="_blank" rel="noopener noreferrer" className="btn phero__btn">
-            Book on Practo <ArrowUpRight size={15} />
+            {contact.bookingLabel} <ArrowUpRight size={15} />
             <span className="visually-hidden"> (opens in a new tab)</span>
           </a>
         )}
@@ -132,7 +132,7 @@ export function AppointmentPage() {
               </>
             }
           />
-          <ContactOptions keys={['practo', 'whatsapp', 'phone']} highlight="practo" />
+          <ContactOptions keys={['whatsapp', 'phone']} highlight="whatsapp" />
           <NotePrompt title="Not sure which appointment you need?" text="Send a short note and the clinic team will help." />
         </div>
       </section>

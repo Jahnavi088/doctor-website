@@ -24,9 +24,9 @@
 
   --container: 1440px;
   --gutter: clamp(16px, 4vw, 48px);
-  /* section spacing: enough air above and below each band that sections read as calm,
-     separate chapters; still eases off on short laptop screens (≈72px at 1366×600) */
-  --section: clamp(56px, min(6.4vw, 12vh), 112px);
+  /* section spacing: generous air above and below each band so sections read as calm,
+     separate chapters; eases off a little on short laptop screens (≈96px at 1366×600) */
+  --section: clamp(72px, min(8vw, 16vh), 136px);
   --radius: 4px;
 
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
@@ -175,7 +175,7 @@ button {
 .section-head {
   display: grid;
   gap: 16px;
-  margin-bottom: clamp(28px, min(4vw, 6vh), 56px);
+  margin-bottom: clamp(36px, min(4.8vw, 8vh), 72px);
 }
 .section-head--split {
   grid-template-columns: 1fr;

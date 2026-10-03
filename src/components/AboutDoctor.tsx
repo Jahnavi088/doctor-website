@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { contact, doctor, education, homeIntro } from '../data/site'
+import { contact, doctor, education, homeIntro, surgicalMilestones } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { Monogram } from './ui/Logo'
 import { Link } from './Link'
@@ -90,6 +90,14 @@ export function AboutDoctor() {
                 <p className="about__bio-lead">
                   <Highlighted text={homeIntro} />
                 </p>
+                <div className="about__stats">
+                  {surgicalMilestones.map((m) => (
+                    <div key={m.label} className="about__stat">
+                      <strong>{m.count}</strong>
+                      <span>{m.short}</span>
+                    </div>
+                  ))}
+                </div>
                 <p className="about__edu">MBBS · MS (Orthopaedics) · Fellowship in Arthroplasty</p>
               </div>
               <div
@@ -119,6 +127,13 @@ export function AboutDoctor() {
                 hidden={tab !== 'practice'}
               >
                 <ol className="about__list">
+                  <li>
+                    <span className="about__year">Volume</span>
+                    <span>
+                      <strong>{doctor.surgeries.total} Surgeries</strong>
+                      3,000+ Knee · 1,500+ Hip · 4,000+ Scope · 8k Trauma
+                    </span>
+                  </li>
                   <li>
                     <span className="about__year">Where</span>
                     <span>

@@ -65,7 +65,7 @@ export function Experience() {
             <img
               className="exp__lead-img"
               src="/images/experience-walking.webp"
-              alt="A group of older adults out walking with trekking poles on a forest path"
+              alt="Doctor assisting an older patient with a walker during post-surgery mobility recovery"
               width={1280}
               height={853}
               loading="lazy"

@@ -30,7 +30,7 @@ const icons: Record<string, ReactNode> = {
   ),
 }
 
-export type OptionKey = 'practo' | 'appointment' | 'whatsapp' | 'phone' | 'email'
+export type OptionKey = 'appointment' | 'whatsapp' | 'phone' | 'email'
 
 type Option = {
   icon: keyof typeof icons
@@ -44,16 +44,6 @@ type Option = {
 }
 
 const options: Record<OptionKey, Option> = {
-  practo: {
-    icon: 'book',
-    label: 'Recommended',
-    title: 'Book online',
-    text: 'Choose a day and time that suits you on Dr. Manoj’s Practo profile.',
-    href: contact.bookingUrl,
-    action: 'Book on Practo',
-    pending: 'Booking link to be added',
-    external: true,
-  },
   appointment: {
     icon: 'book',
     label: 'Appointments',
@@ -65,11 +55,11 @@ const options: Record<OptionKey, Option> = {
   },
   whatsapp: {
     icon: 'whatsapp',
-    label: 'WhatsApp',
-    title: 'Message on WhatsApp',
-    text: `Send a message to ${doctor.shortName}’s appointment desk and pick a time that suits you.`,
+    label: 'Recommended',
+    title: 'Book on WhatsApp',
+    text: `Message ${doctor.shortName}’s appointment desk on +91 85005 64321 to book your preferred consultation slot.`,
     href: whatsappHref,
-    action: 'Open WhatsApp',
+    action: 'Book on WhatsApp',
     pending: 'WhatsApp number coming soon',
     external: true,
   },
@@ -77,7 +67,7 @@ const options: Record<OptionKey, Option> = {
     icon: 'phone',
     label: 'Phone',
     title: 'Call the clinic',
-    text: 'Speak to the appointment desk during consultation hours.',
+    text: 'Speak directly with the appointment desk on +91 85005 64321 during consultation hours.',
     href: phoneHref,
     action: contact.phone ? `Call ${contact.phone}` : 'Call now',
     pending: 'Phone number to be added',

@@ -1,4 +1,4 @@
-import { bookHref, bookLinkProps, doctor } from '../data/site'
+import { bookHref, bookLinkProps, doctor, surgicalMilestones } from '../data/site'
 import { Arrow } from './ui/Icons'
 import './Hero.css'
 
@@ -47,14 +47,24 @@ export function Hero() {
             <span>Joint Replacement ·</span> <span>Arthroscopy ·</span> <span>Knee &amp; Hip Care</span>
           </strong>
         </p>
-        <ul className="hero__facts">
-          <li>
-            <strong>4,000+</strong> Surgeries
-          </li>
-          <li>
-            <strong>10+</strong> Years Experience
-          </li>
-        </ul>
+        <div className="hero__stats">
+          <ul className="hero__facts">
+            <li>
+              <strong>{doctor.surgeries.total}</strong> Surgeries Performed
+            </li>
+            <li>
+              <strong>10+</strong> Years Experience
+            </li>
+          </ul>
+          <div className="hero__milestones">
+            {surgicalMilestones.map((m) => (
+              <div key={m.label} className="hero__milestone">
+                <strong>{m.count}</strong>
+                <span>{m.short}</span>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="hero__actions">
           <a href={bookHref} {...bookLinkProps} className="btn hero__btn">
             Book Appointment <Arrow />

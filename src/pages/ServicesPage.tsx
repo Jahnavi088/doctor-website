@@ -13,11 +13,11 @@ import './Services.css'
 /** Service photos: Pixabay Content License, see README › Assets. */
 const photoAlt: Record<string, string> = {
   'knee-replacement': 'X-ray of a knee after replacement, showing the implant components',
-  'hip-replacement': 'An older couple walking hand in hand along a city street',
-  'robotic-joint-replacement': 'A surgical team at work in an operating theatre',
-  arthroscopy: 'A surgical team performing a camera-guided keyhole procedure',
+  'hip-replacement': 'Total hip replacement implant model and digital pelvic radiograph in an orthopaedic clinic',
+  'robotic-joint-replacement': 'Gloved hands holding surgical instruments over an operating table',
+  arthroscopy: 'An operating theatre set up with camera and monitor equipment',
   'trauma-care': 'X-ray of an ankle fracture fixed with a plate and screws',
-  'joint-pain-consultation': 'A clinician examining a patient’s knee',
+  'joint-pain-consultation': 'Doctor performing clinical examination of a knee joint during an orthopaedic consultation',
 }
 
 /** One treatment: a photo (wipes into view) beside its summary; the steps it involves as a numbered flow. */
@@ -38,6 +38,11 @@ function ServiceRow({ s, i }: { s: Service; i: number }) {
         <h2 id={`${s.slug}-title`} className="svr__title reveal" style={{ ['--i' as string]: 1 }}>
           {s.title}
         </h2>
+        {s.stat && (
+          <div className="svr__stat-badge reveal" style={{ ['--i' as string]: 1 }}>
+            {s.stat}
+          </div>
+        )}
         <p className="svr__lead reveal" style={{ ['--i' as string]: 2 }}>
           {s.text}
         </p>

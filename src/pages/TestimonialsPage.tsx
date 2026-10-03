@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { bookHref, doctor } from '../data/site'
+import { bookHref, bookLinkProps, doctor } from '../data/site'
 import { featuredTestimonial, procedureLabel, procedures, testimonials, type Procedure, type Testimonial } from '../data/media'
 import { useReveal } from '../hooks/useReveal'
 import { PageHeader } from '../components/PageHeader'
@@ -235,7 +235,7 @@ export function TestimonialsPage() {
         <a href="#stories" className="btn phero__btn">
           Read patient stories <Arrow />
         </a>
-        <a href={bookHref} className="phero__link">
+        <a href={bookHref} {...bookLinkProps} className="phero__link">
           Book an Appointment <Arrow size={14} />
         </a>
       </PageHeader>

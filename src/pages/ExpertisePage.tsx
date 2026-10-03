@@ -35,9 +35,9 @@ function AreaIndex() {
 /** Area photos: Pixabay Content License, see README › Assets. */
 const photoAlt: Record<string, string> = {
   'joint-replacement': 'X-ray of a knee joint worn by arthritis',
-  arthroscopy: 'A surgical team performing a camera-guided keyhole procedure',
-  'knee-care': 'A knee receiving physiotherapy treatment',
-  'hip-care': 'A group of older adults out walking with trekking poles',
+  arthroscopy: 'Surgeons operating under theatre lights in a Mumbai hospital',
+  'knee-care': 'A nurse examining a patient on a hospital bed in Pune',
+  'hip-care': 'An anatomical hip joint model with prosthetic implant on a consultation desk',
 }
 
 /** One area: summary, focus list and related treatments (the photo shows inline on phones only;
@@ -62,6 +62,11 @@ function Area({ a, i }: { a: ExpertiseArea; i: number }) {
         <h2 id={`${a.slug}-title`} className="xpa__title reveal" style={{ ['--i' as string]: 1 }}>
           {a.title}
         </h2>
+        {a.stat && (
+          <div className="xpa__stat reveal" style={{ ['--i' as string]: 1 }}>
+            {a.stat}
+          </div>
+        )}
         <p className="xpa__short reveal" style={{ ['--i' as string]: 2 }}>
           {a.short}
         </p>

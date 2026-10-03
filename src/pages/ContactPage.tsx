@@ -1,4 +1,4 @@
-import { bookHref, contact, contactFaqs, doctor } from '../data/site'
+import { bookHref, bookLinkProps, contact, contactFaqs, doctor } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { PageHeader } from '../components/PageHeader'
 import { Head } from '../components/HomeSections'
@@ -6,7 +6,7 @@ import { ContactOptions } from '../components/ContactOptions'
 import { NotePrompt } from '../components/NoteForm'
 import { HospitalSection } from '../components/HospitalSection'
 import { Faq } from '../components/Faq'
-import { Arrow } from '../components/ui/Icons'
+import { Arrow, ArrowUpRight } from '../components/ui/Icons'
 import { useDocumentTitle } from './useDocumentTitle'
 import '../components/HomeSections.css'
 import './Contact.css'
@@ -53,7 +53,7 @@ function Ways() {
             </>
           }
         />
-        <ContactOptions keys={['appointment', 'whatsapp', 'phone', 'email']} highlight="appointment" />
+        <ContactOptions keys={['whatsapp', 'phone', 'email']} highlight="whatsapp" />
         <NotePrompt title="Have a question before you book?" text="Send a short note and the clinic team will get back to you." />
       </div>
     </section>
@@ -78,8 +78,8 @@ export function ContactPage() {
         lede={`Consult ${doctor.name} at ${doctor.hospital}, ${doctor.city}. Book an appointment, find directions, or send a question before you book.`}
         art={<HeaderHours />}
       >
-        <a href={bookHref} className="btn phero__btn">
-          Book Appointment <Arrow />
+        <a href={bookHref} {...bookLinkProps} className="btn phero__btn">
+          Book Appointment <ArrowUpRight size={15} />
         </a>
         <a href="#ways" className="phero__link">
           Other ways to reach us <Arrow size={14} />

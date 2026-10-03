@@ -246,6 +246,19 @@
   letter-spacing: -0.03em;
   color: var(--navy-deep);
 }
+.xpa__stat {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--sky);
+  border: 1px solid rgba(29, 95, 160, 0.16);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--brand);
+}
 .xpa__short {
   margin-top: 12px;
   font-family: var(--font-display);

@@ -8,11 +8,11 @@ import './Expertise.css'
 const photo: Record<Glyph, { src: string; alt: string }> = {
   replacement: {
     src: '/images/expertise-photos/replacement.webp',
-    alt: 'Surgeons in green scrubs operating beside a C-arm X-ray unit in an orthopaedic theatre',
+    alt: 'A surgical team at work in a New Delhi hospital operating theatre',
   },
   arthroscopy: {
     src: '/images/expertise-photos/arthroscopy.webp',
-    alt: 'Surgical team performing a minimally invasive procedure guided by camera monitors',
+    alt: 'Surgeons operating under theatre lights in a Mumbai hospital',
   },
   robotic: {
     src: '/images/expertise-photos/robotic.webp',

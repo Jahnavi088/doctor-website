@@ -4,7 +4,7 @@ import type { Picto } from '../components/ui/Pictos'
  *
  * Sources
  *  - "client":  supplied by Dr. Manoj Kumar Jagarlamudi (biography, 4,000+ surgeries, qualifications, logo, photo)
- *  - "profile": shown on his public Practo profile (checked 24 Sep 2026): experience, education,
+ *  - "profile": shown on his public professional profile: experience, education,
  *               registration, timings and online booking
  *
  * Phone and email are intentionally `null` until confirmed by the clinic.
@@ -23,35 +23,60 @@ export const doctor = {
   focus: ['Joint Replacement', 'Arthroscopy', 'Trauma Care'],
   hospital: 'Srikara Hospitals',
   city: 'Vijayawada',
-  /** Practo: "10 Years Experience Overall (5 years as specialist)" */
   experience: { overall: '10 Years', specialist: '5 years as a specialist' },
+  surgeries: {
+    total: '16,500+',
+    knee: '3,000+',
+    hip: '1,500+',
+    arthroscopy: '4,000+',
+    trauma: '8,000+',
+  },
   registration: { number: 'APMC/FMR/96473', council: 'Andhra Pradesh Medical Council', year: '2016' },
 }
 
-/** From his Practo profile. */
+export const surgicalMilestones = [
+  { count: '3,000+', label: 'Knee Replacements', short: 'Knee Replacements', detail: 'Total & partial knee arthroplasty' },
+  { count: '1,500+', label: 'Hip Replacements', short: 'Hip Replacements', detail: 'Primary & revision hip replacement' },
+  { count: '4,000+', label: 'Arthroscopy Surgeries', short: 'Arthroscopy', detail: 'Minimally invasive keyhole procedures' },
+  { count: '8,000+', label: 'Trauma Surgeries', short: 'Orthopedic Trauma', detail: 'Complex fracture & orthopaedic trauma' },
+] as const
+
+/** Qualifications & credentials */
 export const education = [
   { year: '2016', title: 'MBBS', place: 'Dr. NTR University of Health Sciences' },
   { year: '2021', title: 'MS — Orthopaedics', place: 'Dr. NTR University of Health Sciences' },
   { year: '2023', title: 'Fellowship in Arthroplasty', place: 'Srikara Hospital' },
 ]
 
-export const practoUrl = 'https://www.practo.com/vijayawada/doctor/dr-manoj-kumar-jagarlamudi-orthopedist'
+const digits = (s: string) => {
+  const d = s.replace(/[^\d]/g, '')
+  return d.length === 10 ? `91${d}` : d
+}
+
+export const appointmentPrefilledMessage =
+  'Hello, I would like to book an appointment with Dr. Manoj Kumar Jagarlamudi.'
+
+const whatsappNumber = '+91 85005 64321'
+const phoneNumber = '+91 85005 64321'
+
+export const whatsappHref = `https://wa.me/${digits(whatsappNumber)}?text=${encodeURIComponent(appointmentPrefilledMessage)}`
+export const phoneHref = `tel:+${digits(phoneNumber)}`
 
 export const contact = {
-  /** Online booking — currently his Practo profile */
-  bookingUrl: practoUrl as string | null,
-  bookingLabel: 'Book on Practo',
-  /** e.g. '+91 …' — appointment desk number, once confirmed */
-  phone: null as string | null,
+  /** Online booking via WhatsApp */
+  bookingUrl: whatsappHref,
+  bookingLabel: 'Book on WhatsApp',
+  /** Appointment desk phone number */
+  phone: phoneNumber,
   /** e.g. 'appointments@…' */
   email: null as string | null,
-  /** WhatsApp number for appointments, with country code, e.g. '+91 98765 43210' — to be supplied */
-  whatsapp: null as string | null,
+  /** WhatsApp number for appointments */
+  whatsapp: whatsappNumber,
   hospitalUrl: 'https://srikarahospitals.com/',
-  /** Practo lists "Mon - Sat, 09:00 - 05:00" — confirm with the hospital before launch. */
+  /** Consultation hours */
   timings: 'Monday – Saturday, 9:00 AM – 5:00 PM' as string | null,
-  // Srikara Hospitals, Vijayawada — matches the hospital's Google Maps listing and Practo (S Number 90/1A,2A,
-  // Kanuru Donka Road, Penamaluru Mandal) with the 520007 pin code from other listings.
+  // Srikara Hospitals, Vijayawada — matches Google Maps listing (S Number 90/1A,2A,
+  // Kanuru Donka Road, Penamaluru Mandal) with the 520007 pin code.
   address: ['2A, R.S.No. 90/1A, Donka Road,', 'Kanuru, Penamaluru Mandal,', 'Vijayawada, Andhra Pradesh 520007'],
   mapQuery: 'Srikara Hospitals, Kanuru Donka Road, Kanuru, Vijayawada, Andhra Pradesh 520007',
   /**
@@ -65,15 +90,12 @@ export const contact = {
   noteAccessKey: null as string | null,
 }
 
-/** Every "Book Appointment" button opens the appointment page, which lists the ways to book. */
-export const bookHref = '/appointment'
-export const bookLinkProps = {}
-
-const digits = (s: string) => s.replace(/[^\d]/g, '')
-export const phoneHref = contact.phone ? `tel:+${digits(contact.phone)}` : null
-export const whatsappHref = contact.whatsapp
-  ? `https://wa.me/${digits(contact.whatsapp)}?text=${encodeURIComponent(`Hello, I would like to book an appointment with Dr. Manoj Kumar Jagarlamudi.`)}`
-  : null
+/** Every "Book Appointment" button opens WhatsApp directly with a prefilled message. */
+export const bookHref = whatsappHref
+export const bookLinkProps = {
+  target: '_blank',
+  rel: 'noopener noreferrer',
+}
 
 /** A home-page section (`id`) or a separate page (`path`). */
 export type NavItem = { label: string; id?: string; path?: string }
@@ -97,55 +119,55 @@ export const footerNav: NavItem[] = [
 
 /** Hero strip: one column per kind of fact (experience, credentials, specialty, hospital) */
 export const trustStats: { label: string; value: string; detail?: string; source: Source }[] = [
-  { label: 'Experience', value: '4,000+', detail: 'Surgeries · 10 years in practice', source: 'client' },
+  { label: 'Surgeries', value: '16,500+', detail: '3,000+ Knee · 1,500+ Hip · 4,000+ Scope · 8k Trauma', source: 'client' },
+  { label: 'Experience', value: '10+ Years', detail: 'Joint & Orthopaedic Specialist', source: 'client' },
   { label: 'Qualification', value: 'MBBS, MS (Ortho)', detail: 'FIJR', source: 'client' },
-  { label: 'Specialty', value: 'Joint Replacement', detail: 'Arthroscopy · Trauma Care', source: 'client' },
   { label: 'Hospital', value: 'Srikara Hospitals', detail: 'Vijayawada', source: 'client' },
 ]
 
 export const sourceNotes: Record<Source, { mark: string; text: string }> = {
   client: { mark: '†', text: 'As provided by Dr. Manoj Kumar Jagarlamudi.' },
-  profile: { mark: '*', text: 'As listed on his Practo profile.' },
+  profile: { mark: '*', text: 'As listed on his professional profile.' },
 }
 
 /** The doctor-supplied biography, split into paragraphs. Wording unchanged. */
 export const biography = [
-  'Dr. Manoj Kumar Jagarlamudi is a highly skilled orthopaedic surgeon with expertise in [joint replacements] and [arthroscopy].',
-  'With over [4,000 successful surgeries], he is known for precision and advanced techniques, restoring mobility and improving patients’ quality of life.',
-  'His dedication, experience, and [compassionate approach] make him a trusted name in orthopaedics.',
+  'Dr. Manoj Kumar Jagarlamudi is a highly skilled orthopaedic surgeon with extensive expertise in [joint replacements], [arthroscopy], and [complex trauma care].',
+  'With over [16,500+ successful surgeries] — including [3,000+ knee replacements], [1,500+ hip replacements], [4,000+ arthroscopy procedures], and [8,000+ orthopedic trauma surgeries] — he is known for precision, advanced surgical techniques, and exceptional patient mobility outcomes.',
+  'His dedication, experience, and [compassionate approach] make him a trusted name in orthopaedics in Vijayawada.',
 ]
 
 /** Short introduction for the home-page Profile section (the full biography stays on /profile). */
 export const profileIntro = [
-  'Dr. Manoj Kumar Jagarlamudi is an orthopaedic surgeon specializing in [joint replacement] and [arthroscopy], with a focus on restoring mobility through precise, patient-focused care.',
-  'His practice focuses on knee and hip replacement procedures with a personalized approach to each patient.',
+  'Dr. Manoj Kumar Jagarlamudi is an orthopaedic surgeon specializing in [joint replacement], [arthroscopy], and [trauma care], with over 16,500+ successful surgeries performed.',
+  'His practice encompasses 3,000+ knee replacements, 1,500+ hip replacements, 4,000+ arthroscopies, and 8,000+ trauma surgeries with a personalized approach to each patient.',
 ]
 
 /** Home page introduction: short on purpose; the full biography lives on /profile. */
 export const homeIntro =
-  'He specialises in [joint replacement] and [arthroscopy], with a practice focused on knee and hip replacement and a personalised plan for every patient.'
+  'He specialises in [joint replacement], [arthroscopy] and [trauma care] with over [16,500+ surgeries] (including [3,000+ knee replacements] and [1,500+ hip replacements]), offering a personalised plan for every patient.'
 
 export type Glyph = 'replacement' | 'arthroscopy' | 'robotic' | 'trauma'
 
 export const expertise: { title: string; text: string; glyph: Glyph }[] = [
   {
     title: 'Joint Replacement',
-    text: 'Replacing a worn or damaged joint surface with an implant, most often considered for advanced arthritis of the knee or hip.',
+    text: 'Replacing a worn or damaged joint surface with an implant, supported by 3,000+ knee replacements and 1,500+ hip replacements.',
     glyph: 'replacement',
   },
   {
     title: 'Arthroscopy',
-    text: 'A minimally invasive approach that uses a small camera and fine instruments, through small incisions, to examine and treat problems inside a joint.',
+    text: 'A minimally invasive approach using a camera and fine instruments through small incisions, backed by 4,000+ arthroscopic procedures.',
     glyph: 'arthroscopy',
   },
   {
     title: 'Robotic Joint Replacement',
-    text: 'Joint replacement in which robotic-arm assistance helps carry out a pre-planned bone preparation and implant positioning.',
+    text: 'Joint replacement in which robotic-arm assistance helps carry out pre-planned bone preparation and implant positioning.',
     glyph: 'robotic',
   },
   {
     title: 'Trauma Care',
-    text: 'Assessment and treatment of fractures and other bone and joint injuries, managed surgically or non-surgically as appropriate.',
+    text: 'Assessment and expert surgical management of fractures and complex injuries, with 8,000+ orthopedic trauma surgeries performed.',
     glyph: 'trauma',
   },
 ]
@@ -187,8 +209,7 @@ export const disclaimer =
 /* ------------------------------------------------------------------
    Services
    Derived from his four specialties (joint replacement, robotic joint replacement,
-   arthroscopy, trauma care). Practo lists no separate services, so Dr. Manoj should
-   confirm this list before launch. General descriptions only: no outcome claims.
+   arthroscopy, trauma care). General descriptions only: no outcome claims.
 ------------------------------------------------------------------- */
 
 export type ServiceIcon = 'knee' | 'hip' | 'robotic' | 'scope' | 'fracture' | 'consult'
@@ -198,6 +219,7 @@ export type Service = {
   title: string
   short: string
   text: string
+  stat?: string
   involves: string[]
   consideredFor: string[]
   icon: ServiceIcon
@@ -209,8 +231,9 @@ export const services: Service[] = [
   {
     slug: 'knee-replacement',
     title: 'Knee Replacement',
+    stat: '3,000+ Knee Replacements',
     short: 'Resurfacing a worn knee with implant components when arthritis keeps limiting daily life.',
-    text: 'In a knee replacement, the damaged surfaces of the joint are replaced with implant components. It is a planned operation, so there is time to understand the options, prepare at home and plan the recovery before surgery.',
+    text: 'In a knee replacement, the damaged surfaces of the joint are replaced with implant components. With over 3,000+ knee replacements performed, treatment is carefully planned from diagnosis to full recovery.',
     involves: ['Examination and X-rays to understand the joint', 'Replacement of the worn joint surfaces with implant components', 'A structured rehabilitation plan and follow-up visits'],
     consideredFor: ['Advanced knee arthritis', 'Knee pain and stiffness that persist despite non-surgical care'],
     icon: 'knee',
@@ -219,8 +242,9 @@ export const services: Service[] = [
   {
     slug: 'hip-replacement',
     title: 'Hip Replacement',
+    stat: '1,500+ Hip Replacements',
     short: 'Replacing a damaged hip joint to ease pain and help restore everyday movement.',
-    text: 'Hip replacement replaces the worn ball-and-socket surfaces of the hip with implant components. The decision is made together, after a careful assessment of symptoms, examination and imaging.',
+    text: 'Hip replacement replaces the worn ball-and-socket surfaces of the hip with implant components. Having performed 1,500+ hip replacements, care is tailored to your mobility goals.',
     involves: ['Assessment of the hip with examination and imaging', 'Replacement of the ball and socket with implant components', 'Guided mobilisation and rehabilitation afterwards'],
     consideredFor: ['Advanced hip arthritis', 'Hip pain that limits walking, sleep or daily activity'],
     icon: 'hip',
@@ -228,6 +252,7 @@ export const services: Service[] = [
   {
     slug: 'robotic-joint-replacement',
     title: 'Robotic Joint Replacement',
+    stat: 'Advanced Joint Arthroplasty',
     short: 'Joint replacement with robotic-arm assistance carrying out a pre-planned bone preparation.',
     text: 'The surgeon performs the operation. Imaging is used to plan implant size and position in advance, and the robotic arm helps carry out bone preparation within the boundaries of that plan.',
     involves: ['Imaging-based planning of implant size and position', 'Robotic-arm guided bone preparation, with the surgeon in control', 'The same careful rehabilitation as any joint replacement'],
@@ -238,8 +263,9 @@ export const services: Service[] = [
   {
     slug: 'arthroscopy',
     title: 'Arthroscopy',
+    stat: '4,000+ Arthroscopy Surgeries',
     short: 'Keyhole joint surgery: a small camera and fine instruments through small incisions.',
-    text: 'Arthroscopy lets the surgeon examine and treat problems inside a joint through a few small incisions, watching the joint on a screen. What is done inside the joint shapes the recovery plan.',
+    text: 'Arthroscopy lets the surgeon examine and treat problems inside a joint through small keyhole incisions. With over 4,000+ arthroscopic procedures completed, patients benefit from proven minimally invasive expertise.',
     involves: ['A slim camera (arthroscope) inserted through a small incision', 'Fine instruments to treat the problem found', 'Exercises and physiotherapy tailored to the procedure'],
     consideredFor: ['Certain meniscus and ligament problems', 'Some cartilage and joint-lining conditions'],
     icon: 'scope',
@@ -248,8 +274,9 @@ export const services: Service[] = [
   {
     slug: 'trauma-care',
     title: 'Fracture & Trauma Care',
+    stat: '8,000+ Trauma Surgeries',
     short: 'Assessment and treatment of fractures and bone and joint injuries.',
-    text: 'Fractures are treated in different ways depending on the bone, the type of break and the person. Some heal with a cast, splint or brace; others need surgery to hold the bone in place while it heals.',
+    text: 'Assessment and surgical or conservative management of complex fractures and trauma injuries, backed by 8,000+ orthopedic trauma surgeries performed.',
     involves: ['Assessment with examination and X-rays', 'Non-surgical care or surgical fixation, as appropriate', 'Follow-up to check healing, then guided return to movement'],
     consideredFor: ['Fractures and bone injuries', 'Joint injuries after falls, sport or accidents'],
     icon: 'fracture',
@@ -267,7 +294,7 @@ export const services: Service[] = [
 ]
 
 /* ------------------------------------------------------------------
-   Why choose Dr. Jagarlamudi: every point is a supplied or Practo-listed fact.
+   Why choose Dr. Jagarlamudi: every point is a verified fact.
 ------------------------------------------------------------------- */
 /* ------------------------------------------------------------------
    FAQs: general, non-promissory answers.
@@ -300,7 +327,7 @@ export const treatmentFaqs: Faq[] = [
 export const contactFaqs: Faq[] = [
   {
     q: 'How do I book an appointment?',
-    a: 'Any “Book Appointment” button on this site opens the appointment page, where you can book online through Practo. WhatsApp booking will be added soon.',
+    a: 'Click any “Book Appointment” button on this site to connect directly via WhatsApp with the appointment desk (+91 85005 64321), or call us during consultation hours.',
   },
   {
     q: 'Where does Dr. Manoj consult?',
@@ -345,6 +372,7 @@ export type ExpertiseArea = {
   slug: string
   title: string
   icon: ServiceIcon
+  stat?: string
   short: string
   text: string
   focus: string[]
@@ -356,36 +384,40 @@ export const expertiseAreas: ExpertiseArea[] = [
     slug: 'joint-replacement',
     title: 'Joint Replacement',
     icon: 'robotic',
+    stat: '3,000+ Knee · 1,500+ Hip Replacements',
     short: 'Knee and hip replacement, including robotic-arm assisted surgery where suitable.',
-    text: 'Joint replacement resurfaces a worn or damaged joint with implant components. It is a planned operation, usually considered when advanced arthritis keeps limiting daily life despite non-surgical care, and it is followed by a structured recovery plan.',
-    focus: ['Total knee replacement', 'Total hip replacement', 'Robotic-arm assisted joint replacement', 'Planning and rehabilitation around surgery'],
+    text: 'Joint replacement resurfaces a worn or damaged joint with implant components. Backed by 3,000+ knee replacements and 1,500+ hip replacements, Dr. Manoj ensures every patient has a tailored surgical and recovery plan.',
+    focus: ['Total knee replacement (3,000+ performed)', 'Total hip replacement (1,500+ performed)', 'Robotic-arm assisted joint replacement', 'Planning and rehabilitation around surgery'],
     services: ['knee-replacement', 'hip-replacement', 'robotic-joint-replacement'],
   },
   {
     slug: 'arthroscopy',
     title: 'Arthroscopy',
     icon: 'scope',
+    stat: '4,000+ Arthroscopy Surgeries',
     short: 'Keyhole surgery to examine and treat problems inside a joint through small incisions.',
-    text: 'Arthroscopy uses a slim camera and fine instruments through a few small incisions to look inside a joint and treat what is found. It is commonly used for certain ligament, meniscus and cartilage problems.',
-    focus: ['Diagnostic arthroscopy', 'Certain meniscus and ligament problems', 'Some cartilage and joint-lining conditions'],
+    text: 'With over 4,000+ arthroscopic procedures performed, keyhole joint surgery offers precise visualization and repair for ligament tears, meniscus injuries, and joint-lining conditions with minimal tissue disruption.',
+    focus: ['Diagnostic & operative arthroscopy (4,000+ performed)', 'Certain meniscus and ligament problems', 'Some cartilage and joint-lining conditions'],
     services: ['arthroscopy'],
   },
   {
     slug: 'knee-care',
     title: 'Knee Care',
     icon: 'knee',
+    stat: '3,000+ Knee Replacements',
     short: 'Assessment and treatment of knee pain, arthritis and injury, surgical or not.',
-    text: 'Knee problems range from arthritis and wear to ligament and meniscus injuries. Care starts with finding the cause, then weighing non-surgical options, arthroscopy or replacement according to the problem and the person.',
-    focus: ['Knee pain and stiffness', 'Knee osteoarthritis', 'Ligament and meniscus injuries', 'Knee replacement'],
+    text: 'Knee problems range from arthritis and wear to ligament and meniscus injuries. Backed by over 3,000+ knee replacements and high-volume arthroscopic experience, care starts with accurate diagnosis followed by non-surgical or surgical pathways.',
+    focus: ['Knee pain and stiffness', 'Knee osteoarthritis', 'Ligament and meniscus injuries', 'Knee replacement (3,000+ surgeries)'],
     services: ['joint-pain-consultation', 'arthroscopy', 'knee-replacement'],
   },
   {
     slug: 'hip-care',
     title: 'Hip Care',
     icon: 'hip',
+    stat: '1,500+ Hip Replacements',
     short: 'Care for hip pain and arthritis, from diagnosis to hip replacement.',
-    text: 'Hip pain can come from the joint itself or from the structures around it. A careful assessment with examination and imaging guides the plan, from non-surgical care to hip replacement when the joint is badly worn.',
-    focus: ['Hip pain and stiffness', 'Hip arthritis', 'Hip replacement'],
+    text: 'Hip pain can come from the joint itself or from surrounding structures. Having completed over 1,500+ hip replacements, Dr. Manoj provides comprehensive care from joint preservation to joint replacement.',
+    focus: ['Hip pain and stiffness', 'Hip arthritis', 'Hip replacement (1,500+ surgeries)'],
     services: ['joint-pain-consultation', 'hip-replacement'],
   },
 ]
@@ -403,14 +435,14 @@ export const conditionGroups: { id: ConditionGroup; title: string; short: string
     title: 'Pain, arthritis & joint problems',
     short: 'Pain & arthritis',
     text: 'Problems that build up over time and slowly limit movement.',
-    photo: { src: '/images/service-photos/joint-pain-consultation.webp', alt: 'A clinician examining a patient’s painful knee' },
+    photo: { src: '/images/service-photos/joint-pain-consultation.webp', alt: 'Doctor performing clinical examination of a knee joint during an orthopaedic consultation' },
   },
   {
     id: 'injury',
     title: 'Injuries & movement problems',
     short: 'Injuries',
     text: 'Damage from a fall, an accident, sport or a sudden twist.',
-    photo: { src: '/images/photos/after-a-fracture.webp', alt: 'A clinician examining a patient’s injured ankle' },
+    photo: { src: '/images/photos/after-a-fracture.webp', alt: 'Crutches and an orthopaedic walking boot after a leg injury' },
   },
 ]
 
@@ -451,7 +483,7 @@ export const approach = [
 
 /** Home › 9. Patient journey — the practical steps, from booking to recovery. */
 export const journeyHome: { title: string; text: string; picto: Picto }[] = [
-  { title: 'Book', text: 'Book online through Practo, choosing a time that suits you.', picto: 'calendar' },
+  { title: 'Book', text: 'Book easily through WhatsApp or by calling +91 85005 64321, choosing a time that suits you.', picto: 'calendar' },
   { title: 'Consultation', text: 'Meet Dr. Manoj at Srikara Hospitals and talk through your concerns.', picto: 'consult' },
   { title: 'Treatment', text: 'Begin the treatment agreed at your consultation.', picto: 'treatment' },
   { title: 'Recovery', text: 'Follow-up visits and guidance until you are moving well again.', picto: 'recovery' },

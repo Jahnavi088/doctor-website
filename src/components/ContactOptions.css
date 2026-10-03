@@ -155,6 +155,32 @@ a.copt--main:hover {
   .copts--3 > li:first-child {
     grid-row: span 2;
   }
+  .copts--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .copts--2 > li:first-child {
+    grid-row: span 1;
+  }
+  .copts--2 > li:not(:first-child) .copt {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+  }
+  .copts--2 > li:not(:first-child) .copt__top {
+    display: flex;
+  }
+  .copts--2 > li:not(:first-child) .copt__title {
+    margin-top: 22px;
+    font-size: 1.25rem;
+  }
+  .copts--2 > li:not(:first-child) .copt__text {
+    margin-top: 6px;
+    font-size: 0.92rem;
+  }
+  .copts--2 > li:not(:first-child) .copt__action {
+    margin-top: auto;
+    padding-top: 20px;
+  }
   .copts > li:first-child .copt {
     position: relative;
     overflow: hidden;
